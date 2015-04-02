@@ -12,11 +12,35 @@ class CreateBasicTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table){
+		Schema::create('members', function($table){
 			$table->increments('id');
 			$table->string('name');
+			$table->string('nic');
+			$table->string('concil_registration_no');
+			$table->boolean('sex');
+			$table->string('district');
+			$table->string('hospital')->nullable();
+			$table->string('address')->nullable();
+			$table->string('tp1');
+			$table->string('tp2')->nullable();
+			$table->string('tp3')->nullable();
+			$table->string('profile_picture')->nullable();
+			$table->string('cover_picture')->nullable();
+			$table->text('description')->nullable();
+			$table->string('qualifications')->nullable();
+		    $table->string('experience')->nullable();
+			$table->integer('created_by');
+			$table->integer('updated_by')->nullable();
+			$table->timestamps();
+		});
+
+		Schema::create('users', function($table){
+			$table->increments('id');
+			$table->string('email');
 			$table->string('password');
 			$table->integer('type');
+			$table->integer('member_id')->unsigned();
+		    $table->foreign('member_id')->references('id')->on('members');
 			$table->rememberToken();
 			$table->timestamps();
 		});
@@ -45,24 +69,6 @@ class CreateBasicTables extends Migration {
 			$table->string('name');
 			$table->integer('news_id')->unsigned();
 			$table->foreign('news_id')->references('id')->on('news');
-			$table->timestamps();
-		});
-
-		Schema::create('members', function($table){
-			$table->increments('id');
-			$table->string('nic');
-			$table->string('email');
-			$table->string('concil_registration_no');
-			$table->string('district');
-			$table->string('hospital');
-			$table->string('address');
-			$table->string('tp1');
-			$table->string('tp2');
-			$table->string('tp3');
-			$table->string('profile_picture');
-			$table->text('description');
-			$table->integer('created_by');
-			$table->integer('updated_by');
 			$table->timestamps();
 		});
 	}

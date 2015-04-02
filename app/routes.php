@@ -28,3 +28,7 @@ Route::get('news', function(){
 Route::get('contact', function(){
 	return View::make('contact.index');
 });
+
+Route::controller('admin/user', 'UserController');
+
+Route::controller('admin/member', 'MemberController');
