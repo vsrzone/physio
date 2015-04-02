@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+
+<html lang="en">
 
 	<head>
 		<title>Physio - Admin panel</title>  	
@@ -9,6 +10,4 @@
 	<div>
 		@yield('content')
 	</div>
-	
-
 </html>
