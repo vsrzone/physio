@@ -32,4 +32,5 @@ Route::get('contact', function(){
 //route to category controller
 Route::controller('admin/category', 'CategoryController');
 
-
+//route to news controller
+Route::controller('admin/news', 'NewsController');
