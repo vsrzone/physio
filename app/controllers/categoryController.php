@@ -42,13 +42,18 @@ class CategoryController extends BaseController {
 	//view all categories page
 	public function getIndex(){
 		return View::make('admin.category.index')
-			->with('categories', Category::all());
+			->with('categories', Category::paginate(10));
 	}
 
 	//view edit page
 	public function postEdit(){
-		return View::make('admin.category.edit')
-			->with('category', Category::find(Input::get('id')));
+		$category = Category::find(Input::get('id'));
+		if($category){
+			return View::make('admin.category.edit')
+				->with('category', $category);
+		}
+		return Redirect::to('admin/category/index')
+			->with('message', 'Something went wrong. Please try again');
 	}
 
 	//update function

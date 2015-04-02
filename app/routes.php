@@ -37,3 +37,5 @@ Route::controller('admin/member', 'MemberController');
 //route to category controller
 Route::controller('admin/category', 'CategoryController');
 
+//route to news controller
+Route::controller('admin/news', 'NewsController');

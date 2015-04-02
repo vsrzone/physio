@@ -26,4 +26,5 @@
 		</tr>
 	@endforeach
 </table>
+<div> {{$categories->links()}} </div>
 @stop
