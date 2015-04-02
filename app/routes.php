@@ -28,3 +28,8 @@ Route::get('news', function(){
 Route::get('contact', function(){
 	return View::make('contact.index');
 });
+
+//route to category controller
+Route::controller('admin/category', 'CategoryController');
+
+
