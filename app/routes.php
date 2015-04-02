@@ -29,6 +29,11 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
+
+Route::controller('admin/user', 'UserController');
+
+Route::controller('admin/member', 'MemberController');
+
 //route to category controller
 Route::controller('admin/category', 'CategoryController');
 

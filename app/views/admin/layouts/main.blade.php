@@ -9,6 +9,4 @@
 	<div>
 		@yield('content')
 	</div>
-	
-
 </html>
