@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 	<head>
-		<title>Admin Panel</title>
+		<title>Physio - Admin panel</title>  	
 	</head>
 
-	<body>
-		<h1>Physio Admin Panel</h1>
-
+	<h1>Physio</h1>
+	<div>
 		@yield('content')
-	</body>
+	</div>
 </html>
