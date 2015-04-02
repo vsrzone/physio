@@ -12,14 +12,19 @@
 	</ul>
 </div>
 @endif
-{{ Form::open(array('url'=>'admin/news/create')) }}
-<div>Activate news: {{ Form::checkbox('active') }} </div>
-<div>Members only: {{ Form::checkbox('member') }} </div>
-<div>News Category: {{ Form::select('category_id', $categories) }} </div>
-<div>News date: {{ Form::text('date') }} </div>
-<div> News Title: {{ Form::text('title') }} </div>
-<div>Content: {{ Form::textarea('content') }} </div>
-<div> {{ Form::submit('Add News') }} </div>
+{{ Form::open(array('url'=>'admin/news/create', 'files'=>true)) }}
+<div>Activate news: {{ Form::checkbox('active','', false, array('id'=> 'active')) }} </div>
+<div>Members only: {{ Form::checkbox('member','',false, array('id'=> 'member')) }} </div>
+<div>News Category: {{ Form::select('category_id', $categories,null, array('id'=>'category_id')) }} </div>
+<div>News date: {{ Form::text('date', '', array('id'=>'date')) }} </div>
+<div> News Title: {{ Form::text('title', '', array('id'=>'title')) }} </div>
+<div>Content: {{ Form::textarea('content','', array('id'=>'content')) }} </div>
+<div> {{ Form::button('Add News', array('id'=>'add_news')) }} </div>
+<div> {{ Form::file('files', array('id'=>'news_images', 'multiple', 'accept'=>'image/jpeg')) }} </div>
+<div id="displayArea1"></div>
 {{ Form::close() }}
+
+<script type="text/javascript" src="{{url()}}/js/admin/photos.js"></script>
+<script type="text/javascript" src="{{url()}}/js/admin/news.js"></script>
 
 @stop
