@@ -28,3 +28,7 @@ Route::get('news', function(){
 Route::get('contact', function(){
 	return View::make('contact.index');
 });
+
+Route::get('members', function(){
+	return View::make('members.index');
+});
