@@ -4,7 +4,7 @@ class MemberController extends BaseController{
 
 	public function __construct(){
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('super_admin');
+		$this->beforeFilter('admin');
 	}
 
 	// show the page with all the members
@@ -79,6 +79,15 @@ class MemberController extends BaseController{
 		$description = Input::get('description');
 		$qualifications = Input::get('qualifications');
 		$experience = Input::get('experience');
+
+		if(Auth::user()->type === 2) {
+
+			if($type === '1') {
+
+				return Redirect::to('admin/member/create')
+					->with('message', 'You Cannot Create a Super Admin');
+			}
+		}
 
 		$user_exist = DB::table('users')->where('email', $name)
 										->get();
@@ -203,6 +212,15 @@ class MemberController extends BaseController{
 		$user = User::find($user_id->id);
 		$member = Member::find($id);
 
+		if(Auth::user()->type === 2) {
+
+			if($type === '1') {
+
+				return Redirect::to('admin/member')
+					->with('message', 'You Cannot update yourself to Super Admin');
+			}
+		}
+
 		$validator_member = Validator::make(array('nic' => Input::get('nic'), 'name' => Input::get('name'), 'concil_registration_no' => Input::get('council_reg_no'), 'sex' => Input::get('sex'), 'district' => Input::get('district'), 'tp1' => Input::get('tp1'), 'created_by' => Auth::user()->member_id), Member::$rules);
 
 		if($validator_member->passes()) {
@@ -235,6 +253,17 @@ class MemberController extends BaseController{
 							imagedestroy($im);
 
 							$member->profile_picture = $profile_pic_name;
+						}
+
+						if($member->profile_picture === 'default_male.jpeg') {
+							if($sex == '1') {
+								$member->profile_picture = 'default_female.jpeg';
+							}
+
+						} elseif ($member->profile_picture === 'default_female.jpeg') {
+							if($sex == '0') {
+								$member->profile_picture = 'default_male.jpeg';
+							}
 						}
 
 
@@ -335,5 +364,41 @@ class MemberController extends BaseController{
 
 		return Redirect::to('admin/member')
 			->with('message', 'Cannot Delete the Member');
+	}
+
+	public function getDetails() {
+
+		$members = DB::table('members')
+					->select('name','concil_registration_no', 'district', 'hospital')
+                    ->orderBy('name')
+                    ->get();
+
+       	return Response::json($members);
+	}
+
+	public function getNameandimage() {
+
+		$id = Request::input('id');
+
+		$image_details = DB::table('members')
+					->select('name','profile_picture')
+                    ->orderBy('name')
+                    ->get();
+
+       	return Response::json($image_details);
+	}
+
+	public function getSearchbyname() {
+
+		//$name = Input::get('name');
+		$name = strtolower(Request::input('name'));
+
+		$image_details = DB::table('members')
+					->select('name','profile_picture')
+					->where(DB::raw('LOWER(name)'), '=', 'admin')
+                    ->orderBy('name')
+                    ->get();
+
+       	return Response::json($image_details);
 	}
 }
