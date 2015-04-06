@@ -3,7 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin');
+		$this->beforeFilter('admin', array('except' => array('getAllnews')));
 	}
 
 	//views create page
@@ -156,4 +156,52 @@ class NewsController extends BaseController{
 		$img->save();
 		return $img_name;
 	}
+
+	//returns all the public news
+	public function getAllnews(){
+
+		$news = DB::table('news')
+			->join('categories', 'news.category_id', '=', 'categories.id')
+			->join('images', 'news.id', '=', 'images.news_id')
+			->where('members_only', '=', 0)
+			->where('active', '=', 1)
+			->orderby('news_date')
+			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+	        ->get();
+
+		return json_encode($news);
+	}
+
+
+	//returns all the public news
+	public function getAllmembersonlynews(){
+
+		$news = DB::table('news')
+			->join('categories', 'news.category_id', '=', 'categories.id')
+			->join('images', 'news.id', '=', 'images.news_id')
+			->where('members_only', '=', 1)
+			->where('active', '=', 1)
+			->orderby('news_date')
+			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+	        ->get();
+
+		return json_encode($news);
+	}
+
+	//returns all news search by a category
+	public function getNewssearchbycategory(){
+		$id = 1;  //pass category id here
+
+		$news = DB::table('news')
+			->where('members_only', '=', 0)
+			->join('images', 'news.id', '=', 'images.news_id')
+			->where('active', '=', 1)
+			->where('category_id', '=', $id)
+			->orderby('news_date')
+			->select('title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+	        ->get();
+
+	    return json_encode($news);
+	}
+
 }
