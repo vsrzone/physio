@@ -32,7 +32,7 @@ class AuthController extends BaseController{
 			->withErrors($validator);
 	}
 
-	//logout functio
+	//logout function
 	public function getLogout(){
 		if(Auth::check()){
 			Auth::logout();
