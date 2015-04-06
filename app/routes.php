@@ -42,3 +42,6 @@ Route::controller('admin/category', 'CategoryController');
 
 //route to news controller
 Route::controller('admin/news', 'NewsController');
+
+//route to image controller
+Route::controller('admin/image', 'ImageController');

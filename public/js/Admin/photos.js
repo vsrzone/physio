@@ -295,8 +295,7 @@ function saveProject(callback) {
     var xmlHttp = new XMLHttpRequest(); 
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState==4 && xmlHttp.status==200){
-            var news_details = xmlHttp.responseText;
-            console.log('before upload project');
+            var news_details = xmlHttp.responseText;            
             uploadProjectImages(news_details, 0);
         }
     };
@@ -382,7 +381,7 @@ function Redirect()
     window.location="../../admin/news/index";
 }
 
-//var img_id = document.getElementById('album_data').value;
+var img_id = document.getElementById('album_data').value;
 function uploadAlbum() {
 
 	uploadProjectImages(img_id, 0);
