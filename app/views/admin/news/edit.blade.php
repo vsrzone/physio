@@ -30,6 +30,14 @@
 <div> News Title: {{ Form::text('title', $news->title) }} </div>
 <div>Content: {{ Form::textarea('content', $news->content) }} </div>
 <div> {{ Form::submit('Save changes') }} </div>
-{{ Form::close() }}
 
+{{ Form::close() }}
+{{ Form::open(array('url'=>'admin/image/create', 'method'=>'GET')) }}
+{{ Form::hidden('id', $news->id) }}
+<div> {{ Form::submit('Add more images') }} </div>
+{{ Form::close() }}
+{{ Form::open(array('url'=>'admin/image/edit', 'method'=>'GET')) }}
+{{ Form::hidden('id', $news->id) }}
+<div> {{ Form::submit('Delete existing images') }} </div>
+{{ Form::close() }}
 @stop

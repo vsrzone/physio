@@ -111,6 +111,16 @@ class NewsController extends BaseController{
 		$news = News::find(Input::get('id'));
 
 		if($news){
+			while( $image = DB::table('images')->where('news_id', '=', $news->id)->first()){
+				$dat = Image::find($image->id);
+				$target = "uploads/images/".$dat->name;
+			
+				if(file_exists($target)){
+					unlink($target);
+				}
+
+				$dat->delete();
+			}
 			$news->delete();
 
 			return Redirect::to('admin/news/index')
@@ -126,8 +136,7 @@ class NewsController extends BaseController{
 
 		$img_data = Request::input('image');
 		$img_id = Request::input('id');
-		return $img_data;
-		die();
+
 		if($img_data){
 			$image = DB::table('images')->max('id');
 				if(!$image) {
@@ -144,7 +153,7 @@ class NewsController extends BaseController{
 
 		$img = new Image;
 		$img->name = $img_name;
-		$img->project_id = $img_id;
+		$img->news_id = $img_id;
 
 		$img->save();
 		return $img_name;
