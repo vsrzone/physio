@@ -29,6 +29,9 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
+Route::get('members', function(){
+	return View::make('members.index');
+});
 
 Route::controller('admin/user', 'UserController');
 

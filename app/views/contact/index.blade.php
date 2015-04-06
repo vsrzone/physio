@@ -6,7 +6,7 @@
 			<img src="images/slider4.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
 			<h2>Contact Us Here, But Play Outside</h2>
 		</li>
-		<h3 id="breadcrumb">News</h3>
+		<h3 id="breadcrumb">Contact Us</h3>
 	</ul>
 	<div class="col-xs-12 col-md-3" id="news-section">
 		<h3>Head Office</h3>
