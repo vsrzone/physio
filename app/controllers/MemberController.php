@@ -56,9 +56,6 @@ class MemberController extends BaseController{
 
 				if($validator_user->passes()) {
 
-					var_dump($validator_user->passes());
-					die();
-
 					$member = new Member;
 
 					$member->name = $name;
@@ -76,18 +73,35 @@ class MemberController extends BaseController{
 					$member->description = $description;
 					$member->qualifications = $qualifications;
 					$member->experience = $experience;
-					$member->created_by = 'pulasthi';
-					$member->updated_by = 'pulasthi';
+					$member->created_by = 1;
+					$member->updated_by = 1;
 
 
 					if($member) {
 
+						var_dump($member);
+						die();
+
 						$member->save();
 
+						$member_id = DB::table('members')->where('name', $name)->pluck('id');
+
 						$user = new User;
+
+						$user->email = $email;
+						$user->password = $password;
+						$user->type = $type;
+						$user->member_id = $member_id;
+
+						if($user) {
+
+							$user->save();
+
+							return Redirect::to('admin/member')
+								->with('message', 'Member Created');
+						}
 						
-						return Redirect::to('admin/member')
-							->with('message', 'Member Created');
+						
 					}
 
 					return Redirect::to('admin/member')
