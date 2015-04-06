@@ -295,8 +295,9 @@ function saveProject(callback) {
     var xmlHttp = new XMLHttpRequest(); 
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState==4 && xmlHttp.status==200){
-            var project_id = xmlHttp.responseText;
-            uploadProjectImages(project_id, 0);
+            var news_details = xmlHttp.responseText;
+            console.log('before upload project');
+            uploadProjectImages(news_details, 0);
         }
     };
     xmlHttp.open( "POST", 'create', true );
