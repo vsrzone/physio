@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if(Session::has('message'))
+
+	<p>{{ Session::get('message') }}</p>
+
+@endif
+
 {{ Form::open(array('url'=>'admin/member/create', 'files'=>true)) }}
 
 {{ Form::label('Name')}}
