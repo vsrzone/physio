@@ -86,7 +86,7 @@ class MemberController extends BaseController{
 		if(!$user_exist) {
 
 			// validating member table inputs
-			$validator_member = Validator::make(array('nic' => Input::get('nic'), 'name' => Input::get('name'), 'concil_registration_no' => Input::get('council_reg_no'), 'sex' => Input::get('sex'), 'district' => Input::get('district'), 'tp1' => Input::get('tp1')), Member::$rules);
+			$validator_member = Validator::make(array('nic' => Input::get('nic'), 'name' => Input::get('name'), 'concil_registration_no' => Input::get('council_reg_no'), 'sex' => Input::get('sex'), 'district' => Input::get('district'), 'tp1' => Input::get('tp1'), 'created_by' => Auth::user()->member_id), Member::$rules);
 
 			if($validator_member->passes()) {
 
@@ -112,8 +112,8 @@ class MemberController extends BaseController{
 					$member->description = $description;
 					$member->qualifications = $qualifications;
 					$member->experience = $experience;
-					$member->created_by = 1;// need to get the looged in user's id at the momemt of creating
-					$member->updated_by = 1;// need to get the logged in user's id at the moment of updating
+					$member->created_by = Auth::user()->member_id;// need to get the looged in user's id at the momemt of creating
+					$member->updated_by = Auth::user()->member_id;// need to get the logged in user's id at the moment of updating
 
 
 					if($member) {
@@ -173,7 +173,7 @@ class MemberController extends BaseController{
 			}
 		}
 
-		return View::make('admin/user')
+		Redirect::to('admin/member')
 			->with('message', 'Cannot Find the User');
 	}
 
@@ -203,82 +203,95 @@ class MemberController extends BaseController{
 		$user = User::find($user_id->id);
 		$member = Member::find($id);
 
-		if($member) {
+		$validator_member = Validator::make(array('nic' => Input::get('nic'), 'name' => Input::get('name'), 'concil_registration_no' => Input::get('council_reg_no'), 'sex' => Input::get('sex'), 'district' => Input::get('district'), 'tp1' => Input::get('tp1'), 'created_by' => Auth::user()->member_id), Member::$rules);
 
-			if($user) {
+		if($validator_member->passes()) {
 
-				if($password !== '') {
+			// validating user table inputs
+			$validator_user = Validator::make(array('email' => Input::get('email'), 'type' => Input::get('type')),User::$editRules);
 
-					$user->password = Hash::make($password);
-				}
+			if($validator_user->passes()) {
 
-				if($pro_pic !== '') {
+				if($member) {
 
-					$target = "uploads/member/profile/".$member->profile_picture;
-			
-					if(file_exists($target)){
-						unlink($target);
+					if($user) {
+
+						if($password !== '') {
+
+							$user->password = Hash::make($password);
+						}
+
+						if($pro_pic !== '') {
+
+							$target = "uploads/member/profile/".$member->profile_picture;
+					
+							if(file_exists($target)){
+								unlink($target);
+							}
+
+							$profile_pic_name = time().'.jpeg';
+							$im = imagecreatefromjpeg($pro_pic);
+							imagejpeg($im, 'uploads/member/profile/'.$profile_pic_name, 70);
+							imagedestroy($im);
+
+							$member->profile_picture = $profile_pic_name;
+						}
+
+
+						if($cover_pic !== '') {
+
+							$target = "uploads/member/cover/".$member->cover_picture;
+					
+							if(file_exists($target)){
+								unlink($target);
+							}
+
+							$cover_pic_name = time().'.jpeg';
+							$im = imagecreatefromjpeg($cover_pic);
+							imagejpeg($im, 'uploads/member/cover/'.$cover_pic_name, 70);
+							imagedestroy($im);
+
+							$member->cover_picture = $cover_pic_name;
+						}
+
+						// updating member table
+						$member->name = $name;
+						$member->nic = $nic;
+						$member->concil_registration_no = $council_reg_no;
+						$member->sex = $sex;
+						$member->district = $district;
+						$member->hospital = $hospital;
+						$member->address = $address;
+						$member->tp1 = $tp1;
+						$member->tp2 = $tp2;
+						$member->tp3 = $tp3;
+						$member->description = $description;
+						$member->qualifications = $qualifications;
+						$member->experience = $experience;
+						$member->updated_by = Auth::user()->member_id;// need to get the logged in user's id at the moment of updating
+
+						$member->save();
+
+						// updating user table
+
+						$user->type = $type;
+						$user->email = $email;
+						$user->member_id = $id;
+
+						$user->save();
+
+						return Redirect::to('admin/member')
+							->with('message', 'Member Updated');
 					}
-
-					$profile_pic_name = time().'.jpeg';
-					$im = imagecreatefromjpeg($pro_pic);
-					imagejpeg($im, 'uploads/member/profile/'.$profile_pic_name, 70);
-					imagedestroy($im);
-
-					$member->profile_picture = $profile_pic_name;
 				}
-
-
-				if($cover_pic !== '') {
-
-					$target = "uploads/member/cover/".$member->cover_picture;
-			
-					if(file_exists($target)){
-						unlink($target);
-					}
-
-					$cover_pic_name = time().'.jpeg';
-					$im = imagecreatefromjpeg($cover_pic);
-					imagejpeg($im, 'uploads/member/cover/'.$cover_pic_name, 70);
-					imagedestroy($im);
-
-					$member->cover_picture = $cover_pic_name;
-				}
-
-				// updating member table
-				$member->name = $name;
-				$member->nic = $nic;
-				$member->concil_registration_no = $council_reg_no;
-				$member->sex = $sex;
-				$member->district = $district;
-				$member->hospital = $hospital;
-				$member->address = $address;
-				$member->tp1 = $tp1;
-				$member->tp2 = $tp2;
-				$member->tp3 = $tp3;
-				$member->description = $description;
-				$member->qualifications = $qualifications;
-				$member->experience = $experience;
-				$member->created_by = 1;// need to get the looged in user's id at the momemt of creating
-				$member->updated_by = 1;// need to get the logged in user's id at the moment of updating
-
-				$member->save();
-
-				// updating user table
-
-				$user->type = $type;
-				$user->email = $email;
-				$user->member_id = $id;
-
-				$user->save();
-
-				return Redirect::to('admin/member')
-					->with('message', 'User Updated');
 			}
+
 		}
 
-		return Redirect::to('admin/member')
-			->with('message', 'Cannot Find the User');
+		return Redirect::to('admin/member/create')
+			->with('message', 'Something went wrong')
+			->withErrors($validator_member)
+			->withInput();
 	}
 
 	// delete a member
@@ -321,6 +334,6 @@ class MemberController extends BaseController{
 		}
 
 		return Redirect::to('admin/member')
-			->with('message', 'Cannot Delete the User');
+			->with('message', 'Cannot Delete the Member');
 	}
 }

@@ -11,7 +11,7 @@ class Member extends Eloquent
 		'concil_registration_no' => 'required',
 		'sex' => 'required',
 		'district' => 'required',
-		'tp1' => 'required'
-		// 'created_by' => 'required'
+		'tp1' => 'required',
+		'created_by' => 'required'
 		);
 }

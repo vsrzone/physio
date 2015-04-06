@@ -34,6 +34,10 @@ Route::get('members', function(){
 });
 
 
+//Route::controller('admin/user', 'UserController');
+
+Route::controller('admin/user', 'UserController');
+
 Route::controller('admin/member', 'MemberController');
 
 //route to category controller
@@ -47,3 +51,5 @@ Route::controller('admin/image', 'ImageController');
 
 //routes to auth controller
 Route::controller('admin', 'AuthController');
+
+
