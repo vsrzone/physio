@@ -29,6 +29,9 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
+Route::get('members', function(){
+	return View::make('members.index');
+});
 
 Route::controller('admin/user', 'UserController');
 
@@ -37,3 +40,5 @@ Route::controller('admin/member', 'MemberController');
 //route to category controller
 Route::controller('admin/category', 'CategoryController');
 
+//route to news controller
+Route::controller('admin/news', 'NewsController');
