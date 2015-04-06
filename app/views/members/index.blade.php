@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<ul id="slider" class="col-xs-12">
+		<ul id="main-slider" class="col-xs-12">
 			<li>
 				<img src="images/slider1.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
 				<p>To enjoy the glow of good health, you must exercise</p>
@@ -14,6 +14,12 @@
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
 		<div class="col-xs-12 col-sm-3" id="member-info">
+			
+		</div>
+		<div class="col-xs-12 col-sm-9" id="member-wrapper">
+			
+		</div>
+<!-- 		<div class="col-xs-12 col-sm-3" id="member-info">
 			<h3>Jon <span id="member-second-name">Doe</span></h3>
 			<p>sub-heading</p>
 			<img src="{{ url() }}/images/members/member1.jpg" title="member1" alt="member1">
@@ -33,7 +39,7 @@
 				<p>NIC No: 74637382v</p>
 				<p>District : Dehiwala</p>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 @stop
