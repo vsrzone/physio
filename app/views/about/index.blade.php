@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<ul id="slider" class="col-xs-12">
+		<ul id="main-slider" class="col-xs-12">
 			<li>
 				<img src="images/slider1.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
 				<p>To enjoy the glow of good health, you must exercise</p>

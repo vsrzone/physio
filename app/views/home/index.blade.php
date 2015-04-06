@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<ul id="slider" class="col-xs-12">
+		<ul id="main-slider" class="col-xs-12">
 			<li>
 				<img src="images/slider.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
 				<p>You're in pretty good shape for the shape you are in</p>
@@ -13,37 +13,6 @@
 </div>
 <div class="container page-wrapper" id="content-wrapper">
 	<div class="row">
-		<!-- <div class="col-xs-12 col-md-3" id="news-section">
-			<h3>News Feed</h3>
-			<ul id="news">
-				<li>
-					<a href="">
-						<img src="images/news.jpg" width="100%" height="auto" alt="news" title="news">
-						<h5>Aenean sed semper urna.</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate suscipit dictum.</p>
-					</a>
-				</li>
-				<li>
-					<a href="">
-						<img src="images/news.jpg" width="100%" height="auto" alt="news" title="news">
-						<h5>Nunc molestie euismod</h5>
-						<p>Aliquam erat volutpat. Aliquam lacinia vel lorem id finibus.</p>
-					</a>
-				</li>
-			</ul>
-			<h4>Latest Members</h4>
-			<ul id="latest-members">
-				<li>
-					<img src="images/members/member1.jpg" width="100%" height="auto" alt="member" title="member">
-				</li>
-				<li>
-					<img src="images/members/member2.jpg" width="100%" height="auto" alt="member" title="member">
-				</li>
-				<li>
-					<img src="images/members/member3.jpg" width="100%" height="auto" alt="member" title="member">
-				</li>
-			</ul>
-		</div> -->
 		<div class="col-xs-12">
 			<h1>Physiotherapy</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate suscipit dictum. Donec convallis sapien elit. Cras vitae orci quis nisl tristique scelerisque et at augue. Fusce finibus vulputate justo. In sagittis vitae ligula sed tristique. Quisque venenatis lectus malesuada lacus porttitor, quis molestie nisl tristique. Suspendisse maximus venenatis massa, eu fringilla ipsum efficitur vel. Vestibulum mollis purus nisi, vitae ornare massa consectetur at.</p>
@@ -64,6 +33,31 @@
 					<p>Suspendisse potenti. Sed id varius magna, quis tempor purus. Morbi magna mi, ultrices ac eros id, ultricies semper lectus. Fusce quam ex, finibus at ultricies id, imperdiet nec odio. Phasellus posuere vulputate dui, id fringilla leo efficitur bibendum. Aenean aliquam, lorem ac tristique pulvinar, mauris massa lobortis nisi, quis consectetur dui nisi efficitur justo. Etiam a ligula sit amet turpis tempor condimentum eu vitae metus. Suspendisse interdum quam felis, a interdum massa tristique ut. Ut non risus ac lacus porttitor interdum. Duis ac luctus nisl, ac eleifend lacus.</p>
 				</li>
 			</ul>
+		</div>
+		<div class="col-xs-12" id="news-section">
+			<div id="news-slider" class="flexslider">
+				<ul class="slides">
+					<li>
+						<img src="{{ url() }}/images/news/news1.jpg">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p> Nam fringilla congue libero, ut ultricies mauris pharetra at. Ut maximus, nulla eu condimentum venenatis, neque leo convallis nulla, at hendrerit magna est ut nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer massa tellus, vestibulum vitae dui in, maximus sodales mi. </p>
+					</li>
+					<li>
+						<img src="{{ url() }}/images/news/news1.jpg">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						<p> Nam fringilla congue libero, ut ultricies mauris pharetra at. Ut maximus, nulla eu condimentum venenatis, neque leo convallis nulla, at hendrerit magna est ut nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer massa tellus, vestibulum vitae dui in, maximus sodales mi. </p>
+					</li>
+				</ul>
+			</div>
+			<div id="news-carousel" class="flexslider">
+				<ul class="slides">
+					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

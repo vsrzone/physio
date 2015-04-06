@@ -4,7 +4,7 @@ body{
 	font-family: 'Open Sans', sans-serif !important;
 	font-size: 14px;
 	color: #A3A3A3 !important;
-	overflow-y: scroll;
+	overflow-y: scroll !important;
 }
 
 p{
@@ -48,7 +48,6 @@ button:focus {
 #login-wrapper{
 	position: relative;
 	box-shadow: 0px 0px 2px 0px #000;
-	z-index: 1;
 }
 
 #login-container{
@@ -58,6 +57,7 @@ button:focus {
 #login{
 	float: right;
 	right: 0;
+	z-index: 1;
 }
 
 #login label{
@@ -101,7 +101,7 @@ button:focus {
 	/*background-color: #DBDBDB;*/
 }
 
-#slider{
+#main-slider{
 	position: relative;
 	list-style: none;
 	margin: 0;
@@ -110,11 +110,11 @@ button:focus {
 	max-height: 50vh;
 }
 
-#slider img{
+#main-slider img{
 	width: 100%;
 }
 
-#slider p{
+#main-slider p{
 	position: absolute;
 	top: 35%;
 	right: 2%;
@@ -133,68 +133,75 @@ button:focus {
 	text-align: center;
 }
 
+#content-wrapper {
+	padding: 10px 30px;
+}
+
 #content-wrapper > div > div > p{
 	letter-spacing: 1.5;
 	text-align: center;
 	padding-bottom: 20px;
 }
 
-#news-section ul{
-	list-style: none;
+#news-section{
+	padding-top: 50px;
+}
+
+#news-slider, #news-carousel{
+	width: 80%;
+	margin: 0 auto;
+}
+
+#news-slider div ul{
+	background-color: #f4f4f4;
+}
+
+#news-slider div ul li{
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+#news-section ul li{
 	margin: 0;
-	padding: 0 0 0 10px;
 }
 
-#news li{
-	margin: 0;
-	min-height: 100px;
-	margin-bottom: 5px;
-	overflow: auto;
+#news-section > div:first-child ul li:after{
+	content: '';
+	clear: both;
+	font-size: 1;
+	display: block;
 }
 
-#news li a{
-	display: inline-block;
-	width: 100%;
-	padding: 10px;
-	background-color: #f4f3f4;
-}
-
-#news li a:hover{
-	background-color: #DBDBDB;
-}
-
-#news li img{
-	width: 30%;
-	height: auto;
+#news-section div ul li img{
+	height: 150px;
+	width: auto;
 	float: left;
 	margin-right: 10px;
-	margin-top: 10px;
 }
 
-#news-section h5{
-	font-weight: 400;
+#news-section div ul li p{
+	font-size: 16px;
 }
 
-#news-section p{
+#news-section div ul li p + p{
 	font-size: 12px;
-	color: #898989;
 }
 
-#latest-members li{
-	width: 33.33%;
+#news-section div + div ul{
+	font-size: 0;
+	letter-spacing: 0;
+	position: relative;
+}
+
+#news-section div + div >  div ul li img{
+	width: 100%;
+	height: auto;
 	float: left;
-}
-
-#latest-members li img{
 	box-sizing: border-box;
-	border: 1px solid #fff;
+	padding: 20px;
+	display: inline-block;
+	margin: 0;
 }
-
-#latest-members li img:hover{
-	box-sizing: border-box;
-	border: 1px solid #E7C345;
-}
-
 
 #services{
 	width: 80%;
@@ -204,7 +211,6 @@ button:focus {
 }
 
 #services li{
-	float: left;
 	box-sizing: border-box;
 	text-align: center;
 	border: 1px solid #fff;
@@ -216,10 +222,8 @@ button:focus {
 
 
 #services li > p:first-child{
-	display: inline-block;
 	padding: 60px;
 	margin: 0 auto;
-	border-radius: 10px;
 	font-size: 40px;
 	color: #E7C345;
 }
@@ -448,7 +452,7 @@ footer{
 
 @media (max-width: 992px){
 	.page-wrapper{
-		width: 100%; 
+		width: 100% !important; 
 	}
 
 	#footer-wrapper{
@@ -481,7 +485,7 @@ footer{
 		background-color: #DBDBDB;
 	}
 
-	#slider h2{
+	#main-slider h2{
 		font-size: 14px;
 	}
 
