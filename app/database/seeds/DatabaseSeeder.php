@@ -27,8 +27,9 @@ public function run()
     
     DB::table('users')->delete();
     User::create(array(
-        'email' => 'admin@physio.dev',
+        'email' => 'super_admin@physio.dev',
         'member_id'=> DB::table('members')->where('name', '=', 'admin')->pluck('id'),
+        'type'=> 1,
         'password' => Hash::make('pass'),
     ));
 
