@@ -13,7 +13,7 @@
 		<th>User ID</th>
 		<th>Name</th>
 		<th>User Type</th>
-		<th>Sex</th>
+		<th>Gender</th>
 		<th>NIC</th>
 		<th>Council Registration No.</th>
 		<th>District</th>
@@ -25,6 +25,7 @@
 	<tr>
 		<td>{{ $member->id }}</td>
 		<td>{{ $member->name }}</td>
+
 		@if($member->type == '1')
 			<td>Super Admin</td>
 		@elseif($member->type == '2')
@@ -32,7 +33,12 @@
 		@elseif($member->type == '3')
 			<td>Admin</td>
 		@endif
-		<td>{{ $member->sex }}</td>
+
+		@if($member->sex == '0')
+			<td>Male</td>
+		@elseif($member->sex == '1')
+			<td>Female</td>
+		@endif
 		<td>{{ $member->nic }}</td>
 		<td>{{ $member->concil_registration_no }}</td>
 		<td>{{ $member->district }}</td>

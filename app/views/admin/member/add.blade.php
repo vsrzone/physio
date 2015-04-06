@@ -70,13 +70,15 @@
 {{ Form::text('tp3') }}
 <br>
 {{ Form::label('Profile Picture')}}
-{{ Form::file('pro_pic') }}
+{{ Form::file('pro_pic_upload', array('id'=>'pro_pic_upload', 'accept'=>'image/jpeg')) }}
+{{ Form::hidden('pro_pic', null, array('id'=>'pro_pic'))}}
 <br>
 <div id = "profile_pic"></div>
 {{ Form::label('Cover Photo')}}
-{{ Form::file('cover_pic') }}
+{{ Form::file('cover_pic_upload', array('id'=>'cover_pic_upload', 'accept'=>'image/jpeg')) }}
+{{ Form::hidden('cover_pic', null, array('id'=>'cover_pic'))}}
 <br>
-<div id = "cover_pic"></div>
+<div id = "cov_pic"></div>
 {{ Form::label('Description')}}
 {{ Form::textarea('description') }}
 <br>
@@ -102,5 +104,8 @@
 		</ul>
 	</div>
 @endif
+
+<script type="text/javascript" src="../js/photos.js"></script>
+<script type="text/javascript" src="../js/member.js"></script>
 
 @stop
