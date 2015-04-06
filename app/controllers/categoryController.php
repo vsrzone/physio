@@ -39,7 +39,7 @@ class CategoryController extends BaseController {
 		
 	}
 
-	//view all categories page
+	//view all categories 
 	public function getIndex(){
 		return View::make('admin.category.index')
 			->with('categories', Category::paginate(10));
