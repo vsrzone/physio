@@ -3,6 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
+		$this->beforeFilter('admin');
 	}
 
 	//views create page
@@ -31,13 +32,10 @@ class NewsController extends BaseController{
 			$news->news_date = date('Y-m-d');
 		}
 		
-		$news->created_by = '1'; //get user names form auth class
+		$news->created_by = Auth::user()->member_id; 
 		
 		$news->save();
-
-
-		$news_details = DB::table('news')->where('title', '=', $news->title)->first();
-		return $news_details->id;
+		return $news->id;
 		
 	}
 
