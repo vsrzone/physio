@@ -2,7 +2,7 @@
 
 class NewsController extends BaseController{
 	public function __construct() {
-		$this->beforeFilter('csrf', array('on' => 'post'));
+		//$this->beforeFilter('csrf', array('on' => 'post'));
 	}
 
 	//views create page
@@ -13,7 +13,7 @@ class NewsController extends BaseController{
 
 	//news add function
 	public function postCreate(){
-				
+			
 		$news = new News;
 		$news->title = Request::input('title');
 		$news->active = Request::input('active');
@@ -34,8 +34,10 @@ class NewsController extends BaseController{
 		$news->created_by = '1'; //get user names form auth class
 		
 		$news->save();
-		return Redirect::to('admin/news/create')
-			->with('message', 'News has been added successfully!!!');
+
+
+		$news_details = DB::table('news')->where('title', '=', $news->title)->first();
+		return $news_details->id;
 		
 	}
 
@@ -121,9 +123,11 @@ class NewsController extends BaseController{
 
 	// save the image album to the database
 	public function postAlbum() {
+
 		$img_data = Request::input('image');
 		$img_id = Request::input('id');
-
+		return $img_data;
+		die();
 		if($img_data){
 			$image = DB::table('images')->max('id');
 				if(!$image) {
