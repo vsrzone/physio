@@ -295,8 +295,8 @@ function saveProject(callback) {
     var xmlHttp = new XMLHttpRequest(); 
     xmlHttp.onreadystatechange = function(){
         if (xmlHttp.readyState==4 && xmlHttp.status==200){
-            var project_id = xmlHttp.responseText;
-            uploadProjectImages(project_id, 0);
+            var news_details = xmlHttp.responseText;            
+            uploadProjectImages(news_details, 0);
         }
     };
     xmlHttp.open( "POST", 'create', true );
@@ -381,7 +381,7 @@ function Redirect()
     window.location="../../admin/news/index";
 }
 
-//var img_id = document.getElementById('album_data').value;
+var img_id = document.getElementById('album_data').value;
 function uploadAlbum() {
 
 	uploadProjectImages(img_id, 0);
