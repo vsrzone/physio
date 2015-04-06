@@ -88,3 +88,28 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+//member filter to protect member areas
+Route::filter('member', function(){
+	if(!Auth::check()){
+		return Redirect::to('admin/login')
+			->with('message', 'Please login to continue!!!');
+	}
+});
+
+//admin filter to protect admin areas
+Route::filter('admin', function(){
+	if(!Auth::check() || Auth::type() != 0 || Auth::type() != 1){
+		return Redirect::to('admin/login')
+			->with('message', 'The user account you have logged in has no authority to access!!!');
+	}
+});
+
+//admin filter to protect super_admin areas
+Route::filter('super_admin', function(){
+	if(!Auth::check() ||  Auth::type() != 1){
+		return Redirect::to('admin/login')
+			->with('message', 'The user account you have logged in has no authority to access!!!');
+	}
+});
