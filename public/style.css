@@ -153,16 +153,21 @@ button:focus {
 }
 
 #news-slider div ul{
-	background-color: #f4f4f4;
 }
 
-#news-slider div ul li{
+#news-slider{
 	padding: 20px;
 	box-sizing: border-box;
+	background-color: #f4f4f4;
+
 }
 
 #news-section ul li{
 	margin: 0;
+}
+
+#news-section h3{
+	text-align: center;
 }
 
 #news-section > div:first-child ul li:after{
@@ -314,21 +319,21 @@ footer{
 }
 
 #news-content li p + a + p{
-	padding: 10px;
+	padding: 5px;
 	background-color: #CCCCCC;
 	border-radius: 5px;
 	color: #fff;
 	display: inline-block;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 #news-content li a{
-	padding: 10px;
+	padding: 5px;
 	background-color: #E7C345;
 	border-radius: 5px;
 	color: #fff;
 	display: inline-block;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 #news-content h3{
@@ -346,8 +351,8 @@ footer{
 	float: left;
 	margin-right: 5px;
 	background-color: #ccc;
-	padding: 5px 5px;
-	font-size: 12px;
+	padding: 5px;
+	font-size: 10px;
 	color: #fff;
 	margin-bottom: 5px;
 }
@@ -418,7 +423,7 @@ footer{
 
 #member-details h3{
 	background-color: #E7C345;
-	color: #fff;
+	color: #fff !important;
 	padding: 5px;
 }
 
@@ -432,12 +437,14 @@ footer{
 	font-size: 14px;
 	vertical-align: top;
 	color: #000;
-	font-weight: 800;
 	margin-top: 10px;
 }
 
 .member-sub-heading span{
 	color: #A1A1A1;
+	display: block;
+	background-color: #f4f4f4;
+	padding: 5px;
 }
 
 .member-sub-heading a{
@@ -449,6 +456,35 @@ footer{
 	letter-spacing: 0;
 }
 
+/* login panel */
+
+#login-area{
+	text-align: center;
+}
+
+#login-area div{
+	width: 75%;
+	margin: 0 auto;
+}
+
+#login-area div label{
+	width: 30%;
+	margin-top: 5px;
+}
+
+#login-area div input[type="text"], input[type="password"]{
+	width: 76%;
+}
+
+#login-area div input[type="submit"]{
+	padding: 10px 28px;
+}
+
+#sign-in{
+	margin-top: 10px;
+	background-color: #E7C345;
+	color: #fff;
+}
 
 @media (max-width: 992px){
 	.page-wrapper{

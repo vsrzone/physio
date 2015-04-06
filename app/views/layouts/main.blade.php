@@ -17,7 +17,7 @@
 		<nav class="row">
 			<div id="login-container">
 				<div id="login" class="col-xs-12">
-					<button class="btn">Login</button>
+					<button class="btn" data-toggle="modal" data-target="#login-modal">Login</button>
 					<label>Member</label>
 				</div>
 			</div>
@@ -77,6 +77,27 @@
 	</div>
 </footer>
 
+<!-- Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModelLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body" id="login-area">
+				<h3>Login to GPA</h3>
+				<p>Login to view member exclusive content and to end your profile</p>
+				<div>
+				<form action="">
+				<label>Username</label>
+				<input type="text" name="username" id="username"/>
+				<label>Password</label>
+				<input type="password" name="password" id="password"/>
+				<input type="submit" value="Sign in" class="btn" id="sign-in"/>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -84,31 +105,49 @@
 <script type="text/javascript" src="{{ url() }}/js/jquery.flexslider-min.js"></script>
 
 <script type="text/javascript">
+var noItems = 4;
+$(document).ready(function() {
 
-$(window).load(function() {
+var w = window.innerWidth;
+if(w < 768) {
+	noItems = 2;
+}
   // The slider being synced must be initialized first
-  $('#news-carousel').flexslider({
-	    animation: "slide",
-	    controlNav: false,
-	    animationLoop: false,
-	    slideshow: false,
-	    itemWidth: 210,
-	    itemMargin: 5,
-	    minItems: 2,
-	    maxItems: 4,
-	    asNavFor: '#news-slider'
-	  });
-	   
-	  $('#news-slider').flexslider({
-	    animation: "slide",
-	    controlNav: false,
-	    directionNav: false,
-	    animationLoop: false,
-	    slideshow: false,
-	    sync: "#news-carousel"
-	  });
+	$('#news-carousel').flexslider({
+		animation: "slide",
+		controlNav: false,
+		animationLoop: false,
+		slideshow: false,
+		itemWidth: 210,
+		itemMargin: 5,
+		minItems: noItems,
+		maxItems: noItems,
+		asNavFor: '#news-slider'
 	});
 
+	$('#news-slider').flexslider({
+		animation: "slide",
+		controlNav: false,
+		directionNav: false,
+		animationLoop: false,
+		slideshow: false,
+		sync: "#news-carousel"
+		});
+	});
+
+window.onresize = function(){
+	var w = window.innerWidth;
+	if(w < 768) {
+		$('#news-carousel').data().flexslider.vars.minItems = 2;
+		$('#news-carousel').data().flexslider.vars.maxItems = 2;
+	}else{
+		$('#news-carousel').data().flexslider.vars.minItems = 4;
+		$('#news-carousel').data().flexslider.vars.maxItems = 4;
+	}
+
+
+}
+	
 </script>
 
 </html>

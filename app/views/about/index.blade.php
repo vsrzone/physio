@@ -14,7 +14,7 @@
 </div>
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
-		<div class="col-xs-12 col-md-3" id="news-section">
+		<div class="col-xs-12 col-md-3">
 			<h3>Overview</h3>
 			<ul id="overview-wrapper">
 				<li><h5>Founded</h5><p>2001</p></li>

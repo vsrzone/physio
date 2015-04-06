@@ -35,6 +35,7 @@
 			</ul>
 		</div>
 		<div class="col-xs-12" id="news-section">
+			<h3>Latest News</h3>
 			<div id="news-slider" class="flexslider">
 				<ul class="slides">
 					<li>
@@ -51,7 +52,6 @@
 			</div>
 			<div id="news-carousel" class="flexslider">
 				<ul class="slides">
-					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
 					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
 					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
 					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
