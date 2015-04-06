@@ -1,129 +1,146 @@
 <?php
 
 class UserController extends BaseController{
-
-	public function __construct(){
-		$this->beforeFilter('csrf', array('on'=>'post'));
+	public function __construct() {
+		//$this->beforeFilter('csrf', array('on' => 'post'));
+		$this->beforeFilter('member');
 	}
 
-	// show the page with all the users
-	public function getIndex() {
-
-		return View::make('admin.user.index')
-			->with('users', User::paginate(10));
-	}
-
-	// show the user create view
-	public function getCreate() {
-
-		return View::make('admin.user.add');
-	}
-
-	// add a new user to the database
-	public function postCreate() {
-
-		$name = Input::get('name');
-		$password = Hash::make(Input::get('password'));
-		$type = Input::get('type');
-
-		$user_exist = DB::table('users')->where('name', $name)->first();
-
-		if(!$user_exist) {
-
-			$validator = Validator::make(Input::all(), User::$rules);
-
-			if($validator->passes()) {
-
-				$user = new User;
-
-				$user->name = $name;
-				$user->password = $password;
-				$user->type = $type;
-
-				if($user) {
-
-					$user->save();
-
-					return Redirect::to('admin/user')
-						->with('message', 'User Created');
-				}
-
-				return Redirect::to('admin/user')
-					->with('message', 'Operation Unsuccessful');
-			}
-
-			return Redirect::to('admin/user/create')
-			->with('message', 'Something went wrong')
-			->withErrors($validator)
-			->withInput();
-		}
-
-		return Redirect::to('admin/user')
-			->with('message', 'Cannot Find the User');
-	}
-
-	// show the user edit page
 	public function postEdit() {
 
 		$id = Input::get('id');
 
-		$user = User::find($id);
+		$member = Member::find($id);
+		$user = DB::table('users')->where('member_id', $id)->first();
 
-		if($user) {
+		if($member) {
 
-			return View::make('admin.user.edit')
-				->with('user', $user);
+			if($user) {
+
+				return View::make('admin.member.edit')
+					->with('user', $user)
+					->with('member', $member);
+			}
 		}
 
-		return View::make('admin/user')
+		Redirect::to('admin/member')
 			->with('message', 'Cannot Find the User');
 	}
 
-	// update the users
 	public function postUpdate() {
 
 		$id = Input::get('id');
+		$nic = Input::get('nic');
+		$email = Input::get('email');
 		$name = Input::get('name');
 		$password = Input::get('password');
+		$council_reg_no = Input::get('council_reg_no');
+		$sex = Input::get('sex');
 		$type = Input::get('type');
+		$district = Input::get('district');
+		$hospital = Input::get('hospital');
+		$address = Input::get('address');
+		$tp1 = Input::get('tp1');
+		$tp2 = Input::get('tp2');
+		$tp3 = Input::get('tp3');
+		$pro_pic = Input::get('pro_pic');
+		$cover_pic = Input::get('cover_pic');
+		$description = Input::get('description');
+		$qualifications = Input::get('qualifications');
+		$experience = Input::get('experience');
 
-		$user = User::find($id);
+		$user_id = DB::table('users')->where('member_id', $id)->first();
+		$user = User::find($user_id->id);
+		$member = Member::find($id);
 
-		if($user) {
+		$validator_member = Validator::make(array('nic' => Input::get('nic'), 'name' => Input::get('name'), 'concil_registration_no' => Input::get('council_reg_no'), 'sex' => Input::get('sex'), 'district' => Input::get('district'), 'tp1' => Input::get('tp1'), 'created_by' => Auth::user()->member_id), Member::$rules);
 
-			$user->name = $name;
-			if($password !== '') {
+		if($validator_member->passes()) {
 
-				$user->password = Hash::make($password);
+			// validating user table inputs
+			$validator_user = Validator::make(array('email' => Input::get('email'), 'type' => Input::get('type')),User::$editRules);
+
+			if($validator_user->passes()) {
+
+				if($member) {
+
+					if($user) {
+
+						if($password !== '') {
+
+							$user->password = Hash::make($password);
+						}
+
+						if($pro_pic !== '') {
+
+							$target = "uploads/member/profile/".$member->profile_picture;
+					
+							if(file_exists($target)){
+								unlink($target);
+							}
+
+							$profile_pic_name = time().'.jpeg';
+							$im = imagecreatefromjpeg($pro_pic);
+							imagejpeg($im, 'uploads/member/profile/'.$profile_pic_name, 70);
+							imagedestroy($im);
+
+							$member->profile_picture = $profile_pic_name;
+						}
+
+
+						if($cover_pic !== '') {
+
+							$target = "uploads/member/cover/".$member->cover_picture;
+					
+							if(file_exists($target)){
+								unlink($target);
+							}
+
+							$cover_pic_name = time().'.jpeg';
+							$im = imagecreatefromjpeg($cover_pic);
+							imagejpeg($im, 'uploads/member/cover/'.$cover_pic_name, 70);
+							imagedestroy($im);
+
+							$member->cover_picture = $cover_pic_name;
+						}
+
+						// updating member table
+						$member->name = $name;
+						$member->nic = $nic;
+						$member->concil_registration_no = $council_reg_no;
+						$member->sex = $sex;
+						$member->district = $district;
+						$member->hospital = $hospital;
+						$member->address = $address;
+						$member->tp1 = $tp1;
+						$member->tp2 = $tp2;
+						$member->tp3 = $tp3;
+						$member->description = $description;
+						$member->qualifications = $qualifications;
+						$member->experience = $experience;
+						$member->updated_by = Auth::user()->member_id;// need to get the logged in user's id at the moment of updating
+
+						$member->save();
+
+						// updating user table
+
+						$user->type = $type;
+						$user->email = $email;
+						$user->member_id = $id;
+
+						$user->save();
+
+						return Redirect::to('admin/member')
+							->with('message', 'Member Updated');
+					}
+				}
 			}
-			$user->type = $type;
 
-			$user->save();
-
-			return Redirect::to('admin/user')
-				->with('message', 'User Updated');
 		}
 
-		return Redirect::to('admin/user')
-			->with('message', 'Cannot Find the User');
-	}
-
-	// delete a user
-	public function postDestroy() {
-
-		$id = Input::get('id');
-
-		$user = User::find($id);
-
-		if($user) {
-
-			$user->delete();
-
-			return Redirect::to('admin/user')
-				->with('message', 'User Deleted');
-		}
-
-		return Redirect::to('admin/user')
-			->with('message', 'Cannot Delete the User');
+		return Redirect::to('admin/member/create')
+			->with('message', 'Something went wrong')
+			->withErrors($validator_member)
+			->withInput();
 	}
 }

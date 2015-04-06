@@ -33,6 +33,8 @@ Route::get('members', function(){
 	return View::make('members.index');
 });
 
+//Route::controller('admin/user', 'UserController');
+
 Route::controller('admin/user', 'UserController');
 
 Route::controller('admin/member', 'MemberController');
@@ -48,3 +50,5 @@ Route::controller('admin/image', 'ImageController');
 
 //routes to auth controller
 Route::controller('admin', 'AuthController');
+
+

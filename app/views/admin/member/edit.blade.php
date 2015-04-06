@@ -111,8 +111,8 @@
 	</div>
 @endif
 
-<script type="text/javascript" src="../js/photos.js"></script>
-<script type="text/javascript" src="../js/member.js"></script>
+<script type="text/javascript" src="{{url()}}/js/admin/pictures.js"></script>
+<script type="text/javascript" src="{{url()}}/js/admin/member.js"></script>
 <script type="text/javascript">
 
 	window.onload = function(){
