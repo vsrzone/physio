@@ -13,13 +13,52 @@
 </div>
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
-		<div class="col-xs-12 col-sm-3" id="member-info">
-			
+		<div class="col-xs-12" id="members-wrapper">
+			<ul>
+				<li>
+					<p>Name</p>
+					<p>Picture</p>
+					<p>Registration No</p>
+					<p>NIC No</p>
+					<p>Hospital</p>
+					<p>District</p>
+				</li>
+				<li>
+					<p>Jon Doe</p>
+					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p>N31274</p>
+					<p>74637382v</p>
+					<p>General Hospital Colomboasdasdasdasdasd</p>
+					<p>Dehiwala</p>
+				</li>
+				<li>
+					<p>Jon Doe</p>
+					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p>N31274</p>
+					<p>74637382v</p>
+					<p>General Hospital Colomboasdasdasdasdasd</p>
+					<p>Dehiwala</p>
+				</li>
+				<li>
+					<p>Jon Doe</p>
+					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p>N31274</p>
+					<p>74637382v</p>
+					<p>General Hospital Colomboasdasdasdasdasd</p>
+					<p>Dehiwala</p>
+				</li>
+				<li>
+					<p>Jon Doe</p>
+					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p>N31274</p>
+					<p>74637382v</p>
+					<p>General Hospital Colomboasdasdasdasdasd</p>
+					<p>Dehiwala</p>
+				</li>
+
+			</ul>
 		</div>
-		<div class="col-xs-12 col-sm-9" id="member-wrapper">
-			
-		</div>
-<!-- 		<div class="col-xs-12 col-sm-3" id="member-info">
+		<!-- <div class="col-xs-12 col-sm-3" id="member-info">
 			<h3>Jon <span id="member-second-name">Doe</span></h3>
 			<p>sub-heading</p>
 			<img src="{{ url() }}/images/members/member1.jpg" title="member1" alt="member1">
@@ -38,8 +77,8 @@
 				<p>Hospital: General Hospital Colombo</p>
 				<p>NIC No: 74637382v</p>
 				<p>District : Dehiwala</p>
-			</div>
-		</div> -->
+			</div> -->
+		</div>
 	</div>
 </div>
 @stop
