@@ -9,18 +9,18 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/flexslider.css">
 </head>
 <body>
 
-<div id="login-wrapper">
-	<div class="row" id="login-container">
-		<div id="login" class="col-xs-12">
-			<button class="btn">Login</button>
-			<label>Member</label>
-		</div>
-	</div>
-	<div class="container page-wrapper">
+	<div class="container">
 		<nav class="row">
+			<div id="login-container">
+				<div id="login" class="col-xs-12">
+					<button class="btn">Login</button>
+					<label>Member</label>
+				</div>
+			</div>
 			<div id="logo" class="col-md-4">
 				<a href="{{ url() }}" target="_self"><img src="{{ url() }}/images/logo.png" width="auto" height="100%" alt="Physiotherapysts Association" title="Physiotherapysts Association"></a>
 			</div>
@@ -42,10 +42,10 @@
 			</ul>
 		</nav>
 	</div>
-</div>
 
 
-<section class="row">
+
+<section>
 	@yield('content')
 </section>
 
@@ -81,5 +81,34 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ url() }}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ url() }}/js/jquery.flexslider-min.js"></script>
+
+<script type="text/javascript">
+
+$(window).load(function() {
+  // The slider being synced must be initialized first
+  $('#news-carousel').flexslider({
+	    animation: "slide",
+	    controlNav: false,
+	    animationLoop: false,
+	    slideshow: false,
+	    itemWidth: 210,
+	    itemMargin: 5,
+	    minItems: 2,
+	    maxItems: 4,
+	    asNavFor: '#news-slider'
+	  });
+	   
+	  $('#news-slider').flexslider({
+	    animation: "slide",
+	    controlNav: false,
+	    directionNav: false,
+	    animationLoop: false,
+	    slideshow: false,
+	    sync: "#news-carousel"
+	  });
+	});
+
+</script>
 
 </html>

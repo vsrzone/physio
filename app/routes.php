@@ -33,6 +33,7 @@ Route::get('members', function(){
 	return View::make('members.index');
 });
 
+
 //Route::controller('admin/user', 'UserController');
 
 Route::controller('admin/user', 'UserController');

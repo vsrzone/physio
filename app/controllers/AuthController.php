@@ -2,6 +2,11 @@
 
 class AuthController extends BaseController{
 
+	public function __construct() {
+		$this->beforeFilter('csrf', array('on' => 'post'));
+		$this->beforeFilter('guest', array('except' => array('getLogout', 'getIndex')));
+	}
+
 	//view login page
 	public function getLogin(){
 		return View::make('admin/login');
@@ -20,7 +25,7 @@ class AuthController extends BaseController{
 		if($validator->passes()){
 			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') )))
 			{
-			    return Redirect::to('admin/user');
+			    return Redirect::to('admin/index');
 			}
 
 			return Redirect::to('admin/login')
@@ -38,6 +43,10 @@ class AuthController extends BaseController{
 			Auth::logout();
 		}
 
+		return Redirect::to('admin/login');
+	}
+
+	public function getIndex(){
 		return Redirect::to('admin/login');
 	}
 }

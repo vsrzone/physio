@@ -67,7 +67,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check()) return View::make('admin.layouts.main');
 });
 
 /*
@@ -100,7 +100,7 @@ Route::filter('member', function(){
 
 //admin filter to protect admin areas
 Route::filter('admin', function(){
-	if(!Auth::check() || Auth::type() != 0 || Auth::type() != 1){
+	if(!Auth::check() || (Auth::user()->type != 1 && Auth::user()->type != 2)){
 		return Redirect::to('admin/login')
 			->with('message', 'The user account you have logged in has no authority to access!!!');
 	}
@@ -108,8 +108,10 @@ Route::filter('admin', function(){
 
 //admin filter to protect super_admin areas
 Route::filter('super_admin', function(){
-	if(!Auth::check() ||  Auth::type() != 1){
+	if(!Auth::check() ||  Auth::user()->type != 1){
 		return Redirect::to('admin/login')
 			->with('message', 'The user account you have logged in has no authority to access!!!');
 	}
 });
+
+
