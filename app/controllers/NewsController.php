@@ -3,7 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('allNews', 'allMembersOnlyNews', 'newsSearchByCategory', 'newsSearchById')));
+		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show')));
 		$this->beforeFilter('member', array('only'=>'allMembersOnlyNews'));
 	}
 
@@ -167,12 +167,13 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('news.id as news_id' ,'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select('news.id as news_id' , 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
 	        ->get();
 	   
 	    $request = Request::create('/categories', 'GET');
 	    $categories = Route::dispatch($request)->getContent();
 	    
+	    //return $news;
 		return View::make('news.index')
 			->with('news', $news)
 			->with('categories', $categories);
@@ -201,7 +202,7 @@ class NewsController extends BaseController{
 
 	//returns all news search by a category
 	public function newsSearchByCategory($id){
-		
+
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
 			->where('members_only', '=', 0)
@@ -212,13 +213,13 @@ class NewsController extends BaseController{
 			->select('title', 'news_date','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
-	    $request = Request::create('/categories', 'GET');
-	    $categories = Route::dispatch($request)->getContent();
+	   $request = Request::create('/categories', 'GET');
+	   $categories = Route::dispatch($request)->getContent();
 
-	    return View::make('news.index')
+		return View::make('news.index')
 			->with('news', $news)
 			->with('categories', $categories);
-	}
+}
 
 	//return contets of a requested news
 	public function show($id){
@@ -241,9 +242,13 @@ class NewsController extends BaseController{
 		    	}
 		    }  	    
 	    }
-	  
+	  $all_news = DB::table('news')
+	  				->select('id', 'title')
+	  				->get();
+
 	   return View::make('news.news')
 	   		->with('news', $news)
-	   		->with('images', $images);
+	   		->with('images', $images)
+	   		->with('all_news', $all_news);
 	}
 }
