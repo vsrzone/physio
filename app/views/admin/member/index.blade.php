@@ -4,11 +4,11 @@
 
 @if(Session::has('message'))
 
-	<p>{{ Session::get('message') }}</p>
+	<div class="alert alert-danger">{{ Session::get('message') }}</div>
 
 @endif
 
-<table border = "1">
+<table border = "1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
 		<th>User ID</th>
 		<th>Name</th>
@@ -46,7 +46,7 @@
 			{{ Form::open(array('url'=>'admin/member/edit')) }}
 
 				{{ Form::hidden('id', $member->id) }}
-				{{ Form::submit('Edit') }}
+				{{ Form::submit('Edit', array('class'=>'btn btn-info')) }}
 
 			{{ Form::close() }}
 		</td>
@@ -54,7 +54,7 @@
 			{{ Form::open(array('url'=>'admin/member/destroy')) }}
 
 				{{ Form::hidden('id', $member->id) }}
-				{{ Form::submit('Delete') }}
+				{{ Form::submit('Delete', array('class'=>'btn btn-danger')) }}
 
 			{{ Form::close() }}
 		</td>
