@@ -17,7 +17,7 @@
 			<ul>
 				@foreach($members as $member)
 				<li>
-					<p><img src="{{ url() }}/uploads/member/profile/{{$member->profile_picture}}" alt="{{$member->name}}" title="{{$member->name}}" /></p>
+					<p><a href="{{url()}}/members/{{$member->id}}"><img src="{{ url() }}/uploads/member/profile/{{$member->profile_picture}}" alt="{{$member->name}}" title="{{$member->name}}" /></a></p>
 					<p>{{$member->name}}</p>
 					<p>{{$member->concil_registration_no}}</p>
 					<p>{{$member->nic}}</p>
