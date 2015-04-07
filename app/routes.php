@@ -30,13 +30,20 @@ Route::get('contact', function(){
 });
 
 Route::get('members', function(){
-	return View::make('members.index');
+
+	$members = DB::table('members')
+					->select('name', 'nic', 'district', 'hospital')
+					->get();
+	 return View::make('members.index')
+	 	->with('members', $members);
 });
 
 
 //Route::controller('admin/user', 'UserController');
 
 Route::controller('admin/user', 'UserController');
+
+Route::get('member/all', 'MemberController@AllMembers');
 
 Route::controller('admin/member', 'MemberController');
 

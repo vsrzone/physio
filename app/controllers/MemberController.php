@@ -366,7 +366,7 @@ class MemberController extends BaseController{
 			->with('message', 'Cannot Delete the Member');
 	}
 
-	public function getDetails() {
+	public function AllMembers() {
 
 		$members = DB::table('members')
 					->select('name','concil_registration_no', 'district', 'hospital')
@@ -376,7 +376,7 @@ class MemberController extends BaseController{
        	return Response::json($members);
 	}
 
-	public function getNameandimage() {
+	public function Nameandimage() {
 
 		$id = Request::input('id');
 
@@ -388,7 +388,7 @@ class MemberController extends BaseController{
        	return Response::json($image_details);
 	}
 
-	public function getSearchbyname() {
+	public function Searchbyname() {
 
 		//$name = Input::get('name');
 		$name = strtolower(Request::input('name'));
