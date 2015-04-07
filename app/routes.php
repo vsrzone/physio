@@ -29,21 +29,11 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
-Route::get('members', function(){
-
-	$members = DB::table('members')
-					->select('name', 'nic', 'district', 'hospital')
-					->get();
-	 return View::make('members.index')
-	 	->with('members', $members);
-});
-
-
-//Route::controller('admin/user', 'UserController');
+Route::resource('members', 'WorkController');
 
 Route::controller('admin/user', 'UserController');
 
-Route::get('member/all', 'MemberController@AllMembers');
+Route::get('member', 'MemberController@AllMembers');
 
 Route::controller('admin/member', 'MemberController');
 
