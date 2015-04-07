@@ -19,7 +19,7 @@
 
 			<ul id="news-cat"> 
 				@foreach(json_decode($categories) as $category)
-				<li><p>{{ $category->name }}</p></li>
+				<li><a href="{{ url() }}/news/{{$category->id}}"><p>{{ $category->name }}</p></a></li>
 				@endforeach
 			</ul>
 		</div>

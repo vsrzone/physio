@@ -494,6 +494,8 @@ footer{
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	font-size: 0;
+	letter-spacing: 0;
 
 }
 
@@ -501,25 +503,20 @@ footer{
 	margin: 0;
 }
 
-#members-wrapper ul li p{
-	display: inline-block;
-	vertical-align: top;
-}
-
 #members-wrapper ul li p img{
 	width: 100px;
 	border: 1px solid #000;
+	margin-right: 20px;
 }
 
 #members-wrapper ul li{
-	width: 100%;
-	font-size: 0;
-	letter-spacing: 0;
+	width: 50%;
 	padding: 10px;
 	box-sizing: border-box;
+	display: inline-block;
 }
 
-#members-wrapper ul li:nth-child(odd){
+#members-wrapper ul li:nth-child(4n), #members-wrapper ul li:nth-child(4n+1){
 	background-color: #f4f4f4;
 }
 
@@ -527,11 +524,19 @@ footer{
 	font-size: 12px;
 }
 
-#members-wrapper ul li > p:nth-child(1){
-	width: 20%;
+#members-wrapper ul li:after{
+	content: '';
+	clear: both;
+	font-size: 1;
+	display: block;
 }
 
-#members-wrapper ul li > p:nth-child(2){
+
+#members-wrapper ul li > p:nth-child(1){
+	float: left;
+}
+
+/*#members-wrapper ul li > p:nth-child(2){
 	width: 20%;
 }
 
@@ -549,7 +554,7 @@ footer{
 
 #members-wrapper ul li > p:nth-child(6){
 	width: 10%;
-}
+}*/
 
 @media (max-width: 992px){
 	.page-wrapper{
