@@ -15,60 +15,17 @@
 	<div class="row">
 		<div class="col-xs-12" id="members-wrapper">
 			<ul>
+				@foreach($members as $member)
 				<li>
-					<p>Name</p>
-					<p>Picture</p>
-					<p>Registration No</p>
-					<p>NIC No</p>
-					<p>Hospital</p>
-					<p>District</p>
+					<p><img src="{{ url() }}/uploads/member/profile/{{$member->profile_picture}}" alt="{{$member->name}}" title="{{$member->name}}" /></p>
+					<p>{{$member->name}}</p>
+					<p>{{$member->concil_registration_no}}</p>
+					<p>{{$member->nic}}</p>
+					<p>{{$member->hospital}}</p>
+					<p>{{$member->district}}</p>
 				</li>
-				<li>
-					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
-					<p>Januka Harshan</p>
-					<p>N12345</p>
-					<p>74637382v</p>
-					<p>General Hospital Colombo</p>
-					<p>Dehiwala</p>
-				</li>
-				<li>
-					<p><img src="{{ url() }}/images/members/member2.jpg" alt="" title="" /></p>
-					<p>Kasun Withanage</p>
-					<p>N31274</p>
-					<p>74637382v</p>
-					<p>Lanka Hospital</p>
-					<p>Colombo 4</p>
-				</li>
-				<li>
-					<p><img src="{{ url() }}/images/members/member3.jpg" alt="" title="" /></p>
-					<p>Saman Kumara</p>
-					<p>N31274</p>
-					<p>74637382v</p>
-					<p>IDH</p>
-					<p>Angoda</p>
-				</li>
+				@endforeach
 			</ul>
-		</div>
-		<!-- <div class="col-xs-12 col-sm-3" id="member-info">
-			<h3>Jon <span id="member-second-name">Doe</span></h3>
-			<p>sub-heading</p>
-			<img src="{{ url() }}/images/members/member1.jpg" title="member1" alt="member1">
-			<div id="member-personal">
-				<p class="member-sub-heading">Phone<br/><span><a href="tel:+94723074931">+94 72 307 4931</a></span></p>
-				<p class="member-sub-heading">Email<br/><span>januka@ingenslk.com</span></p>
-				<p class="member-sub-heading">Address<br/><span>Lorem ipsum,<br/> Lorem, Ipsum 11000.</span></p>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-9" id="member-wrapper">
-			<div id="member-details">
-				<h3>Qualifications</h3>
-				<p>Bsc(Hons) Physiotherapy - University<br/>PhD Physiotherapy - Oxford University</p>
-				<h3>Registration Details</h3>
-				<p>Registration No: N31274</p>
-				<p>Hospital: General Hospital Colombo</p>
-				<p>NIC No: 74637382v</p>
-				<p>District : Dehiwala</p>
-			</div> -->
 		</div>
 	</div>
 </div>
