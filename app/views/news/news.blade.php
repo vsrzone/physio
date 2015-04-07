@@ -16,28 +16,14 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-3">
 			<h3>Overview</h3>
-
-			<ul id="news-cat"> 
-				@foreach(json_decode($categories) as $category)
-				<li><a href="{{ url() }}/news/{{$category->id}}"><p>{{ $category->name }}</p></a></li>
-				@endforeach
-			</ul>
+			<p>sadasdasd asdasd asdas dasd asd</p>
 		</div>
-		<div class="col-xs-12 col-md-9">
-			<ul id="news-content">
-				<li>
-					@foreach($news as $news_item)
-					<h3 class="">{{$news_item->title}}</h3>
-					<ul class="news-content-cat">
-						<li>{{$news_item->category_name}}</li>
-					</ul>
-					<img src="{{ url() }}/uploads/images/{{$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
-					<p>{{$news_item->content}}</p>
-					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
-					<p>{{$news_item->news_date}}</p>
-					@endforeach
-				</li><!-- end of news -->
-			</ul>
+		<div class="col-xs-12 col-md-9" id="news-wrapper">
+			<h3>{{$news[0]->title}}</h3>
+			<p>{{$news[0]->content}}</p>
+			@foreach($images as $image)
+			<img src="{{url()}}/uploads/images/{{$image->name}}" alt="{{$news[0]->title}}" title="{{$news[0]->title}}">
+			@endforeach
 		</div>
 	</div>
 </div>
