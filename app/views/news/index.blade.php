@@ -18,15 +18,16 @@
 			<h3>Overview</h3>
 
 			<ul id="news-cat"> 
+				<li><a href="{{url()}}/news"><p>All News</p></a></li>
 				@foreach(json_decode($categories) as $category)
-				<li><p>{{ $category->name }}</p></li>
+				<li><a href="{{url()}}/news/category/{{$category->id}}"><p>{{ $category->name }}</p></a></li>
 				@endforeach
 			</ul>
 		</div>
 		<div class="col-xs-12 col-md-9">
 			<ul id="news-content">
+				@foreach($news as $news_item)
 				<li>
-					@foreach($news as $news_item)
 					<h3 class="">{{$news_item->title}}</h3>
 					<ul class="news-content-cat">
 						<li>{{$news_item->category_name}}</li>
@@ -35,8 +36,8 @@
 					<p>{{$news_item->content}}</p>
 					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
 					<p>{{$news_item->news_date}}</p>
-					@endforeach
 				</li><!-- end of news -->
+				@endforeach
 			</ul>
 		</div>
 	</div>
