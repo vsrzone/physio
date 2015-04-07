@@ -10,13 +10,25 @@ class MemberController extends BaseController{
 	// show the page with all the members
 	public function getIndex() {
 
+		if(Auth::user()->type == 1){
+			$member = DB::table('members')
+				->leftJoin('users', 'users.member_id', '=', 'members.id')
+				->select('members.id','members.name', 'type','sex', 'nic', 'concil_registration_no', 'district')						
+		        ->paginate(10);
+
+			return View::make('admin.member.index')
+				->with('members', $member);
+		}
+
 		$member = DB::table('members')
 			->leftJoin('users', 'users.member_id', '=', 'members.id')
+			->where('type', '=', 3)
 			->select('members.id','members.name', 'type','sex', 'nic', 'concil_registration_no', 'district')						
 	        ->paginate(10);
 
 		return View::make('admin.member.index')
 			->with('members', $member);
+		
 	}
 
 	// show the member create view
