@@ -5,7 +5,7 @@
 	<div class="row">
 		<ul id="main-slider" class="col-xs-12">
 			<li>
-				<img src="images/slider1.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
+				<img src="{{ url() }}/images/slider1.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
 				<p>To enjoy the glow of good health, you must exercise</p>
 			</li>
 			<h1 id="breadcrumb">ABOUT US</h1>
