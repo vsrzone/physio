@@ -2,10 +2,10 @@
 
 @section('content')
 @if(Session::has('message'))
-	<div> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 
-<table border="1">
+<table border="1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
 		<th>News ID</th>
 		<th>News title</th>
@@ -21,11 +21,11 @@
 			<td> {{ $news->news_date }} </td>
 			{{Form::open(array('url'=>'admin/news/edit'))  }}
 			{{ Form::hidden('id', $news->id) }}
-			<td> {{ Form::submit('Edit') }} </td>
+			<td> {{ Form::submit('Edit', array('class'=>'btn btn-info')) }} </td>
 			{{ Form::close() }}
 			{{Form::open(array('url'=>'admin/news/destroy'))  }}
 			{{ Form::hidden('id', $news->id) }}
-			<td> {{ Form::submit('Delete') }} </td>
+			<td> {{ Form::submit('Delete', array('class'=>'btn btn-danger')) }} </td>
 			{{ Form::close() }}
 		</tr>
 	@endforeach

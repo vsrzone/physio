@@ -1,10 +1,10 @@
 @extends('admin.layouts.main')
 @section('content')
 @if(Session::has('message'))
-	<div> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 @if($errors->has())
-	<div>
+	<div class="alert alert-danger">
 	<ul>
 		@foreach($errors->all() as $error)			
 				<li> {{ $error }} </li>			
@@ -15,13 +15,14 @@
 {{ Form::open(array('url'=>'admin/news/create', 'files'=>true)) }}
 <div>Activate news: {{ Form::checkbox('active','', false, array('id'=> 'active')) }} </div>
 <div>Members only: {{ Form::checkbox('member','',false, array('id'=> 'member')) }} </div>
-<div>News Category: {{ Form::select('category_id', $categories,null, array('id'=>'category_id')) }} </div>
-<div>News date: {{ Form::text('date', '', array('id'=>'date')) }} </div>
-<div> News Title: {{ Form::text('title', '', array('id'=>'title')) }} </div>
-<div>Content: {{ Form::textarea('content','', array('id'=>'content')) }} </div>
-<div> {{ Form::button('Add News', array('id'=>'add_news')) }} </div>
+<div>News Category: {{ Form::select('category_id', $categories,null, array('id'=>'category_id', 'class'=>'form-control')) }} </div>
+<div>News date: {{ Form::text('date', '', array('id'=>'date', 'class'=>'form-control')) }} </div>
+<div> News Title: {{ Form::text('title', '', array('id'=>'title', 'class'=>'form-control')) }} </div>
+<div>Content: {{ Form::textarea('content','', array('id'=>'content', 'class'=>'form-control')) }} </div>
+
 <div> {{ Form::file('files', array('id'=>'news_images', 'multiple', 'accept'=>'image/jpeg')) }} </div>
 <div id="displayArea1"></div>
+<div> {{ Form::button('Add News', array('id'=>'add_news', 'class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
 <script type="text/javascript" src="{{url()}}/js/admin/photos.js"></script>

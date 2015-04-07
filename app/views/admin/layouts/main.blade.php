@@ -2,23 +2,10 @@
 <html lang="en">
 
 	<head>
-<<<<<<< HEAD
+
 		<meta charset="utf-8">
 
-		<link href="{{URL::to('/')}}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	    <!-- MetisMenu CSS -->
-	    <link href="{{URL::to('/')}}/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-	    <!-- Custom CSS -->
-	    <link href="{{URL::to('/')}}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
-
-	    <!-- Custom Fonts -->
-	    <link href="{{URL::to('/')}}/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-		<title>Physio - Admin panel</title>  	
-=======
-		<title>Physio - Admin panel</title> 
+		<title>Physio - Admin panel</title>  			
 
 	<link href="{{URL::to('/')}}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -64,7 +51,7 @@
 					          	{{ Form::hidden('id', Auth::user()->member_id)}}
 					        	{{ Form::close() }}
 				            </li>
-				            {{ Form::open(array('url' => 'admin/logout')) }}
+				            {{ Form::open(array('url' => 'admin/logout', 'method'=>'GET')) }}
 				            <li><div id="logout_button" onclick="document.forms[1].submit()" style="cursor:pointer;"><i class="fa fa-sign-out fa-fw"></i> Logout</div>
 				        		{{ Form::close() }}
 				            </li>
@@ -129,7 +116,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>
                     <div class = "row-fluid content">
-                    	<div class="container">
+                    	<div class="flex-container">
 	                    	<div class="row">
 				        		@yield('content')
 					    	</div>
@@ -155,12 +142,4 @@
 	    <!-- Custom Theme JavaScript -->
 	    <script src="{{URL::to('/')}}/resources/dist/js/sb-admin-2.js"></script>
 	</body>
-
-	<h1>Physio</h1>
-	<div class="container">
-		<div class="row">
-			@yield('content')
-		</div>		
-	</div>
-
 </html>

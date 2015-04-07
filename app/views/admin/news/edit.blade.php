@@ -1,10 +1,10 @@
 @extends('admin.layouts.main')
 @section('content')
 @if(Session::has('message'))
-	<div> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 @if($errors->has())
-	<div>
+	<div class="alert alert-danger">
 	<ul>
 		@foreach($errors->all() as $error)			
 				<li> {{ $error }} </li>			
@@ -24,20 +24,21 @@
 	<div>Members only: {{ Form::checkbox('member') }} </div>
 @endif
 
-<div>News Category: {{ Form::select('category_id', $categories, $news->category_id) }} </div>
+<div>News Category: {{ Form::select('category_id', $categories, $news->category_id, array('class'=>'form-control')) }} </div>
 {{ Form::hidden('id', $news->id) }}
-<div>News date: {{ Form::text('date', $news->news_date) }} </div>
-<div> News Title: {{ Form::text('title', $news->title) }} </div>
-<div>Content: {{ Form::textarea('content', $news->content) }} </div>
-<div> {{ Form::submit('Save changes') }} </div>
+<div>News date: {{ Form::text('date', $news->news_date, array('class'=>'form-control')) }} </div>
+<div> News Title: {{ Form::text('title', $news->title, array('class'=>'form-control')) }} </div>
+<div>Content: {{ Form::textarea('content', $news->content, array('class'=>'form-control')) }} </div>
+<div> {{ Form::submit('Save changes', array('class'=>'btn btn-default')) }} 
 
 {{ Form::close() }}
-{{ Form::open(array('url'=>'admin/image/create', 'method'=>'GET')) }}
+{{ Form::open(array('url'=>'admin/image/create', 'method'=>'GET', 'style'=>'display:inline')) }}
 {{ Form::hidden('id', $news->id) }}
-<div> {{ Form::submit('Add more images') }} </div>
+ {{ Form::submit('Add more images', array('class'=>'btn btn-outline btn-success')) }} 
 {{ Form::close() }}
-{{ Form::open(array('url'=>'admin/image/edit', 'method'=>'GET')) }}
+{{ Form::open(array('url'=>'admin/image/edit', 'method'=>'GET', 'style'=>'display:inline')) }}
 {{ Form::hidden('id', $news->id) }}
-<div> {{ Form::submit('Delete existing images') }} </div>
+ {{ Form::submit('Delete existing images', array('class'=>'btn btn-outline btn-warning')) }}
+</div>
 {{ Form::close() }}
 @stop
