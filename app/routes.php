@@ -33,8 +33,6 @@ Route::resource('members', 'WorkController');
 
 Route::controller('admin/user', 'UserController');
 
-Route::get('member', 'MemberController@AllMembers');
-
 Route::controller('admin/member', 'MemberController');
 
 //route to category controller
