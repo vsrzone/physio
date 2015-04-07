@@ -203,12 +203,13 @@ class NewsController extends BaseController{
 	public function newsSearchByCategory($id){
 		
 		$news = DB::table('news')
+			->join('categories', 'news.category_id', '=', 'categories.id')
 			->where('members_only', '=', 0)
 			->join('images', 'news.id', '=', 'images.news_id')
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
 			->orderby('news_date', 'DESC')
-			->select('title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select('title', 'news_date','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
 	    $request = Request::create('/categories', 'GET');
