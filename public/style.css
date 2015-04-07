@@ -536,25 +536,17 @@ footer{
 	float: left;
 }
 
-/*#members-wrapper ul li > p:nth-child(2){
+/* individual news page */
+
+#news-wrapper{
+	
+}
+
+#news-wrapper img{
 	width: 20%;
+	padding: 10px;
+	display: inline-block;
 }
-
-#members-wrapper ul li > p:nth-child(3){
-	width: 10%;
-}
-
-#members-wrapper ul li > p:nth-child(4){
-	width: 10%;
-}
-
-#members-wrapper ul li > p:nth-child(5){
-	width: 30%;
-}
-
-#members-wrapper ul li > p:nth-child(6){
-	width: 10%;
-}*/
 
 @media (max-width: 992px){
 	.page-wrapper{

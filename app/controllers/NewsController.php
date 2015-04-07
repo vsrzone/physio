@@ -229,7 +229,7 @@ class NewsController extends BaseController{
 	    $images = DB::table('images')
 	    			->where('news_id', '=', $id)
 	    			->select('name')
-	    			->get();		
+	    			->get();	
 	    if($news){
 	    	if($news[0]->members_only == 1){
 		    	if(Auth::check()){
