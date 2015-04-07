@@ -226,7 +226,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)				
 			->select('title', 'news_date', 'members_only', 'content')						
 	        ->get();
-	    $image = DB::table('images')
+	    $images = DB::table('images')
 	    			->where('news_id', '=', $id)
 	    			->select('name')
 	    			->get();		
@@ -240,9 +240,13 @@ class NewsController extends BaseController{
 		    	}
 		    }  	    
 	    }
-	  
+	  $all_news = DB::table('news')
+	  				->select('id', 'title')
+	  				->get();
+
 	   return View::make('news.news')
 	   		->with('news', $news)
-	   		->with('images', $images);
+	   		->with('images', $images)
+	   		->with('all_news', $all_news);
 	}
 }
