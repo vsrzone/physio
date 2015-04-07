@@ -22,7 +22,23 @@
 			<div id="member-personal">
 				<p class="member-sub-heading">Phone<br/><span><a href="tel:+94723074931">{{$member[0]->tp1}}</a></span></p>
 				<p class="member-sub-heading">Email<br/><span>{{$member[0]->email}}</span></p>
-				<p class="member-sub-heading">Address<br/><span>{{$address_line1}}<br/>{{$address_line2}}</span></p>
+				<p class="member-sub-heading">Address<br/>
+				<span>
+					<?php
+						for ($i=0; $i <= sizeof($address)-1; $i++) { 
+							if($i === sizeof($address)-1) {
+
+								echo $address[$i]."<br>";
+							}
+							
+							else {
+
+								echo $address[$i].",<br>";
+							}
+						}
+					?>
+
+				</span></p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-9" id="member-wrapper">

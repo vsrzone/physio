@@ -53,20 +53,12 @@ class WorkController extends BaseController {
 
 			$first_name = $name_arr[0];
 		}
-		
 
 		// seperating address
 		$address_line1 = $address_line2 = '';
 		if($member[0]->address) {
 
 			$address_arr = explode(',',$member[0]->address);
-
-			// $address_line1 = $address_arr[0];
-
-			// if(isset($address_arr[1])) {
-			// 	unset($address_arr[0]);
-			// 	$address_line2 = implode(',', $address_arr);
-			// }
 		}
 		
 		return View::make('members.member')
@@ -74,26 +66,5 @@ class WorkController extends BaseController {
 	 		->with('first_name', $first_name)
 	 		->with('last_name', $last_name)
 	 		->with('address', $address_arr);
-	 		//->with('address_line2', $address_line2);
 	}
-
-	// public function search($field, $value) {
-
-	// 	$details = DB::table('members')
-	// 				->select('name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
-	// 				->where($field, '=', $value)
-	// 				->get();
-	// 	return Response::json($details);
-	// }
-
-	// public function test($field) {
-	// 	var_dump($field);
-	// 	die();
-
-	// 	// $details = DB::table('members')
-	// 	// 			->select('name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
-	// 	// 			->where($field, '=', $value)
-	// 	// 			->get();
-	// 	// return Response::json($details);
-	// }
 }
