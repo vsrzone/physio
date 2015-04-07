@@ -25,17 +25,21 @@
 				<p class="member-sub-heading">Address<br/>
 				<span>
 					<?php
-						for ($i=0; $i <= sizeof($address)-1; $i++) { 
-							if($i === sizeof($address)-1) {
+						if($address) {
 
-								echo $address[$i]."<br>";
-							}
-							
-							else {
+							for ($i=0; $i <= sizeof($address)-1; $i++) { 
+								if($i === sizeof($address)-1) {
 
-								echo $address[$i].",<br>";
+									echo $address[$i]."<br>";
+								}
+								
+								else {
+
+									echo $address[$i].",<br>";
+								}
 							}
 						}
+						
 					?>
 
 				</span></p>

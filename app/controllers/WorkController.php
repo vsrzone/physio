@@ -55,7 +55,7 @@ class WorkController extends BaseController {
 		}
 
 		// seperating address
-		$address_line1 = $address_line2 = '';
+		$address_arr = array();
 		if($member[0]->address) {
 
 			$address_arr = explode(',',$member[0]->address);
