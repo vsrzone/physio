@@ -347,13 +347,13 @@ class MemberController extends BaseController{
 
 				$profile_target = "uploads/member/profile/".$pro_pic;
 			
-				if(file_exists($profile_target)){
+				if(file_exists($profile_target) && ($pro_pic !== 'default_female' || $pro_pic !== 'default_male')){
 					unlink($profile_target);
 				}
 
 				$cover_target = "uploads/member/cover/".$cover_pic;
 			
-				if(file_exists($cover_target)){
+				if(file_exists($cover_target) && ($pro_pic !== 'default_cover')){
 					unlink($cover_target);
 				}
 
