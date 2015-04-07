@@ -3,7 +3,7 @@ class CategoryController extends BaseController {
 
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('getAllcategories')));
+		$this->beforeFilter('admin', array('except' => array('allCategories')));
 	}
 
 	//views create page
@@ -89,10 +89,9 @@ class CategoryController extends BaseController {
 
 
 	// returns all available categories
-	public function getAllcategories(){
-		$category = DB::table('categories')->select('id', 'name')->get();
+	public function allCategories(){
+		$category = DB::table('categories')->select('id', 'name')->get();		
 		
-		
-		return json_encode($category);
+		return $category;
 	}
 }
