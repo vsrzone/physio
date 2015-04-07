@@ -31,7 +31,7 @@
 		@elseif($member->type == '2')
 			<td>Admin</td>
 		@elseif($member->type == '3')
-			<td>Admin</td>
+			<td>Member</td>
 		@endif
 
 		@if($member->sex == '0')
