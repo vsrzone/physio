@@ -3,7 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('allNews', 'allMembersOnlyNews')));
+		$this->beforeFilter('admin', array('except' => array('allNews', 'allMembersOnlyNews', 'newsSearchByCategory', 'newsSearchById')));
 		$this->beforeFilter('member', array('only'=>'allMembersOnlyNews'));
 	}
 
@@ -166,12 +166,16 @@ class NewsController extends BaseController{
 			->join('images', 'news.id', '=', 'images.news_id')
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
-			->orderby('news_date')
+			->orderby('news_date', 'DESC')
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
-
+	   
+	    $request = Request::create('/categories', 'GET');
+	    $categories = Route::dispatch($request)->getContent();
+	    
 		return View::make('news.index')
-			->with('news', $news);
+			->with('news', $news)
+			->with('categories', $categories);
 	}
 
 
@@ -183,28 +187,57 @@ class NewsController extends BaseController{
 			->join('images', 'news.id', '=', 'images.news_id')
 			->where('members_only', '=', 1)
 			->where('active', '=', 1)
-			->orderby('news_date')
+			->orderby('news_date', 'DESC')
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
+	    $request = Request::create('/categories', 'GET');
+	    $categories = Route::dispatch($request)->getContent();
+
 		return View::make('news.index')
-			->with('news', $news);
+			->with('news', $news)
+			->with('categories', $categories);
 	}
 
 	//returns all news search by a category
-	public function getNewssearchbycategory(){
-		$id = 1;  //pass category id here
-
+	public function newsSearchByCategory($id){
+		
 		$news = DB::table('news')
 			->where('members_only', '=', 0)
 			->join('images', 'news.id', '=', 'images.news_id')
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
-			->orderby('news_date')
+			->orderby('news_date', 'DESC')
 			->select('title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
-	    return json_encode($news);
+	    $request = Request::create('/categories', 'GET');
+	    $categories = Route::dispatch($request)->getContent();
+
+	    return View::make('news.index')
+			->with('news', $news)
+			->with('categories', $categories);
 	}
 
+	//return contets of a requested news
+	public function newsSearchById($id){
+		$news = DB::table('news')
+			->where('news.id', '=', $id)
+			->where('active', '=', 1)
+			->join('images', 'news.id', '=', 'images.news_id')			
+			->select('title', 'news_date', 'members_only', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+	        ->get();
+	    if($news){
+	    	if($news[0]->members_only == 1){
+		    	if(Auth::check()){
+		    		return $news;
+		    	}else{
+		    		return Redirect::to('member/login')
+		    			->with('message', 'Please login to see the news');
+		    	}
+		    }  	    
+	    }
+
+	   return $news;
+	}
 }
