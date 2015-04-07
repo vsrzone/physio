@@ -16,9 +16,10 @@ class WorkController extends BaseController {
 
 			$details = DB::table('members')
 					->select('id', 'name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
-					->where($field, '=', $value)
+					->where($field, 'LIKE', '%'.$value.'%')
 					->get();
-			return Response::json($details);
+			return View::make('members.index')
+	 			->with('members', $details);
 		}
 
 		$members = DB::table('members')

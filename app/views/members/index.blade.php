@@ -26,6 +26,14 @@
 				</li>
 				@endforeach
 			</ul>
+
+			{{ Form::open(array('url' => 'members', 'method' => 'GET')) }}
+			{{ Form::label('User Type')}}
+			{{ Form::select('field', array('name'=>'Name', 'hospital'=>'Hospital', 'concil_registration_no'=>'Registration No', 'district'=>'District')) }}
+			{{ Form::text('value') }}
+			{{ Form::submit('Search') }}
+	    	
+			{{ Form::close() }}
 		</div>
 	</div>
 </div>
