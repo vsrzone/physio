@@ -159,7 +159,7 @@ class NewsController extends BaseController{
 	}
 
 	//returns all the public news
-	public function allNews(){
+	public function index(){
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
@@ -220,7 +220,7 @@ class NewsController extends BaseController{
 	}
 
 	//return contets of a requested news
-	public function newsSearchById($id){
+	public function show($id){
 		$news = DB::table('news')
 			->where('news.id', '=', $id)
 			->where('active', '=', 1)

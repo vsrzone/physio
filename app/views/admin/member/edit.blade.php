@@ -6,22 +6,22 @@
 
 {{ Form::hidden('id', $member->id) }}
 {{ Form::label('Name')}}
-{{ Form::text('name', $member->name) }}
+{{ Form::text('name', $member->name, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Email')}}
-{{ Form::text('email', $user->email) }}
+{{ Form::email('email', $user->email, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Password')}}
-{{ Form::password('password') }}
+{{ Form::password('password', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('User Type')}}
-{{ Form::select('type', array('1'=>'Super Admin', '2'=>'Admin', '3'=>'Member'), $user->type) }}
+{{ Form::select('type', array('1'=>'Super Admin', '2'=>'Admin', '3'=>'Member'), $user->type, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('NIC')}}
-{{ Form::text('nic', $member->nic) }}
+{{ Form::text('nic', $member->nic, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Concil Registration No')}}
-{{ Form::text('council_reg_no', $member->concil_registration_no) }}
+{{ Form::text('council_reg_no', $member->concil_registration_no, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Gender')}}
 @if ($member->sex == 0)
@@ -58,44 +58,45 @@
 	'Ratnapura'=>'Ratnapura',
 	'Trincomalee'=>'Trincomalee',
 	'Vavuniya'=>'Vavuniya'
-	), $member->district) }}
+	), $member->district, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Hospital')}}
-{{ Form::text('hospital', $member->hospital) }}
+{{ Form::text('hospital', $member->hospital, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Address')}}
-{{ Form::text('address', $member->address) }}
+{{ Form::text('address', $member->address, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 1')}}
-{{ Form::text('tp1', $member->tp1) }}
+{{ Form::text('tp1', $member->tp1, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 2')}}
-{{ Form::text('tp2', $member->tp2) }}
+{{ Form::text('tp2', $member->tp2, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 3')}}
-{{ Form::text('tp3', $member->tp3) }}
+{{ Form::text('tp3', $member->tp3, array('class'=>'form-control')) }}
 <br>
+<div class="form-group">
 {{ Form::label('Profile Picture')}}
 {{ Form::file('pro_pic_upload', array('id'=>'pro_pic_upload')) }}
 {{ Form::hidden('pro_pic', null, array('id'=>'pro_pic'))}}
-<br>
-<div id = "profile_pic"></div>
+</div>
+<div id = "profile_pic" class="form-group"></div>
 {{ Form::label('Cover Photo')}}
 {{ Form::file('cover_pic_upload', array('id'=>'cover_pic_upload')) }}
 {{ Form::hidden('cover_pic', null, array('id'=>'cover_pic'))}}
 <br>
 <div id = "cov_pic"></div>
 {{ Form::label('Description')}}
-{{ Form::textarea('description', $member->description) }}
+{{ Form::textarea('description', $member->description, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Qualifications')}}
-{{ Form::text('qualifications', $member->qualifications) }}
+{{ Form::text('qualifications', $member->qualifications, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Experience')}}
-{{ Form::text('experience', $member->experience) }}
+{{ Form::text('experience', $member->experience, array('class'=>'form-control')) }}
 <br>
 
-{{ Form::submit('Submit')}}
+{{ Form::submit('Submit', array('class'=>'btn btn-default'))}}
 
 {{ Form::close() }}
 

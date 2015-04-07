@@ -4,29 +4,39 @@
 
 @if(Session::has('message'))
 
-	<p>{{ Session::get('message') }}</p>
+	<div class="alert alert-danger">{{ Session::get('message') }}</div>
 
 @endif
+@if($errors->has())
+	<div class="alert alert-danger">
+		<p> The following errors has occurred:</p>
 
+		<ul>
+			@foreach($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 {{ Form::open(array('url'=>'admin/member/create', 'files'=>true)) }}
 
 {{ Form::label('Name')}}
-{{ Form::text('name') }}
+{{ Form::text('name', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Email')}}
-{{ Form::text('email') }}
+{{ Form::email('email', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Password')}}
-{{ Form::password('password') }}
+{{ Form::password('password', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('User Type')}}
-{{ Form::select('type', array('1'=>'Super Admin', '2'=>'Admin', '3'=>'Member')) }}
+{{ Form::select('type', array('1'=>'Super Admin', '2'=>'Admin', '3'=>'Member'),null, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('NIC')}}
-{{ Form::text('nic') }}
+{{ Form::text('nic', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Concil Registration No')}}
-{{ Form::text('council_reg_no') }}
+{{ Form::text('council_reg_no', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Gender')}}
 {{ Form::radio('sex', '0') }} Male {{ Form::radio('sex', '1') }} Female
@@ -58,58 +68,48 @@
 	'Ratnapura'=>'Ratnapura',
 	'Trincomalee'=>'Trincomalee',
 	'Vavuniya'=>'Vavuniya'
-	)) }}
+	),null, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Hospital')}}
-{{ Form::text('hospital') }}
+{{ Form::text('hospital', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Address')}}
-{{ Form::text('address') }}
+{{ Form::text('address', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 1')}}
-{{ Form::text('tp1') }}
+{{ Form::text('tp1', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 2')}}
-{{ Form::text('tp2') }}
+{{ Form::text('tp2', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 3')}}
-{{ Form::text('tp3') }}
-<br>
+{{ Form::text('tp3', '', array('class'=>'form-control')) }}
+<div class="form-group">
 {{ Form::label('Profile Picture')}}
 {{ Form::file('pro_pic_upload', array('id'=>'pro_pic_upload', 'accept'=>'image/jpeg')) }}
 {{ Form::hidden('pro_pic', null, array('id'=>'pro_pic'))}}
-<br>
-<div id = "profile_pic"></div>
+</div>
+
+<div id = "profile_pic" class="form-group"></div>
 {{ Form::label('Cover Photo')}}
 {{ Form::file('cover_pic_upload', array('id'=>'cover_pic_upload', 'accept'=>'image/jpeg')) }}
 {{ Form::hidden('cover_pic', null, array('id'=>'cover_pic'))}}
 <br>
 <div id = "cov_pic"></div>
 {{ Form::label('Description')}}
-{{ Form::textarea('description') }}
+{{ Form::textarea('description', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Qualifications')}}
-{{ Form::text('qualifications') }}
+{{ Form::text('qualifications', '', array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Experience')}}
-{{ Form::text('experience') }}
+{{ Form::text('experience', '', array('class'=>'form-control')) }}
 <br>
 
-{{ Form::submit('Submit')}}
+{{ Form::submit('Submit', array('class'=>'btn btn-default'))}}
 
 {{ Form::close() }}
 
-@if($errors->has())
-	<div>
-		<p> The following errors has occurred:</p>
-
-		<ul>
-			@foreach($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-@endif
 
 <script type="text/javascript" src="{{url()}}/js/admin/pictures.js"></script>
 <script type="text/javascript" src="{{url()}}/js/admin/member.js"></script>

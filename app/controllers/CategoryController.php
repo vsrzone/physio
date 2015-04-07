@@ -58,15 +58,22 @@ class CategoryController extends BaseController {
 	}
 
 	//update function
-	public function postUpdate(){		
-		$category = Category::find(Input::get('id'));
+	public function postUpdate(){
 
-		if($category){
-			$category->name = Input::get('name');
-			$category->save();
+	$validator = Validator::make(Input::all(), Category::$rules);
+		if($validator->passes()){		
+			$category = Category::find(Input::get('id'));
+
+			if($category){
+				$category->name = Input::get('name');
+				$category->save();
+
+				return Redirect::to('admin/category/index')
+					->with('message', 'Category details updated successfully!!!');
+			}
 
 			return Redirect::to('admin/category/index')
-				->with('message', 'Category details updated successfully!!!');
+				->with('message', 'Something went wrong. Please try again');
 		}
 
 		return Redirect::to('admin/category/index')
