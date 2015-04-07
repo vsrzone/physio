@@ -93,7 +93,7 @@ Route::filter('csrf', function()
 //member filter to protect member areas
 Route::filter('member', function(){
 	if(!Auth::check()){
-		return Redirect::to('admin/login')
+		return Redirect::to('member/login')
 			->with('message', 'Please login to continue!!!');
 	}
 });

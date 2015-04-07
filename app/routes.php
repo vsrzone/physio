@@ -21,9 +21,9 @@ Route::get('about', function()
 	return View::make('about.index');
 });
 
-Route::get('news', function(){
-	return View::make('news.index');
-});
+// Route::get('news', function(){
+// 	return View::make('news.index');
+// });
 
 Route::get('contact', function(){
 	return View::make('contact.index');
@@ -52,4 +52,11 @@ Route::controller('admin/image', 'ImageController');
 //routes to auth controller
 Route::controller('admin', 'AuthController');
 
+//routes to auth controller
+Route::get('member/login', 'AuthController@getLogin');
 
+//route to get all news
+Route::get('news', 'NewsController@allNews');
+
+//route to get all members only news
+Route::get('news/member', 'NewsController@allMembersOnlyNews');

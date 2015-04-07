@@ -3,7 +3,8 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('getAllnews')));
+		$this->beforeFilter('admin', array('except' => array('allNews', 'allMembersOnlyNews')));
+		$this->beforeFilter('member', array('only'=>'allMembersOnlyNews'));
 	}
 
 	//views create page
@@ -158,7 +159,7 @@ class NewsController extends BaseController{
 	}
 
 	//returns all the public news
-	public function getAllnews(){
+	public function allNews(){
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
@@ -169,12 +170,13 @@ class NewsController extends BaseController{
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
-		return json_encode($news);
+		return View::make('news.index')
+			->with('news', $news);
 	}
 
 
 	//returns all the public news
-	public function getAllmembersonlynews(){
+	public function allMembersOnlyNews(){
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
@@ -185,7 +187,8 @@ class NewsController extends BaseController{
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 
-		return json_encode($news);
+		return View::make('news.index')
+			->with('news', $news);
 	}
 
 	//returns all news search by a category
