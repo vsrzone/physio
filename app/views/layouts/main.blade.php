@@ -6,7 +6,7 @@
 	<title>Physiotherapy Association</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,600,400,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/style.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/flexslider.css">

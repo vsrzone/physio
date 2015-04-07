@@ -24,38 +24,29 @@
 					<p>District</p>
 				</li>
 				<li>
-					<p>Jon Doe</p>
 					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
-					<p>N31274</p>
+					<p>Januka Harshan</p>
+					<p>N12345</p>
 					<p>74637382v</p>
-					<p>General Hospital Colomboasdasdasdasdasd</p>
+					<p>General Hospital Colombo</p>
 					<p>Dehiwala</p>
 				</li>
 				<li>
-					<p>Jon Doe</p>
-					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p><img src="{{ url() }}/images/members/member2.jpg" alt="" title="" /></p>
+					<p>Kasun Withanage</p>
 					<p>N31274</p>
 					<p>74637382v</p>
-					<p>General Hospital Colomboasdasdasdasdasd</p>
-					<p>Dehiwala</p>
+					<p>Lanka Hospital</p>
+					<p>Colombo 4</p>
 				</li>
 				<li>
-					<p>Jon Doe</p>
-					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
+					<p><img src="{{ url() }}/images/members/member3.jpg" alt="" title="" /></p>
+					<p>Saman Kumara</p>
 					<p>N31274</p>
 					<p>74637382v</p>
-					<p>General Hospital Colomboasdasdasdasdasd</p>
-					<p>Dehiwala</p>
+					<p>IDH</p>
+					<p>Angoda</p>
 				</li>
-				<li>
-					<p>Jon Doe</p>
-					<p><img src="{{ url() }}/images/members/member1.jpg" alt="" title="" /></p>
-					<p>N31274</p>
-					<p>74637382v</p>
-					<p>General Hospital Colomboasdasdasdasdasd</p>
-					<p>Dehiwala</p>
-				</li>
-
 			</ul>
 		</div>
 		<!-- <div class="col-xs-12 col-sm-3" id="member-info">
