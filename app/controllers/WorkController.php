@@ -33,12 +33,13 @@ class WorkController extends BaseController {
 	public function show($id)
 	{
 		$member = DB::table('members')
-					->select('name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
-					->where('id', '=', $id)
+					->leftJoin('users', 'users.member_id', '=', 'members.id')
+					->select('name', 'concil_registration_no', 'nic', 'district', 'hospital', 'tp1', 'address', 'qualifications', 'profile_picture','email','cover_picture')
+					->where('members.id', '=', $id)
 					->get();
-		return Response::json($member);
-		// return View::make('members.single')
-	 // 		->with('members', $member);
+		
+		return View::make('members.member')
+	 		->with('member', $member);
 	}
 
 	// public function search($field, $value) {
