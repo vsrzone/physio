@@ -39,6 +39,7 @@ class AuthController extends BaseController{
 
 	//logout function
 	public function getLogout(){
+		
 		if(Auth::check()){
 			Auth::logout();
 		}
