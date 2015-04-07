@@ -3,7 +3,7 @@ class CategoryController extends BaseController {
 
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin');
+		$this->beforeFilter('admin', array('except' => array('getAllcategories')));
 	}
 
 	//views create page
@@ -85,5 +85,14 @@ class CategoryController extends BaseController {
 
 		return Redirect::to('admin/category/index')
 			->with('message', 'Smething went wrong. Please try again.');
+	}
+
+
+	// returns all available categories
+	public function getAllcategories(){
+		$category = DB::table('categories')->select('id', 'name')->get();
+		
+		
+		return json_encode($category);
 	}
 }
