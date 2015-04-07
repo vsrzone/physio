@@ -37,9 +37,36 @@ class WorkController extends BaseController {
 					->select('name', 'concil_registration_no', 'nic', 'district', 'hospital', 'tp1', 'address', 'qualifications', 'profile_picture','email','cover_picture')
 					->where('members.id', '=', $id)
 					->get();
+
+		// seperating first_name and last_name
+		$name_arr = explode(' ',$member[0]->name);
+
+		$last_name = $name_arr[sizeof($name_arr)-1];
+		if($member[0]->name === $last_name) {
+			$last_name = '';
+		}
+
+		$first_name = $name_arr[0];
+
+		// seperating address
+		if($member[0]->address) {
+
+			
+		}
+		$address_arr = explode(',',$member[0]->address);
+
+		$address_line2 = $address_arr[1];
+
+		if($member[0]->address === $addres_line2) {
+			$address_line2 = '';
+		}
+
+		$address_line1 = $addres_arr[0];
 		
 		return View::make('members.member')
-	 		->with('member', $member);
+	 		->with('member', $member)
+	 		->with('first_name', $first_name)
+	 		->with('last_name', $last_name);
 	}
 
 	// public function search($field, $value) {
