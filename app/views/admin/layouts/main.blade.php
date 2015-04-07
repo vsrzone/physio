@@ -2,6 +2,7 @@
 <html lang="en">
 
 	<head>
+
 		<meta charset="utf-8">
 
 		<link href="{{URL::to('/')}}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,12 +13,11 @@
 	    <!-- Custom CSS -->
 	    <link href="{{URL::to('/')}}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
 
-	    <!-- Custom Fonts -->
-	    <link href="{{URL::to('/')}}/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<meta charset="utf-8">
+
 
 		<title>Physio - Admin panel</title>  	
-
- 	
 
 	</head>
 	<body>
@@ -52,6 +52,7 @@
 					        	{{ Form::close() }}
 				            </li>
 				            {{ Form::open(array('url' => 'admin/logout', 'method' => 'GET')) }}
+
 				            <li><div id="logout_button" onclick="document.forms[1].submit()" style="cursor:pointer;"><i class="fa fa-sign-out fa-fw"></i> Logout</div>
 				        		{{ Form::close() }}
 				            </li>
@@ -116,7 +117,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>
                     <div class = "row-fluid content">
-                    	<div class="container">
+                    	<div class="flex-container">
 	                    	<div class="row">
 				        		@yield('content')
 					    	</div>

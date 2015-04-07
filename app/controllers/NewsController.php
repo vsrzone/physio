@@ -223,10 +223,13 @@ class NewsController extends BaseController{
 	public function show($id){
 		$news = DB::table('news')
 			->where('news.id', '=', $id)
-			->where('active', '=', 1)
-			->join('images', 'news.id', '=', 'images.news_id')			
-			->select('title', 'news_date', 'members_only', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->where('active', '=', 1)				
+			->select('title', 'news_date', 'members_only', 'content')						
 	        ->get();
+	    $image = DB::table('images')
+	    			->where('news_id', '=', $id)
+	    			->select('name')
+	    			->get();		
 	    if($news){
 	    	if($news[0]->members_only == 1){
 		    	if(Auth::check()){
@@ -237,7 +240,9 @@ class NewsController extends BaseController{
 		    	}
 		    }  	    
 	    }
-
-	   return $news;
+	  
+	   return View::make('news.news')
+	   		->with('news', $news)
+	   		->with('images', $images);
 	}
 }
