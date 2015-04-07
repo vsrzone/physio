@@ -15,9 +15,10 @@
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
 		<div class="col-xs-12 col-sm-3" id="member-info">
-			<h3>{{$member[0]->name}} <span id="member-second-name">Doe</span></h3>
+			@
+			<h3>{{$first_name}} <span id="member-second-name">{{$last_name}}</span></h3>
 			<p>sub-heading</p>
-			<img src="{{ url() }}/uploads/member/profile/{{$member[0]->profile_picture}}" title="{{$member[0]->name}}" alt="{{$member[0]->name}}">
+			<img src="{{ url() }}/uploads/member/profile/{{$member[0]->profile_picture}}" title="{{$first_name}}" alt="{{$first_name}}">
 			<div id="member-personal">
 				<p class="member-sub-heading">Phone<br/><span><a href="tel:+94723074931">{{$member[0]->tp1}}</a></span></p>
 				<p class="member-sub-heading">Email<br/><span>{{$member[0]->email}}</span></p>
