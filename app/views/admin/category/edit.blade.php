@@ -1,10 +1,10 @@
 @extends('admin.layouts.main')
 @section('content')
 @if(Session::has('message'))
-	<div> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 @if($errors->has())
-	<div>
+	<div class="alert alert-danger">
 	<ul>
 		@foreach($errors->all() as $error)			
 				<li> {{ $error }} </li>			
@@ -13,9 +13,9 @@
 </div>
 @endif
 {{ Form::open(array('url'=>'admin/category/update')) }}
-<div> Category name: {{ Form::text('name', $category->name) }} </div>
+<div> Category name: {{ Form::text('name', $category->name, array('class'=>'form-control')) }} </div>
 {{ Form::hidden('id', $category->id) }}
-<div> {{ Form::submit('Save Changes') }} </div>
+<div> {{ Form::submit('Save Changes', array('class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
 @stop

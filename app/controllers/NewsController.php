@@ -159,7 +159,7 @@ class NewsController extends BaseController{
 	}
 
 	//returns all the public news
-	public function allNews(){
+	public function index(){
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
@@ -167,7 +167,7 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select('news.id as news_id' ,'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->get();
 	   
 	    $request = Request::create('/categories', 'GET');
@@ -220,7 +220,7 @@ class NewsController extends BaseController{
 	}
 
 	//return contets of a requested news
-	public function newsSearchById($id){
+	public function show($id){
 		$news = DB::table('news')
 			->where('news.id', '=', $id)
 			->where('active', '=', 1)
