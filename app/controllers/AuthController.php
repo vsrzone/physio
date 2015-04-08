@@ -24,7 +24,7 @@ class AuthController extends BaseController{
 
 		if($validator->passes()){
 			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') )))
-			{
+			{				
 			    return Redirect::to('admin/index');
 			}
 

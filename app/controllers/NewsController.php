@@ -3,7 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show')));
+		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show', 'latestFourNews')));
 		$this->beforeFilter('member', array('only'=>'allMembersOnlyNews'));
 	}
 
@@ -219,7 +219,7 @@ class NewsController extends BaseController{
 		return View::make('news.index')
 			->with('news', $news)
 			->with('categories', $categories);
-}
+	}
 
 	//return contets of a requested news
 	public function show($id){
@@ -250,5 +250,31 @@ class NewsController extends BaseController{
 	   		->with('news', $news)
 	   		->with('images', $images)
 	   		->with('all_news', $all_news);
+	}
+
+	//returns the latest 4 news
+	public function latestFourNews(){
+		if(Auth::check()){
+			$news = DB::table('news')
+				->where('active', '=', 1)
+				->orderby('news_date', 'DESC')
+				->select('id', 'title', DB::raw('substr(content,1,300) as content'))
+				->take(4)
+				->get();
+
+			return View::make('home.index')
+				->with('latest_news', $news);
+		}
+
+		$news = DB::table('news')
+			->where('active', '=', 1)
+			->where('members_only', '=', 0)
+			->orderby('news_date', 'DESC')
+			->select('id', 'title', DB::raw('substr(content,1,300) as content'))
+			->take(4)
+			->get();
+
+			return View::make('home.index')
+				->with('latest_news', $news);
 	}
 }

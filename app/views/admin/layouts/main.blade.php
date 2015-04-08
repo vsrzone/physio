@@ -8,6 +8,7 @@
 		<link href="{{URL::to('/')}}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
 	    <!-- MetisMenu CSS -->
+
 	    <link href="{{URL::to('/')}}/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
 	    <!-- Custom CSS -->
@@ -15,7 +16,6 @@
 
 	    <!-- Custom Fonts -->
    	 	<link href="{{URL::to('/')}}/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
 
 		<title>Physio - Admin panel</title>  	
 
