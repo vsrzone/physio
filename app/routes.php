@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+// Route::get('/', function()
+// {
+// 	return View::make('home.index');
+// });
 
 
-//Route::get('/', 'NewsController@latestFourNews');
+Route::get('/', 'NewsController@latestFourNews');
 
 Route::get('about', function()
 {
