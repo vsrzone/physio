@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'dev',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,6 +58,17 @@ return array(
 			'database'  => 'physio_db',
 			'username'  => 'root',
 			'password'  => '1234',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		'dev' => array(
+			'driver'    => 'mysql',
+			'host'      => 'mysql.ingenslk.com',
+			'database'  => 'physio_db',
+			'username'  => 'ingens_dev',
+			'password'  => '12345678',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
