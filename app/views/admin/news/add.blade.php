@@ -28,5 +28,13 @@
 
 <script type="text/javascript" src="{{url()}}/js/admin/photos.js"></script>
 <script type="text/javascript" src="{{url()}}/js/admin/news.js"></script>
-  
+
+
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea"
+ });
+</script>
+
 @stop

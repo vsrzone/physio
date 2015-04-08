@@ -276,7 +276,7 @@ function handleOneFile(e) {
 function saveProject(callback) {
 
 	var title = document.getElementById('title').value;
-	var content = document.getElementById('content').value;
+	var content = tinyMCE.activeEditor.getContent({format : 'raw'});
 	var date = document.getElementById('date').value;
 	var active = 0;
 	var member = 0;
