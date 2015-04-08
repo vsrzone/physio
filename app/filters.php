@@ -97,24 +97,21 @@ Route::filter('csrf', function()
 //member filter to protect member areas
 Route::filter('member', function(){
 	if(!Auth::check()){
-		return Redirect::to('member/login')
-			->with('message', 'Please login to continue!!!');
+		return Redirect::to('/');
 	}
 });
 
 //admin filter to protect admin areas
 Route::filter('admin', function(){
 	if(!Auth::check() || (Auth::user()->type != 1 && Auth::user()->type != 2)){
-		return Redirect::to('admin/login')
-			->with('message', 'The user account you have logged in has no authority to access!!!');
+		return Redirect::to('/');
 	}
 });
 
 //admin filter to protect super_admin areas
 Route::filter('super_admin', function(){
 	if(!Auth::check() ||  Auth::user()->type != 1){
-		return Redirect::to('admin/login')
-			->with('message', 'The user account you have logged in has no authority to access!!!');
+		return Redirect::to('/');
 	}
 });
 

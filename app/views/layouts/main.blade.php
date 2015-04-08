@@ -25,7 +25,7 @@
 
 					@if(Auth::check())
 						@if(Auth::user()->type == 1 || Auth::user()->type == 2)
-						<label><a href="{{ url() }}/admin/login">Admin</a></label>
+						<label><a href="{{ url() }}/admin">Admin</a></label>
 						@elseif(Auth::user()->type == 3)
 						<label>{{ 'name' }}</label>
 						@endif
