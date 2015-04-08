@@ -163,7 +163,12 @@ class NewsController extends BaseController{
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
-			->join('images', 'news.id', '=', 'images.news_id')
+			->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
@@ -185,7 +190,12 @@ class NewsController extends BaseController{
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
-			->join('images', 'news.id', '=', 'images.news_id')
+			->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 			->where('members_only', '=', 1)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
