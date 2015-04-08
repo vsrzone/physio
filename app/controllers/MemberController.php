@@ -37,10 +37,6 @@ class MemberController extends BaseController{
 		return View::make('admin.member.add');
 	}
 
-	public function getEdit() {
-
-		return View::make('admin.member.edit');
-	}
 	// add a new user to the database
 	public function postCreate() {
 
@@ -201,29 +197,6 @@ class MemberController extends BaseController{
 		Redirect::to('admin/member')
 			->with('message', 'Cannot Find the User');
 	}
-
-	// public function getEdit() {
-
-	// 	$id = Input::get('id');
-	// 	var_dump($id);
-	// 	die();
-
-	// 	$member = Member::find($id);
-	// 	$user = DB::table('users')->where('member_id', $id)->first();
-
-	// 	if($member) {
-
-	// 		if($user) {
-
-	// 			return View::make('admin.member.edit')
-	// 				->with('user', $user)
-	// 				->with('member', $member);
-	// 		}
-	// 	}
-
-	// 	Redirect::to('admin/member')
-	// 		->with('message', 'Cannot Find the User');
-	// }
 
 	public function postUpdate() {
 
