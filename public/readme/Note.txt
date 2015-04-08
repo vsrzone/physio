@@ -1,0 +1,2 @@
+Add default_famale and default_male images to uploads/member/profile
+Add default_cover to uploads/member/cover
