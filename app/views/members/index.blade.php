@@ -14,6 +14,14 @@
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
 		<div class="col-xs-12" id="members-wrapper">
+			<p>
+				@if(isset($label))
+					{{$label}}
+					@if(!isset($members[0]))
+						<br>No Results Found
+					@endif
+				@endif
+			</p>
 			<ul>
 				@foreach($members as $member)
 				<li>
@@ -28,7 +36,7 @@
 			</ul>
 
 			{{ Form::open(array('url' => 'members', 'method' => 'GET')) }}
-			{{ Form::label('User Type')}}
+			{{ Form::label('Search Field')}}
 			{{ Form::select('field', array('name'=>'Name', 'hospital'=>'Hospital', 'concil_registration_no'=>'Registration No', 'district'=>'District')) }}
 			{{ Form::text('value') }}
 			{{ Form::submit('Search') }}

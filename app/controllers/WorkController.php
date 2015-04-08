@@ -19,7 +19,8 @@ class WorkController extends BaseController {
 					->where($field, 'LIKE', '%'.$value.'%')
 					->get();
 			return View::make('members.index')
-	 			->with('members', $details);
+	 			->with('members', $details)
+	 			->with('label', 'Search Results For: '.$value);
 		}
 
 		$members = DB::table('members')
