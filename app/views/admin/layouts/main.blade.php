@@ -8,7 +8,7 @@
 		<link href="{{URL::to('/')}}/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
 	    <!-- MetisMenu CSS -->
-	    <link href="{{URL::to('/')}}/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+	  <!--   <link href="{{URL::to('/')}}/resources/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet"> -->
 
 	    <!-- Custom CSS -->
 	    <link href="{{URL::to('/')}}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
