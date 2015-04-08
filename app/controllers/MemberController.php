@@ -164,12 +164,16 @@ class MemberController extends BaseController{
 					return Redirect::to('admin/member')
 						->with('message', 'Operation Unsuccessful');
 				}
+				return Redirect::to('admin/member/create')
+					->with('message', 'Something went wrong')
+					->withErrors($validator_user)
+					->withInput();
 			}
 
 			return Redirect::to('admin/member/create')
-			->with('message', 'Something went wrong')
-			->withErrors($validator_member)
-			->withInput();
+				->with('message', 'Something went wrong')
+				->withErrors($validator_member)
+				->withInput();
 		}
 
 		return Redirect::to('admin/user')
@@ -183,6 +187,19 @@ class MemberController extends BaseController{
 
 		$member = Member::find($id);
 		$user = DB::table('users')->where('member_id', $id)->first();
+
+		// var_dump(Auth::user()->type);
+		// var_dump($user->id != Auth::user()->member_id);
+		// die();
+
+		if($user->id != Auth::user()->member_id) {
+
+			if($user->id <= Auth::user()->type) {
+
+				return Redirect::to('admin/member')
+					->with('message', 'Unsuccessful operation');
+			}
+		}
 
 		if($member) {
 

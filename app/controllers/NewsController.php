@@ -15,7 +15,7 @@ class NewsController extends BaseController{
 
 	//news add function
 	public function postCreate(){
-			
+
 		$news = new News;
 		$news->title = Request::input('title');
 		$news->active = Request::input('active');
