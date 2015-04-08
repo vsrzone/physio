@@ -37,6 +37,10 @@ class MemberController extends BaseController{
 		return View::make('admin.member.add');
 	}
 
+	public function getEdit() {
+
+		return View::make('admin.member.edit');
+	}
 	// add a new user to the database
 	public function postCreate() {
 
@@ -198,6 +202,29 @@ class MemberController extends BaseController{
 			->with('message', 'Cannot Find the User');
 	}
 
+	// public function getEdit() {
+
+	// 	$id = Input::get('id');
+	// 	var_dump($id);
+	// 	die();
+
+	// 	$member = Member::find($id);
+	// 	$user = DB::table('users')->where('member_id', $id)->first();
+
+	// 	if($member) {
+
+	// 		if($user) {
+
+	// 			return View::make('admin.member.edit')
+	// 				->with('user', $user)
+	// 				->with('member', $member);
+	// 		}
+	// 	}
+
+	// 	Redirect::to('admin/member')
+	// 		->with('message', 'Cannot Find the User');
+	// }
+
 	public function postUpdate() {
 
 		$id = Input::get('id');
@@ -255,7 +282,7 @@ class MemberController extends BaseController{
 
 							$target = "uploads/member/profile/".$member->profile_picture;
 					
-							if(file_exists($target)){
+							if(file_exists($target)  && ($member->profile_picture !== 'default_female.jpeg' && $member->profile_picture !== 'default_male.jpeg')){
 								unlink($target);
 							}
 
@@ -283,7 +310,7 @@ class MemberController extends BaseController{
 
 							$target = "uploads/member/cover/".$member->cover_picture;
 					
-							if(file_exists($target)){
+							if(file_exists($target) && ($member->cover_picture !== 'default_cover')){
 								unlink($target);
 							}
 
@@ -329,8 +356,8 @@ class MemberController extends BaseController{
 
 		}
 
-		return Redirect::to('admin/member/create')
-			->with('message', 'Something went wrong')
+		return Redirect::to('admin/member')
+			->with('message', 'Something went wrong. Please Edit Again')
 			->withErrors($validator_member)
 			->withInput();
 	}
@@ -359,13 +386,13 @@ class MemberController extends BaseController{
 
 				$profile_target = "uploads/member/profile/".$pro_pic;
 			
-				if(file_exists($profile_target) && ($pro_pic !== 'default_female' || $pro_pic !== 'default_male')){
+				if(file_exists($profile_target) && ($pro_pic !== 'default_female.jpeg' && $pro_pic !== 'default_male.jpeg')){
 					unlink($profile_target);
 				}
 
 				$cover_target = "uploads/member/cover/".$cover_pic;
 			
-				if(file_exists($cover_target) && ($pro_pic !== 'default_cover')){
+				if(file_exists($cover_target) && ($pro_pic !== 'default_cover.jpeg')){
 					unlink($cover_target);
 				}
 
