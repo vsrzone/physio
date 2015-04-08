@@ -25,7 +25,8 @@
 <div> {{ Form::button('Add News', array('id'=>'add_news', 'class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
+
 <script type="text/javascript" src="{{url()}}/js/admin/photos.js"></script>
 <script type="text/javascript" src="{{url()}}/js/admin/news.js"></script>
-
+  
 @stop
