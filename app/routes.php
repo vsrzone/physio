@@ -16,6 +16,9 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
+
+//Route::get('/', 'NewsController@latestFourNews');
+
 Route::get('about', function()
 {
 	return View::make('about.index');
