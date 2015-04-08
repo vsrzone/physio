@@ -25,8 +25,10 @@
 <div> {{ Form::button('Add News', array('id'=>'add_news', 'class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
+
 <script type="text/javascript" src="{{url()}}/js/admin/photos.js"></script>
 <script type="text/javascript" src="{{url()}}/js/admin/news.js"></script>
+
 
 <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 <script type="text/javascript">

@@ -26,7 +26,7 @@
 
 <div>News Category: {{ Form::select('category_id', $categories, $news->category_id, array('class'=>'form-control')) }} </div>
 {{ Form::hidden('id', $news->id) }}
-<div>News date: {{ Form::text('date', $news->news_date, array('class'=>'form-control')) }} </div>
+<div>News date: {{ Form::text('date', $news->news_date, array('id'=>'date', 'class'=>'form-control')) }} </div>
 <div> News Title: {{ Form::text('title', $news->title, array('class'=>'form-control')) }} </div>
 <div>Content: {{ Form::textarea('content', $news->content, array('class'=>'form-control')) }} </div>
 <div> {{ Form::submit('Save changes', array('class'=>'btn btn-default')) }} 

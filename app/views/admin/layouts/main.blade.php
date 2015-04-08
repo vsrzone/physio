@@ -16,6 +16,7 @@
 
 	    <!-- Custom Fonts -->
    	 	<link href="{{URL::to('/')}}/resources/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		 	 
 
 		<title>Physio - Admin panel</title>  	
 
@@ -126,6 +127,7 @@
 		</div>
 	    <!-- /#wrapper -->
 
+	     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	    <!-- jQuery -->
 	    <script src="{{URL::to('/')}}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -138,6 +140,9 @@
 
 	    <!-- Custom Theme JavaScript -->
 	    <script src="{{URL::to('/')}}/resources/dist/js/sb-admin-2.js"></script>
+	    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
+		  <script src="{{url()}}/js/script.js"> </script>
 	</body>
 
 </html>
