@@ -38,10 +38,6 @@ class MemberController extends BaseController{
 		return View::make('admin.member.add');
 	}
 
-	public function getEdit() {
-
-		return View::make('admin.member.edit');
-	}
 	// add a new user to the database
 	public function postCreate() {
 
@@ -169,12 +165,16 @@ class MemberController extends BaseController{
 					return Redirect::to('admin/member')
 						->with('message', 'Operation Unsuccessful');
 				}
+				return Redirect::to('admin/member/create')
+					->with('message', 'Something went wrong')
+					->withErrors($validator_user)
+					->withInput();
 			}
 
 			return Redirect::to('admin/member/create')
-			->with('message', 'Something went wrong')
-			->withErrors($validator_member)
-			->withInput();
+				->with('message', 'Something went wrong')
+				->withErrors($validator_member)
+				->withInput();
 		}
 
 		return Redirect::to('admin/user')
@@ -189,6 +189,19 @@ class MemberController extends BaseController{
 		$member = Member::find($id);
 		$user = DB::table('users')->where('member_id', $id)->first();
 
+		// var_dump(Auth::user()->type);
+		// var_dump($user->id != Auth::user()->member_id);
+		// die();
+
+		if($user->id != Auth::user()->member_id) {
+
+			if($user->id <= Auth::user()->type) {
+
+				return Redirect::to('admin/member')
+					->with('message', 'Unsuccessful operation');
+			}
+		}
+
 		if($member) {
 
 			if($user) {
@@ -202,29 +215,6 @@ class MemberController extends BaseController{
 		Redirect::to('admin/member')
 			->with('message', 'Cannot Find the User');
 	}
-
-	// public function getEdit() {
-
-	// 	$id = Input::get('id');
-	// 	var_dump($id);
-	// 	die();
-
-	// 	$member = Member::find($id);
-	// 	$user = DB::table('users')->where('member_id', $id)->first();
-
-	// 	if($member) {
-
-	// 		if($user) {
-
-	// 			return View::make('admin.member.edit')
-	// 				->with('user', $user)
-	// 				->with('member', $member);
-	// 		}
-	// 	}
-
-	// 	Redirect::to('admin/member')
-	// 		->with('message', 'Cannot Find the User');
-	// }
 
 	public function postUpdate() {
 
