@@ -315,6 +315,7 @@ footer{
 	text-align: center;
 	min-width: 180px;
 	color: #fff !important;
+	display: none;
 }
 
 /* News Page */

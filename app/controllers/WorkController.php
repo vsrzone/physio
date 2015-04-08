@@ -79,10 +79,23 @@ class WorkController extends BaseController {
 		$member = Member::find($id);
 		$user = DB::table('users')->where('member_id', $id)->first();
 
+		// var_dump(Auth::user()->type);
+		// var_dump($user->id != Auth::user()->member_id);
+		// die();
+
+		if($user->type != Auth::user()->type) {
+
+			if($user->type <= Auth::user()->type) {
+
+				return Redirect::to('admin/member')
+					->with('message', 'Unsuccessful operation');
+			}
+		}
+
 		if($member) {
 
 			if($user) {
-				
+
 				return View::make('members.edit')
 					->with('user', $user)
 					->with('member', $member);
