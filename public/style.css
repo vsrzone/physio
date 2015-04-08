@@ -41,6 +41,12 @@ button:focus {
 	padding-right: 0 !important;
 }
 
+#page{
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 50px;
+}
+
 .page-wrapper{
 	position: relative;
 }
@@ -202,6 +208,7 @@ button:focus {
 
 #news-section div + div >  div ul li img{
 	width: 100%;
+	height: 150px !important;
 	height: auto;
 	float: left;
 	box-sizing: border-box;
@@ -248,8 +255,12 @@ button:focus {
 /*footer*/
 
 footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 	padding-top: 10px;
 	background-color: #F4F4F4;
+	margin-top: 20px;
 }
 
 #secondary-nav{
@@ -545,9 +556,16 @@ footer{
 }
 
 #news-wrapper img{
-	width: 20%;
+	width: auto;
+	height: 150px;
 	padding: 10px;
 	display: inline-block;
+}
+
+@media (max-width: 1200px){
+	#news-section div + div > div ul li img{
+		height: 140px !important;
+	}
 }
 
 @media (max-width: 992px){
@@ -567,6 +585,10 @@ footer{
 	.member-sub-heading{
 		width: 33.33%;
 		display: inline-block;
+	}
+
+	#news-section div + div > div ul li img{
+		height: 125px !important;
 	}
 }
 
@@ -635,6 +657,10 @@ footer{
 
 	h3{
 		font-size: 18px !important;
+	}
+
+	#page{
+		padding-bottom: 120px;
 	}
 
 }

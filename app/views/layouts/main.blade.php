@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url() }}/css/flexslider.css">
 </head>
 <body>
-
+ <div id="page">
 	<div class="container">
 		<nav class="row">
 			<div id="login-container">
@@ -45,38 +45,39 @@
 
 
 
-<section>
-	@yield('content')
-</section>
+	<section>
+		@yield('content')
+	</section>
 
 
-<footer>
-	<div class="container" id="footer-wrapper">
-		<div class="col-xs-* col-md-9 nopadding" id="bottom-nav-container">
-			<ul id="secondary-nav">
-				<li>
-					<a href="{{ url() }}/about">About Us</a>
-				</li>
-				<li>
-					<a href="{{ url() }}/members">Members</a>
-				</li>
-				<li>
-					<a href="{{ url() }}/contact">Contact Us</a>
-				</li>
-				<li>
-					<a href="{{ url() }}/privacy">Privacy Policy</a>
-				</li>
-				<li>
-					<a href="{{ url() }}/terms">Terms and Conditions</a>
-				</li>
-			</ul>
+
+	<footer>
+		<div class="container" id="footer-wrapper">
+			<div class="col-xs-* col-md-9 nopadding" id="bottom-nav-container">
+				<ul id="secondary-nav">
+					<li>
+						<a href="{{ url() }}/about">About Us</a>
+					</li>
+					<li>
+						<a href="{{ url() }}/members">Members</a>
+					</li>
+					<li>
+						<a href="{{ url() }}/contact">Contact Us</a>
+					</li>
+					<li>
+						<a href="{{ url() }}/privacy">Privacy Policy</a>
+					</li>
+					<li>
+						<a href="{{ url() }}/terms">Terms and Conditions</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-md-3 nopadding" id="copyrights">
+				<p>Copyright © GPA2015<br/>Design and Development by <a href="http://ingenslk.com">INGENS</a></p>
+			</div>
 		</div>
-		<div class="col-xs-12 col-md-3 nopadding" id="copyrights">
-			<p>Copyright © GPA2015<br/>Design and Development by <a href="http://ingenslk.com">INGENS</a></p>
-		</div>
-	</div>
-</footer>
-
+	</footer>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModelLabel" aria-hidden="true">
 	<div class="modal-dialog">
