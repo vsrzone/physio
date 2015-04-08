@@ -182,10 +182,12 @@ button:focus {
 	width: auto;
 	float: left;
 	margin-right: 10px;
+	padding: 1px;
 }
 
 #news-section div ul li p{
 	font-size: 16px;
+	padding: 5px;
 }
 
 #news-section div ul li p + p{
