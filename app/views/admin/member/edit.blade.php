@@ -5,25 +5,25 @@
 {{ Form::open(array('url'=>'admin/member/update')) }}
 
 {{ Form::hidden('id', $member->id) }}
-{{ Form::label('Name')}}
+{{ Form::label('Name ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::text('name', $member->name, array('class'=>'form-control')) }}
 <br>
-{{ Form::label('Email')}}
+{{ Form::label('Email ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::email('email', $user->email, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Password')}}
 {{ Form::password('password', array('class'=>'form-control')) }}
 <br>
-{{ Form::label('User Type')}}
+{{ Form::label('User Type ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::select('type', array('1'=>'Super Admin', '2'=>'Admin', '3'=>'Member'), $user->type, array('class'=>'form-control')) }}
 <br>
-{{ Form::label('NIC')}}
+{{ Form::label('NIC ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::text('nic', $member->nic, array('class'=>'form-control')) }}
 <br>
-{{ Form::label('Concil Registration No')}}
+{{ Form::label('Concil Registration No ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::text('council_reg_no', $member->concil_registration_no, array('class'=>'form-control')) }}
 <br>
-{{ Form::label('Gender')}}
+{{ Form::label('Gender ')}}<span id = "ast" style = "color: red"> *</span>
 @if ($member->sex == 0)
 	{{ Form::radio('sex', '0', true) }} Male {{ Form::radio('sex', '1') }} Female
 @elseif ($member->sex == 1)
@@ -31,7 +31,7 @@
 @endif
 
 <br>
-{{ Form::label('District')}}
+{{ Form::label('District ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::select('district', array(
 	'Ampara'=>'Ampara',
 	'Anuradhapura'=>'Anuradhapura',
@@ -66,7 +66,7 @@
 {{ Form::label('Address')}}
 {{ Form::text('address', $member->address, array('class'=>'form-control')) }}
 <br>
-{{ Form::label('Telephone No. 1')}}
+{{ Form::label('Telephone No. 1 ')}}<span id = "ast" style = "color: red"> *</span>
 {{ Form::text('tp1', $member->tp1, array('class'=>'form-control')) }}
 <br>
 {{ Form::label('Telephone No. 2')}}
