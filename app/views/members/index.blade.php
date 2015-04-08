@@ -39,7 +39,7 @@
 			{{ Form::label('Search Field')}}
 			{{ Form::select('field', array('name'=>'Name', 'hospital'=>'Hospital', 'concil_registration_no'=>'Registration No', 'district'=>'District')) }}
 			{{ Form::text('value') }}
-			{{ Form::submit('Search') }}
+			{{ Form::submit('Search', array('class'=>'btn')) }}
 	    	
 			{{ Form::close() }}
 		</div>

@@ -158,7 +158,8 @@ button:focus {
 	margin: 0 auto;
 }
 
-#news-slider div ul{
+#news-slider div ul li a{
+	display: inline-block;
 }
 
 #news-slider{
@@ -547,6 +548,8 @@ footer{
 
 #members-wrapper ul li > p:nth-child(1){
 	float: left;
+	width: 115px;
+	min-height: 100px;
 }
 
 /* individual news page */
