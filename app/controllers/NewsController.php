@@ -163,7 +163,12 @@ class NewsController extends BaseController{
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
-			->join('images', 'news.id', '=', 'images.news_id')
+			->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
@@ -185,7 +190,12 @@ class NewsController extends BaseController{
 
 		$news = DB::table('news')
 			->join('categories', 'news.category_id', '=', 'categories.id')
-			->join('images', 'news.id', '=', 'images.news_id')
+			->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 			->where('members_only', '=', 1)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
@@ -256,24 +266,37 @@ class NewsController extends BaseController{
 	public function latestFourNews(){
 		if(Auth::check()){
 			$news = DB::table('news')
+				->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 				->where('active', '=', 1)
 				->orderby('news_date', 'DESC')
-				->select('id', 'title', DB::raw('substr(content,1,300) as content'))
+				->select('news.id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 				->take(4)
 				->get();
-
+		
 			return View::make('home.index')
 				->with('latest_news', $news);
 		}
 
 		$news = DB::table('news')
+			->join('images', function($join)
+		        {
+		            $join->on('news.id', '=', 'images.news_id')
+		                 ->on('images.id', '=',
+		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+		        })
 			->where('active', '=', 1)
 			->where('members_only', '=', 0)
 			->orderby('news_date', 'DESC')
-			->select('id', 'title', DB::raw('substr(content,1,300) as content'))
+			->select('news.id as id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 			->take(4)
 			->get();
 
+			
 			return View::make('home.index')
 				->with('latest_news', $news);
 	}
