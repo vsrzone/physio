@@ -32,6 +32,9 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
+//route to individual member edit
+Route::post('member/edit', 'WorkController@editMember');
+
 Route::resource('members', 'WorkController');
 
 Route::controller('admin/user', 'UserController');
@@ -70,4 +73,5 @@ Route::resource('news', 'NewsController');
 
 //route to search news by category
 Route::resource('news/category', 'NewsController@newsSearchByCategory');
+
 

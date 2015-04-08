@@ -18,7 +18,7 @@
 			<div id="login-container">
 				<div id="login" class="col-xs-12">
 					@if(Auth::check())
-					<button class="btn"><a href="{{url()}}/admin/logout">Signout</a></button>
+					<button class="btn"><a href="{{url()}}/member/logout">Signout</a></button>
 					@else
 					<button class="btn" data-toggle="modal" data-target="#login-modal">Login</button>
 					@endif
@@ -27,7 +27,7 @@
 						@if(Auth::user()->type == 1 || Auth::user()->type == 2)
 						<label><a href="{{ url() }}/admin">Admin</a></label>
 						@elseif(Auth::user()->type == 3)
-						<label>{{ 'name' }}</label>
+						<label><a href="{{ url() }}/members/{{ Auth::user()->member_id}}">Profile</a></label>
 						@endif
 					@else
 						<label>Member</label>

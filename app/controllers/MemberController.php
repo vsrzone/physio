@@ -4,7 +4,8 @@ class MemberController extends BaseController{
 
 	public function __construct(){
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin');
+		$this->beforeFilter('admin', array('except' => 'postEdit'));
+		$this->beforeFilter('member', array('only'=>'postEdit'));
 	}
 
 	// show the page with all the members
