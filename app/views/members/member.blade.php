@@ -13,6 +13,11 @@
 
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
+		@if(Auth::check())
+			@if(Auth::user()->member_id == $id)
+			<button>Edit</button>
+			@endif
+		@endif
 		<div class="col-xs-12 col-sm-3" id="member-info">
 			<h3>{{$first_name}} <span id="member-second-name">{{$last_name}}</span></h3>
 			<!-- <p>sub-heading</p> -->

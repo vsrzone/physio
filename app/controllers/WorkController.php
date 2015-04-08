@@ -67,6 +67,7 @@ class WorkController extends BaseController {
 	 		->with('member', $member)
 	 		->with('first_name', $first_name)
 	 		->with('last_name', $last_name)
+	 		->with('id', $id)
 	 		->with('address', $address_arr);
 	}
 }

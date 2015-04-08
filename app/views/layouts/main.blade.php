@@ -17,8 +17,22 @@
 		<nav class="row">
 			<div id="login-container">
 				<div id="login" class="col-xs-12">
+					@if(Auth::check())
+					<button class="btn"><a href="{{url()}}/admin/logout">Signout</a></button>
+					@else
 					<button class="btn" data-toggle="modal" data-target="#login-modal">Login</button>
-					<label>Member</label>
+					@endif
+
+					@if(Auth::check())
+						@if(Auth::user()->type == 1 || Auth::user()->type == 2)
+						<label><a href="{{ url() }}/admin/login">Admin</a></label>
+						@elseif(Auth::user()->type == 3)
+						<label>{{ 'name' }}</label>
+						@endif
+					@else
+						<label>Member</label>
+					@endif
+
 				</div>
 			</div>
 			<div id="logo" class="col-md-4">

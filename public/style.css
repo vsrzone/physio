@@ -77,6 +77,11 @@ button:focus {
 	color: #fff;
 }
 
+#login button a{
+	display: inline-block;
+	color: inherit;
+}
+
 #nav{
 	list-style: square;
 	margin: 0;
