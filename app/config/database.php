@@ -68,7 +68,7 @@ return array(
 			'host'      => 'mysql.ingenslk.com',
 			'database'  => 'physio_db',
 			'username'  => 'ingens_dev',
-			'password'  => '12345678',
+			'password'  => 'physio123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
