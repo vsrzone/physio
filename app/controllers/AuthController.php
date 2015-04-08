@@ -5,6 +5,7 @@ class AuthController extends BaseController{
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on' => 'post'));
 		$this->beforeFilter('guest', array('except' => array('getLogout', 'getIndex')));
+		$this->beforeFilter('admin', array('only' => array('getIndex')));
 	}
 
 	//view login page
@@ -24,14 +25,9 @@ class AuthController extends BaseController{
 
 		if($validator->passes()){
 			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') )))
-			{	
-
-				if(Auth::user()->type == 3){
-					return Redirect::to('/');
-				}			
-			    return View::make('admin.layouts.main');
+			{					
+				return Redirect::to('/');				
 			}
-
 			return Redirect::to('admin/login')
 				->with('message', 'Illegal credentials. Please try again');
 		}
@@ -52,6 +48,6 @@ class AuthController extends BaseController{
 	}
 
 	public function getIndex(){
-		return Redirect::to('admin/login');
+		return View::make('admin.layouts.main');
 	}
 }

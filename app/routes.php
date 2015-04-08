@@ -50,8 +50,11 @@ Route::controller('admin/image', 'ImageController');
 //routes to auth controller
 Route::controller('admin', 'AuthController');
 
-//routes to auth controller
+//routes to auth controller login
 Route::get('member/login', 'AuthController@getLogin');
+
+//routes to auth controller logout
+Route::get('member/logout', 'AuthController@getLogout');
 
 //route to get all categories
 Route::get('categories', 'CategoryController@allCategories');
