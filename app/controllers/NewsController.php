@@ -36,8 +36,14 @@ class NewsController extends BaseController{
 		$news->created_by = Auth::user()->member_id; 
 		
 		$news->save();
-		return $news->id;
-		
+
+		$img = new Image;
+		$img->name = "default.gif";
+		$img->news_id = $news->id;
+
+		$img->save();
+
+		return $news->id;		
 	}
 
 	//all news view page
@@ -114,7 +120,7 @@ class NewsController extends BaseController{
 				$dat = Image::find($image->id);
 				$target = "uploads/images/".$dat->name;
 			
-				if(file_exists($target)){
+				if(file_exists($target) && $dat->name != 'default.gif'){
 					unlink($target);
 				}
 
@@ -149,6 +155,8 @@ class NewsController extends BaseController{
 			imagejpeg($im, 'uploads/images/'.$img_name, 70);
 			imagedestroy($im);
 		}
+
+		DB::table('images')->where('news_id', '=', $img_id)->where('name', '=', 'default.gif')->delete();
 
 		$img = new Image;
 		$img->name = $img_name;
@@ -250,12 +258,16 @@ class NewsController extends BaseController{
 	   
 		if(Auth::check()){
 			$all_news = DB::table('news')
+						->orderby('id', 'DESC')
 		  				->select('id', 'title')
+		  				->take(10)
 		  				->get();
 		}else{
 			 $all_news = DB::table('news')
 				->where('members_only', '=', 0)
+				->orderby('id', 'DESC')
   				->select('id', 'title')
+  				->take(10)
   				->get();
 		}
 
