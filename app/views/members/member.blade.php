@@ -15,7 +15,10 @@
 	<div class="row">
 		@if(Auth::check())
 			@if(Auth::user()->member_id == $id)
-			<button>Edit</button>
+				{{ Form::open(array('url'=>'member/edit')) }}
+				{{ Form::submit('Edit') }}
+				{{ Form::hidden('member_id', $id) }}
+				{{ Form::close() }}
 			@endif
 		@endif
 		<div class="col-xs-12 col-sm-3" id="member-info">

@@ -315,6 +315,7 @@ footer{
 	text-align: center;
 	min-width: 180px;
 	color: #fff !important;
+	display: none;
 }
 
 /* News Page */
@@ -557,6 +558,24 @@ footer{
 	min-height: 100px;
 }
 
+#members-wrapper form{
+	width: 100%;
+	vertical-align: middle;
+	padding: 50px;
+	margin-top: 20px;
+	background-color: #F4F4F4;
+	text-align: center;
+}
+
+#members-wrapper form input[type="text"]{
+	width: 70%;
+	margin-left: 20px;
+}
+
+#members-wrapper form .btn{
+	background-color: #E7C345;
+	color: #fff;
+}
 /* individual news page */
 
 #news-wrapper{

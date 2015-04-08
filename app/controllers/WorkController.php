@@ -70,4 +70,38 @@ class WorkController extends BaseController {
 	 		->with('id', $id)
 	 		->with('address', $address_arr);
 	}
+
+	// individual member edit function
+
+	public function editMember(){
+		$id = Input::get('member_id');
+
+		$member = Member::find($id);
+		$user = DB::table('users')->where('member_id', $id)->first();
+
+		// var_dump(Auth::user()->type);
+		// var_dump($user->id != Auth::user()->member_id);
+		// die();
+
+		if($user->type != Auth::user()->type) {
+
+			if($user->type <= Auth::user()->type) {
+
+				return Redirect::to('admin/member')
+					->with('message', 'Unsuccessful operation');
+			}
+		}
+
+		if($member) {
+
+			if($user) {
+
+				return View::make('members.edit')
+					->with('user', $user)
+					->with('member', $member);
+			}
+		}
+
+		Redirect::to('members');
+	}
 }

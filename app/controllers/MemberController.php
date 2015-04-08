@@ -4,7 +4,8 @@ class MemberController extends BaseController{
 
 	public function __construct(){
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin');
+		$this->beforeFilter('admin', array('except' => array('postEdit', 'postUpdate')));
+		$this->beforeFilter('member', array('only'=> array('postEdit', 'postUpdate')));
 	}
 
 	// show the page with all the members
@@ -182,9 +183,8 @@ class MemberController extends BaseController{
 
 // show the member edit page
 	public function postEdit() {
-
+		
 		$id = Input::get('id');
-
 		$member = Member::find($id);
 		$user = DB::table('users')->where('member_id', $id)->first();
 
@@ -192,9 +192,9 @@ class MemberController extends BaseController{
 		// var_dump($user->id != Auth::user()->member_id);
 		// die();
 
-		if($user->id != Auth::user()->member_id) {
+		if($user->type != Auth::user()->type) {
 
-			if($user->id <= Auth::user()->type) {
+			if($user->type <= Auth::user()->type) {
 
 				return Redirect::to('admin/member')
 					->with('message', 'Unsuccessful operation');
