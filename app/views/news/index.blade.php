@@ -39,6 +39,7 @@
 				</li><!-- end of news -->
 				@endforeach
 			</ul>
+			{{$news->links()}}
 		</div>
 	</div>
 </div>

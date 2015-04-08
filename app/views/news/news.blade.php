@@ -16,7 +16,9 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-3">
 			<h3>Overview</h3>
-			<p>sadasdasd asdasd asdas dasd asd</p>
+			@foreach($all_news as $news_item)
+			<a href="{{ url() }}/news/{{$news_item->id}}"><p>{{$news_item->title}}</p></a>
+			@endforeach
 		</div>
 		<div class="col-xs-12 col-md-9" id="news-wrapper">
 			<h3>{{$news[0]->title}}</h3>

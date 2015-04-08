@@ -38,24 +38,22 @@
 			<h3>Latest News</h3>
 			<div id="news-slider" class="flexslider">
 				<ul class="slides">
+					@foreach($latest_news as $news_item)
 					<li>
-						<img src="{{ url() }}/images/news/news1.jpg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<p> Nam fringilla congue libero, ut ultricies mauris pharetra at. Ut maximus, nulla eu condimentum venenatis, neque leo convallis nulla, at hendrerit magna est ut nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer massa tellus, vestibulum vitae dui in, maximus sodales mi. </p>
+						<a href="{{ url() }}/news/{{$news_item->id}}">
+							<img src="{{ url() }}/uploads/images/{{$news_item->image}}">
+							<p>{{$news_item->title}}</p>
+							<p>{{$news_item->content}}</p>
+						</a>
 					</li>
-					<li>
-						<img src="{{ url() }}/images/news/news1.jpg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<p> Nam fringilla congue libero, ut ultricies mauris pharetra at. Ut maximus, nulla eu condimentum venenatis, neque leo convallis nulla, at hendrerit magna est ut nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer massa tellus, vestibulum vitae dui in, maximus sodales mi. </p>
-					</li>
+					@endforeach
 				</ul>
 			</div>
 			<div id="news-carousel" class="flexslider">
 				<ul class="slides">
-					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
-					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
-					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
-					<li><img src="{{ url() }}/images/news/news1.jpg"></li>
+					@foreach($latest_news as $news_item)
+					<li><img src="{{ url() }}/uploads/images/{{$news_item->image}}"></li>
+					@endforeach
 				</ul>
 			</div>
 		</div>
