@@ -475,7 +475,7 @@ footer{
 	margin-top: 5px;
 }
 
-#login-area div input[type="text"], input[type="password"]{
+#login-area div input[type="email"], input[type="password"]{
 	width: 76%;
 }
 

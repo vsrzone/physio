@@ -85,13 +85,13 @@
 				<h3>Login to GPA</h3>
 				<p>Login to view member exclusive content and to end your profile</p>
 				<div>
-				<form action="">
+				{{ Form::open(array('url'=>'admin/login')) }}
 				<label>Username</label>
-				<input type="text" name="username" id="username"/>
+				{{ Form::email('email','', array('placeholder'=>'User name')) }}
 				<label>Password</label>
-				<input type="password" name="password" id="password"/>
+				{{ Form::password('password', array('placeholder'=>'Password')) }}
 				<input type="submit" value="Sign in" class="btn" id="sign-in"/>
-				</form>
+				{{ Form::close() }}	
 				</div>
 			</div>
 		</div>

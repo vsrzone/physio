@@ -173,7 +173,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
 			->select('news.id as news_id' , 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
-	        ->get();
+	        ->paginate(6);
 	   
 	    $request = Request::create('/categories', 'GET');
 	    $categories = Route::dispatch($request)->getContent();
@@ -200,7 +200,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
-	        ->get();
+	        ->paginate(6);
 
 	    $request = Request::create('/categories', 'GET');
 	    $categories = Route::dispatch($request)->getContent();
@@ -221,7 +221,7 @@ class NewsController extends BaseController{
 			->where('category_id', '=', $id)
 			->orderby('news_date', 'DESC')
 			->select('title', 'news_date','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
-	        ->get();
+	        ->paginate(6);
 
 	   $request = Request::create('/categories', 'GET');
 	   $categories = Route::dispatch($request)->getContent();
