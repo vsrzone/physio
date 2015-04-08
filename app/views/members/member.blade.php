@@ -6,7 +6,6 @@
 		<ul id="main-slider" class="col-xs-12">
 			<li>
 			<img src="{{ url() }}/uploads/member/cover/{{$member[0]->cover_picture}}" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
-				<p>To enjoy the glow of good health, you must exercise</p>
 			</li>
 		</ul>
 	</div>
@@ -14,10 +13,14 @@
 
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
+		@if(Auth::check())
+			@if(Auth::user()->member_id == $id)
+			<button>Edit</button>
+			@endif
+		@endif
 		<div class="col-xs-12 col-sm-3" id="member-info">
-			@
 			<h3>{{$first_name}} <span id="member-second-name">{{$last_name}}</span></h3>
-			<p>sub-heading</p>
+			<!-- <p>sub-heading</p> -->
 			<img src="{{ url() }}/uploads/member/profile/{{$member[0]->profile_picture}}" title="{{$first_name}}" alt="{{$first_name}}">
 			<div id="member-personal">
 				<p class="member-sub-heading">Phone<br/><span><a href="tel:+94723074931">{{$member[0]->tp1}}</a></span></p>

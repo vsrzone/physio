@@ -15,7 +15,7 @@
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
 		<div class="col-xs-12 col-md-3">
-			<h3>Overview</h3>
+			<h3>News Categories</h3>
 
 			<ul id="news-cat"> 
 				<li><a href="{{url()}}/news"><p>All News</p></a></li>

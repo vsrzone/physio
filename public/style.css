@@ -41,6 +41,12 @@ button:focus {
 	padding-right: 0 !important;
 }
 
+#page{
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 50px;
+}
+
 .page-wrapper{
 	position: relative;
 }
@@ -69,6 +75,11 @@ button:focus {
 	float: right;
 	background: #E7C345;
 	color: #fff;
+}
+
+#login button a{
+	display: inline-block;
+	color: inherit;
 }
 
 #nav{
@@ -152,7 +163,8 @@ button:focus {
 	margin: 0 auto;
 }
 
-#news-slider div ul{
+#news-slider div ul li a{
+	display: inline-block;
 }
 
 #news-slider{
@@ -202,6 +214,7 @@ button:focus {
 
 #news-section div + div >  div ul li img{
 	width: 100%;
+	height: 150px !important;
 	height: auto;
 	float: left;
 	box-sizing: border-box;
@@ -248,8 +261,12 @@ button:focus {
 /*footer*/
 
 footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 	padding-top: 10px;
 	background-color: #F4F4F4;
+	margin-top: 20px;
 }
 
 #secondary-nav{
@@ -536,6 +553,8 @@ footer{
 
 #members-wrapper ul li > p:nth-child(1){
 	float: left;
+	width: 115px;
+	min-height: 100px;
 }
 
 /* individual news page */
@@ -545,9 +564,16 @@ footer{
 }
 
 #news-wrapper img{
-	width: 20%;
+	width: auto;
+	height: 150px;
 	padding: 10px;
 	display: inline-block;
+}
+
+@media (max-width: 1200px){
+	#news-section div + div > div ul li img{
+		height: 140px !important;
+	}
 }
 
 @media (max-width: 992px){
@@ -567,6 +593,10 @@ footer{
 	.member-sub-heading{
 		width: 33.33%;
 		display: inline-block;
+	}
+
+	#news-section div + div > div ul li img{
+		height: 125px !important;
 	}
 }
 
@@ -635,6 +665,10 @@ footer{
 
 	h3{
 		font-size: 18px !important;
+	}
+
+	#page{
+		padding-bottom: 120px;
 	}
 
 }
