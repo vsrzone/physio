@@ -67,7 +67,11 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return View::make('admin.layouts.main');
+	if (Auth::check() && Auth::user()->type != 3){
+		return View::make('admin.layouts.main');
+	}elseif (Auth::check() && Auth::user()->type == 3){
+		return Redirect::to('/');
+	}
 });
 
 /*

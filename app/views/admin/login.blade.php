@@ -40,11 +40,15 @@
 					<div style="padding:3px"> {{ Form::password('password', array('placeholder'=>'Password', 'class'=>'form-control')) }}</div>
 					<div style="padding:3px">{{ Form::submit('Login', array('class'=>'btn btn-success btn-lg btn-block')) }} </div>
 					{{ Form::close() }}	
-					</div>				
 				</div>
-			</div>
-		</div>
+				<div class="panel-footer">
+			<a href="{{url()}}">Back to HOME</a>	
+		</div>					
+			</div>				
+		</div>		
 	</div>
+			
 </div>
+
 </body>
 </html>

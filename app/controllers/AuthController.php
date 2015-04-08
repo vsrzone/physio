@@ -24,8 +24,12 @@ class AuthController extends BaseController{
 
 		if($validator->passes()){
 			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') )))
-			{				
-			    return Redirect::to('admin/index');
+			{	
+
+				if(Auth::user()->type == 3){
+					return Redirect::to('/');
+				}			
+			    return View::make('admin.layouts.main');
 			}
 
 			return Redirect::to('admin/login')
@@ -44,7 +48,7 @@ class AuthController extends BaseController{
 			Auth::logout();
 		}
 
-		return Redirect::to('admin/login');
+		return Redirect::to('/');
 	}
 
 	public function getIndex(){
