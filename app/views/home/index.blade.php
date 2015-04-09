@@ -43,7 +43,7 @@
 						<a href="{{ url() }}/news/{{$news_item->id}}">
 							<img src="{{ url() }}/uploads/images/{{$news_item->image}}">
 							<p>{{$news_item->title}}</p>
-							<p>{{$news_item->content}}</p>
+							{{$news_item->content}}
 						</a>
 					</li>
 					@endforeach
