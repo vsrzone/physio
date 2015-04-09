@@ -187,7 +187,7 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('news.id as news_id' , 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
+			->select('news.id as news_id' , 'summary', 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
 	        ->paginate(6);
 	   
 	    $request = Request::create('/categories', 'GET');
@@ -214,7 +214,7 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 1)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select('categories.name as category_name', 'summary', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->paginate(6);
 
 	    $request = Request::create('/categories', 'GET');
@@ -240,7 +240,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
 			->orderby('news_date', 'DESC')
-			->select('title', 'news_date','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select('title', 'news_date', 'summary','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->paginate(6);
 
 	   $request = Request::create('/categories', 'GET');
@@ -310,7 +310,7 @@ class NewsController extends BaseController{
 		        })
 				->where('active', '=', 1)
 				->orderby('news_date', 'DESC')
-				->select('news.id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
+				->select('news.id', 'summary', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 				->take(4)
 				->get();
 		
@@ -328,7 +328,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('members_only', '=', 0)
 			->orderby('news_date', 'DESC')
-			->select('news.id as id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
+			->select('news.id as id', 'summary', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 			->take(4)
 			->get();
 
