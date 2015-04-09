@@ -17,7 +17,7 @@ class WorkController extends BaseController {
 			$details = DB::table('members')
 					->select('id', 'name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
 					->where($field, 'LIKE', '%'.$value.'%')
-					->get();
+					->paginate(10);
 			return View::make('members.index')
 	 			->with('members', $details)
 	 			->with('label', 'Search Results For: '.$value);
@@ -26,7 +26,7 @@ class WorkController extends BaseController {
 		$members = DB::table('members')
 					->select('id', 'name', 'profile_picture', 'concil_registration_no', 'nic', 'district', 'hospital')
 					->orderBy('name')
-					->get();
+					->paginate(10);
 
 	 	return View::make('members.index')
 	 		->with('members', $members);
