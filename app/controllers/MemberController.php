@@ -192,9 +192,9 @@ class MemberController extends BaseController{
 		// var_dump($user->id != Auth::user()->member_id);
 		// die();
 
-		if($user->id != Auth::user()->member_id) {
+		if($user->type != Auth::user()->type) {
 
-			if($user->id <= Auth::user()->type) {
+			if($user->type <= Auth::user()->type) {
 
 				return Redirect::to('admin/member')
 					->with('message', 'Unsuccessful operation');
