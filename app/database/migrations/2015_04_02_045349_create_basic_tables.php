@@ -58,7 +58,7 @@ class CreateBasicTables extends Migration {
 			$table->boolean('members_only');
 			$table->integer('category_id')->unsigned();
 			$table->foreign('category_id')->references('id')->on('categories');
-			$table->date('news_date');
+			$table->dateTime('news_date');
 			$table->text('content');
 			$table->integer('created_by');
 			$table->timestamps();
