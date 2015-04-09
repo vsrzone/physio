@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
 @if(Session::has('message'))
-	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger" id="message"> {{ Session::get('message') }} </div>
 @endif
 @if($errors->has())
 	<div class="alert alert-danger">
@@ -17,8 +17,9 @@
 <div>Members only: {{ Form::checkbox('member','',false, array('id'=> 'member')) }} </div>
 <div>News Category: {{ Form::select('category_id', $categories,null, array('id'=>'category_id', 'class'=>'form-control')) }} </div>
 <div>News date: {{ Form::text('date', '', array('id'=>'date', 'class'=>'form-control')) }} </div>
-<div> News Title: {{ Form::text('title', '', array('id'=>'title', 'class'=>'form-control')) }} </div>
-<div>Content: {{ Form::textarea('content','', array('id'=>'content', 'class'=>'form-control')) }} </div>
+<div>News Title: {{ Form::text('title', '', array('id'=>'title', 'class'=>'form-control')) }} </div>
+<div>News Summary: {{ Form::textarea('summary','', array('id'=>'summary', 'class'=>'form-control')) }}</div>
+<div>Content: {{ Form::textarea('content','', array('id'=>'content', 'class'=>'cont')) }} </div>
 
 <div> {{ Form::file('files', array('id'=>'news_images', 'multiple', 'accept'=>'image/jpeg')) }} </div>
 <div id="displayArea1"></div>
@@ -33,7 +34,7 @@
 <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 <script type="text/javascript">
 tinymce.init({
-    selector: "textarea"
+    selector: "textarea.cont"
  });
 </script>
 

@@ -23,6 +23,7 @@ class NewsController extends BaseController{
 		$news->category_id = Request::input('category_id');
 		$news->news_date = Request::input('date').' '.date('h:i:s', time());
 		$news->content = Request::input('content');
+		$news->summary = Request::input('summary');
 		if($news->active == null){
 			$news->active = 0;
 		}
@@ -85,6 +86,12 @@ class NewsController extends BaseController{
 				$news->category_id = Input::get('category_id');
 				$news->news_date = Request::input('date').' '.date('h:i:s', time());
 				$news->content = Input::get('content');
+				$news->summary = Input::get('summary');
+				$alert = '';
+				if(strlen($news->summary) > 420 ){
+					$alert = '<br>Summary has been chuncked since it has exceeded the length!!!';
+					$news->summary = substr($news->summary, 1, 420);	
+				}
 				if($news->active == null){
 					$news->active = 0;
 				}
@@ -99,7 +106,7 @@ class NewsController extends BaseController{
 				
 				$news->save();
 				return Redirect::to('admin/news/index')
-					->with('message', 'News has been updated successfully!!!');
+					->with('message', 'News has been updated successfully!!!'.$alert);
 			}
 
 			return Redirect::to('admin/news/index')
@@ -251,38 +258,44 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)				
 			->select('title', 'news_date', 'members_only', 'content')						
 	        ->get();
-	    $images = DB::table('images')
-	    			->where('news_id', '=', $id)
-	    			->select('name')
-	    			->get();
-	   
-		if(Auth::check()){
-			$all_news = DB::table('news')
-						->orderby('news_date', 'DESC')
-		  				->select('id', 'title')
-		  				->take(10)
-		  				->get();
-		}else{
-			 $all_news = DB::table('news')
-				->where('members_only', '=', 0)
-				->orderby('news_date', 'DESC')
-  				->select('id', 'title')
-  				->take(10)
-  				->get();
-		}
-
 	    if($news){
-	    	if($news[0]->members_only == 1){
-		    	if(!Auth::check()){    		
-		    		return Redirect::to('/');
-		    	}
-		    }  	    
-	    }	 
+	    	$images = DB::table('images')
+		    			->where('news_id', '=', $id)
+		    			->select('name')
+		    			->get();
+		   
+			if(Auth::check()){
+				$all_news = DB::table('news')
+							->where('active', '=', 1)
+							->orderby('news_date', 'DESC')
+			  				->select('id', DB::raw('substr(title, 1, 25) as title'))
+			  				->take(10)
+			  				->get();
+			}else{
+				 $all_news = DB::table('news')
+					->where('members_only', '=', 0)
+					->where('active', '=', 1)
+					->orderby('news_date', 'DESC')
+	  				->select('id', DB::raw('substr(title, 1, 25)'))
+	  				->take(10)
+	  				->get();
+			}
 
-	   return View::make('news.news')
-	   		->with('news', $news)
-	   		->with('images', $images)
-	   		->with('all_news', $all_news);
+		    if($news){
+		    	if($news[0]->members_only == 1){
+			    	if(!Auth::check()){    		
+			    		return Redirect::to('/');
+			    	}
+			    }  	    
+		    }	 
+
+		   return View::make('news.news')
+		   		->with('news', $news)
+		   		->with('images', $images)
+		   		->with('all_news', $all_news);
+	    }
+
+	    return Redirect::to('/news');	    
 	}
 
 	//returns the latest 4 news

@@ -15,6 +15,7 @@ class News extends Eloquent
 	public static $rules = array(
 		'title'=>'required',
 		'category_id'=>'required',
-		'content'=>'required'
+		'content'=>'required',
+		'summary'=>'required'
 		);
 }
