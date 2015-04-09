@@ -15,8 +15,8 @@ return array(
 	*/
 
 	'mailgun' => array(
-		'domain' => '',
-		'secret' => '',
+		'domain' => 'vikum@ingenslk.com',
+		'secret' => '1234',
 	),
 
 	'mandrill' => array(
