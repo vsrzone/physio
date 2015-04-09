@@ -17,7 +17,7 @@
 		<div class="col-xs-12 col-md-3">
 			<h3>Recent News</h3>
 			@foreach($all_news as $news_item)
-			<a href="{{ url() }}/news/{{$news_item->id}}"><p>{{$news_item->title}}</p></a>
+			<a href="{{ url() }}/news/{{$news_item->id}}"><p>{{$news_item->title}} ...</p></a>
 			@endforeach
 		</div>
 		<div class="col-xs-12 col-md-9" id="news-wrapper">
