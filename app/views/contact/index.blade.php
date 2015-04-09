@@ -30,14 +30,18 @@
 		<div class="col-xs-12 col-md-9" id="contact-info">
 			<h3>Quick Contact Form</h3>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<label>Name</label>
-			<input type="text" name="name" id="name-txt">
-			<label>Email</label>
-			<input type="text" name="email" id="email-txt">
-			<label>Phone</label>
-			<input type="text" name="phone" id="phone-txt">
-			<label>Message</label>
-			<textarea type="text" name="message" id="message-txta"></textarea>
+			
+			<form method = "post" action = "contact">
+				<label>Name</label>
+				<input type="text" name="name" id="name-txt">
+				<label>Email</label>
+				<input type="text" name="email" id="email-txt">
+				<label>Phone</label>
+				<input type="text" name="phone" id="phone-txt">
+				<label>Message</label>
+				<textarea name="message" id="message-txta"></textarea><br>
+				<input type="submit" value = "Submit">
+			</form>
 		</div>
 	</div>
 </div>

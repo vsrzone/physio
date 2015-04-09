@@ -28,6 +28,16 @@ Route::get('about', function()
 // 	return View::make('news.index');
 // });
 
+Route::post('contact', function() {
+
+	Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message')), function($message) {
+
+	$message->from(Input::get('email'));
+	$message->to('vikum@ingenslk.com', 'Vikum')->subject('Message');
+	});
+});
+
+
 Route::get('contact', function(){
 	return View::make('contact.index');
 });
