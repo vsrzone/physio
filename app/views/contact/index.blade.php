@@ -1,6 +1,24 @@
 @extends('layouts.main')
 
 @section('content')
+
+@if(Session::has('message'))
+
+	<div class="alert alert-danger">{{ Session::get('message') }}</div>
+
+@endif
+
+@if($errors->has())
+	<div class="alert alert-danger">
+		<p> The following errors has occurred:</p>
+
+		<ul>
+			@foreach($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
 <div class="container-fluid">
 	<div class="row">
 		<ul id="main-slider" class="col-xs-12">
