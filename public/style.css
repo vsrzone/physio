@@ -395,18 +395,26 @@ footer{
 	vertical-align: top;
 }
 
+#contact-info input{
+	font-size: 14px;
+	margin: 5px;
+}
+
+.btn{
+	background-color: #E7C345;
+	color: #fff;
+}
+
 #contact-info input[type="text"]{
 	width: 50%;
 	position: relative;
 	box-sizing: border-box;
-	margin: 5px;
-	font-size: 14px;
 	padding: 5px;
 	border: 1px solid #ccc;
 }
 
 #contact-info textarea {
-	width: 40%;
+	width: 50%;
 	height: 100px;
 	font-size: 14px;
 	resize: none;
@@ -572,6 +580,7 @@ footer{
 #members-wrapper form input[type="text"]{
 	width: 70%;
 	margin-left: 20px;
+	margin-bottom: 5px;
 }
 
 #members-wrapper form .btn{
@@ -590,6 +599,10 @@ footer{
 	padding: 10px;
 	display: inline-block;
 }
+
+/* alert danger */
+
+
 
 @media (max-width: 1200px){
 	#news-section div + div > div ul li img{
@@ -691,6 +704,19 @@ footer{
 	#page{
 		padding-bottom: 120px;
 	}
+
+	#members-wrapper ul li{
+		width: 100%;
+	}
+
+	#members-wrapper ul li:nth-child(4n), #members-wrapper ul li:nth-child(4n+1){
+		background-color: inherit;
+	}
+
+	#members-wrapper ul li:nth-child(odd){
+		background-color: #f4f4f4;
+	}
+
 
 }
 
