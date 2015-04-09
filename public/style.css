@@ -572,6 +572,7 @@ footer{
 #members-wrapper form input[type="text"]{
 	width: 70%;
 	margin-left: 20px;
+	margin-bottom: 5px;
 }
 
 #members-wrapper form .btn{
@@ -691,6 +692,19 @@ footer{
 	#page{
 		padding-bottom: 120px;
 	}
+
+	#members-wrapper ul li{
+		width: 100%;
+	}
+
+	#members-wrapper ul li:nth-child(4n), #members-wrapper ul li:nth-child(4n+1){
+		background-color: inherit;
+	}
+
+	#members-wrapper ul li:nth-child(odd){
+		background-color: #f4f4f4;
+	}
+
 
 }
 
