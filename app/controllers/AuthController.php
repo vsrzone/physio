@@ -17,14 +17,17 @@ class AuthController extends BaseController{
 	public function postLogin(){
 		$validator = Validator::make(
 			 array('email' => Input::get('email'),
-		    'password' => Input::get('password')),
+		    'password' => Input::get('password'),
+		    'remeber' => Input::get('remember')),
 
 		    array('email' => 'required',
 		    'password' => 'required')
 		);
 
 		if($validator->passes()){
-			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') )))
+			$remember = (Input::has('remember') ? true: false);
+
+			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') ), $remember))
 			{					
 				return Redirect::to('/');				
 			}

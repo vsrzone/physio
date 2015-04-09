@@ -38,7 +38,9 @@
 					{{ Form::open(array('url'=>'admin/login')) }}
 					<div style="padding:3px">{{ Form::email('email','', array('placeholder'=>'User name', 'class'=>'form-control')) }}</div>
 					<div style="padding:3px"> {{ Form::password('password', array('placeholder'=>'Password', 'class'=>'form-control')) }}</div>
+					{{Form::checkbox('remember')}} Remember Me
 					<div style="padding:3px">{{ Form::submit('Login', array('class'=>'btn btn-success btn-lg btn-block')) }} </div>
+
 					{{ Form::close() }}	
 				</div>
 				<div class="panel-footer">
