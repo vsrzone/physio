@@ -29,6 +29,13 @@ class AuthController extends BaseController{
 
 			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password') ), $remember))
 			{					
+				if(Session::has('path')){
+					$path = Session::get('path');
+					Session::forget('path');
+			
+					return Redirect::to($path);					
+				}
+
 				return Redirect::to('/');				
 			}
 			return Redirect::to('admin/login')

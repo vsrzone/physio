@@ -22,18 +22,19 @@
 				@foreach(json_decode($categories) as $category)
 				<li><a href="{{url()}}/news/category/{{$category->id}}"><p>{{ $category->name }}</p></a></li>
 				@endforeach
+				<li><a href="{{url()}}/news/member"><p>Members Only</p></a></li>
 			</ul>
 		</div>
 		<div class="col-xs-12 col-md-9">
 			<ul id="news-content">
 				@foreach($news as $news_item)
 				<li>
-					<h3 class="">{{$news_item->title}}</h3>
+					<h3 class="">{{$news_item->title}}...</h3>
 					<ul class="news-content-cat">
 						<li>{{$news_item->category_name}}</li>
 					</ul>
 					<img src="{{ url() }}/uploads/images/{{$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
-					<p>{{$news_item->summary}}</p>
+					<p>{{$news_item->summary}}...</p>
 					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
 					<?php $date = date_create($news_item->news_date);?>
 					<p>{{date_format($date, 'Y-m-d')}}</p>

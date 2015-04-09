@@ -4,7 +4,6 @@ class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
 		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show', 'latestFourNews')));
-		$this->beforeFilter('member', array('only'=>'allMembersOnlyNews'));
 	}
 
 	//views create page
@@ -187,7 +186,7 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('news.id as news_id' , 'summary', 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
+			->select('news.id as news_id' , 'summary', 'categories.name as category_name', DB::raw('substr(title, 1, 45) as title'), 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
 	        ->paginate(6);
 	   
 	    $request = Request::create('/categories', 'GET');
@@ -203,26 +202,31 @@ class NewsController extends BaseController{
 	//returns all the public news
 	public function allMembersOnlyNews(){
 
-		$news = DB::table('news')
-			->join('categories', 'news.category_id', '=', 'categories.id')
-			->join('images', function($join)
-		        {
-		            $join->on('news.id', '=', 'images.news_id')
-		                 ->on('images.id', '=',
-		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
-		        })
-			->where('members_only', '=', 1)
-			->where('active', '=', 1)
-			->orderby('news_date', 'DESC')
-			->select('categories.name as category_name', 'summary', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
-	        ->paginate(6);
+		if(Auth::check()){
+			$news = DB::table('news')
+				->join('categories', 'news.category_id', '=', 'categories.id')
+				->join('images', function($join)
+			        {
+			            $join->on('news.id', '=', 'images.news_id')
+			                 ->on('images.id', '=',
+			                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+			        })
+				->where('members_only', '=', 1)
+				->where('active', '=', 1)
+				->orderby('news_date', 'DESC')
+				->select('news_id', 'categories.name as category_name', 'summary', DB::raw('substr(title, 1, 45) as title'), 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+		        ->paginate(6);
 
-	    $request = Request::create('/categories', 'GET');
-	    $categories = Route::dispatch($request)->getContent();
+		    $request = Request::create('/categories', 'GET');
+		    $categories = Route::dispatch($request)->getContent();
 
-		return View::make('news.index')
-			->with('news', $news)
-			->with('categories', $categories);
+			return View::make('news.index')
+				->with('news', $news)
+				->with('categories', $categories);
+		}
+		Session::put('path','news/member');
+		return Redirect::to('news')			
+			->with('login_popup', true);		
 	}
 
 	//returns all news search by a category
@@ -240,7 +244,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
 			->orderby('news_date', 'DESC')
-			->select('title', 'news_date', 'summary','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
+			->select(DB::raw('substr(title, 1, 45) as title'), 'news_date', 'summary','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->paginate(6);
 
 	   $request = Request::create('/categories', 'GET');
@@ -310,7 +314,7 @@ class NewsController extends BaseController{
 		        })
 				->where('active', '=', 1)
 				->orderby('news_date', 'DESC')
-				->select('news.id', 'summary', DB::raw('substr(title, 1, 25) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
+				->select('news.id', 'summary', DB::raw('substr(title, 1, 45) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
 				->take(4)
 				->get();
 		
@@ -328,7 +332,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('members_only', '=', 0)
 			->orderby('news_date', 'DESC')
-			->select('news.id as id', 'summary', DB::raw('substr(title, 1, 25) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
+			->select('news.id as id', 'summary', DB::raw('substr(title, 1, 45) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
 			->take(4)
 			->get();
 

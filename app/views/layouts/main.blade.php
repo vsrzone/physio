@@ -122,12 +122,14 @@
 <script type="text/javascript">
 var noItems = 4;
 $(document).ready(function() {
-
-var w = window.innerWidth;
-if(w < 768) {
-	noItems = 2;
-}
-  // The slider being synced must be initialized first
+	@if(Session::has('login_popup'))  //php
+	$('#login button').eq(0).click();
+	@endif		//php
+	var w = window.innerWidth;
+	if(w < 768) {
+		noItems = 2;
+	}
+	  // The slider being synced must be initialized first
 	$('#news-carousel').flexslider({
 		animation: "slide",
 		controlNav: false,

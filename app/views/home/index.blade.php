@@ -42,8 +42,8 @@
 					<li>
 						<a href="{{ url() }}/news/{{$news_item->id}}">
 							<img src="{{ url() }}/uploads/images/{{$news_item->image}}">
-							<p>{{$news_item->title}}</p>
-							<p>{{$news_item->summary}}</p>
+							<p>{{$news_item->title}}...</p>
+							<p>{{$news_item->summary}}...</p>
 						</a>
 					</li>
 					@endforeach

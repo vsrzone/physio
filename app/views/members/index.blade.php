@@ -35,6 +35,8 @@
 				@endforeach
 			</ul>
 
+			{{ $members->links() }}
+
 			{{ Form::open(array('url' => 'members', 'method' => 'GET')) }}
 			{{ Form::label('Search Field')}}
 			{{ Form::select('field', array('name'=>'Name', 'hospital'=>'Hospital', 'concil_registration_no'=>'Registration No', 'district'=>'District')) }}
@@ -44,9 +46,5 @@
 			{{ Form::close() }}
 		</div>
 	</div>
-</div>
-
-<div>
-	{{ $members->links() }}
 </div>
 @stop
