@@ -30,11 +30,13 @@ Route::get('about', function()
 
 Route::post('contact', function() {
 
-	Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message')), function($message) {
+	Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message'), 'phone'=>Input::get('phone')), function($message) {
 
-	$message->from(Input::get('email'));
-	$message->to('vikum@ingenslk.com', 'Vikum')->subject('Message');
+		$message->from(Input::get('email'), Input::get('name'));
+		$message->to('vikum@ingenslk.com', 'Vikum')->subject('Contact Message');
 	});
+
+	return Redirect::to('contact');
 });
 
 
