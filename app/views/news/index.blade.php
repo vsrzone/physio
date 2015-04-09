@@ -35,7 +35,8 @@
 					<img src="{{ url() }}/uploads/images/{{$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
 					{{$news_item->content}}
 					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
-					<p>{{$news_item->news_date}}</p>
+					<?php $date = date_create($news_item->news_date);?>
+					<p>{{date_format($date, 'Y-m-d')}}</p>
 				</li><!-- end of news -->
 				@endforeach
 			</ul>
