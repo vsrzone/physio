@@ -28,7 +28,8 @@ $env = $app->detectEnvironment(array(
 
 	'local' => array('homestead'),
 	'vikum' => array('Kurtosis'),
-	'dev' => array('agba')
+	'dev' => array('agba'),
+	'buddhi' => array('IngensInternPC')
 
 ));
 
