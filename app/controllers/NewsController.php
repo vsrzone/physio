@@ -310,7 +310,7 @@ class NewsController extends BaseController{
 		        })
 				->where('active', '=', 1)
 				->orderby('news_date', 'DESC')
-				->select('news.id', 'summary', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
+				->select('news.id', 'summary', DB::raw('substr(title, 1, 25) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
 				->take(4)
 				->get();
 		
@@ -328,7 +328,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('members_only', '=', 0)
 			->orderby('news_date', 'DESC')
-			->select('news.id as id', 'summary', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
+			->select('news.id as id', 'summary', DB::raw('substr(title, 1, 25) as title'), DB::raw('substr(content,1,300) as content'), 'name as image')
 			->take(4)
 			->get();
 
