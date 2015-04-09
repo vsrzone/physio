@@ -30,13 +30,27 @@ Route::get('about', function()
 
 Route::post('contact', function() {
 
-	Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message'), 'phone'=>Input::get('phone')), function($message) {
+	$validator = Validator::make(array('name' => Input::get('name'), 'message' => Input::get('message'), 'email' => Input::get('email')), array('name' => 'required', 'message' => 'required', 'email' => 'required|email'));
 
-		$message->from(Input::get('email'), Input::get('name'));
-		$message->to('vikum@ingenslk.com', 'Vikum')->subject('Contact Message');
-	});
+	if($validator->passes()) {
 
-	return Redirect::to('contact');
+		try {
+
+			Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message'), 'email'=>Input::get('email'), 'phone'=>Input::get('phone')), function($message) {
+
+				$message->to('pulasthilakshan@gmail.com', 'Vikum')->subject('Physio Contact Message');
+			});
+			return Redirect::to('contact')
+				->with('message', 'Email Sent');
+		} catch(Exception $ex) {
+			return Redirect::to('contact')
+				->with('message', 'Error occured');
+		}
+	}
+	return Redirect::to('contact')
+				->withErrors($validator)
+				->withInput();
+	
 });
 
 
