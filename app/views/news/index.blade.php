@@ -33,7 +33,7 @@
 						<li>{{$news_item->category_name}}</li>
 					</ul>
 					<img src="{{ url() }}/uploads/images/{{$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
-					<p>{{$news_item->content}}</p>
+					{{$news_item->content}}
 					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
 					<p>{{$news_item->news_date}}</p>
 				</li><!-- end of news -->
