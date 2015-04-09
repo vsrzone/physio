@@ -21,7 +21,7 @@ class NewsController extends BaseController{
 		$news->active = Request::input('active');
 		$news->members_only = Request::input('member');
 		$news->category_id = Request::input('category_id');
-		$news->news_date = Request::input('date');
+		$news->news_date = Request::input('date').' '.date('h:i:s', time());
 		$news->content = Request::input('content');
 		if($news->active == null){
 			$news->active = 0;
@@ -29,8 +29,8 @@ class NewsController extends BaseController{
 		if($news->members_only == null){
 			$news->members_only = 0;
 		}
-		if($news->news_date == null){
-			$news->news_date = date('Y-m-d');
+		if(Request::input('date') == null){
+			$news->news_date = date('Y-m-d h:i:s', time());
 		}
 		
 		$news->created_by = Auth::user()->member_id; 
@@ -83,7 +83,7 @@ class NewsController extends BaseController{
 				$news->active = Input::get('active');
 				$news->members_only = Input::get('member');
 				$news->category_id = Input::get('category_id');
-				$news->news_date = Input::get('date');
+				$news->news_date = Request::input('date').' '.date('h:i:s', time());
 				$news->content = Input::get('content');
 				if($news->active == null){
 					$news->active = 0;
@@ -91,8 +91,8 @@ class NewsController extends BaseController{
 				if($news->members_only == null){
 					$news->members_only = 0;
 				}
-				if($news->news_date == null){
-					$news->news_date = date('Y-m-d');
+				if(Request::input('date') == null){
+					$news->news_date = date('Y-m-d h:i:s', time());
 				}
 
 				$news->created_by = '1'; //get user names form auth class
@@ -179,7 +179,7 @@ class NewsController extends BaseController{
 		        })
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
-			->orderby('news.id', 'DESC')
+			->orderby('news_date', 'DESC')
 			->select('news.id as news_id' , 'categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')					
 	        ->paginate(6);
 	   
@@ -206,7 +206,7 @@ class NewsController extends BaseController{
 		        })
 			->where('members_only', '=', 1)
 			->where('active', '=', 1)
-			->orderby('news.id', 'DESC')
+			->orderby('news_date', 'DESC')
 			->select('categories.name as category_name', 'title', 'news_date', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->paginate(6);
 
@@ -232,7 +232,7 @@ class NewsController extends BaseController{
 		        })
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
-			->orderby('news.id', 'DESC')
+			->orderby('news_date', 'DESC')
 			->select('title', 'news_date','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 1, 420) as content'), 'images.name as image')						
 	        ->paginate(6);
 
@@ -258,14 +258,14 @@ class NewsController extends BaseController{
 	   
 		if(Auth::check()){
 			$all_news = DB::table('news')
-						->orderby('id', 'DESC')
+						->orderby('news_date', 'DESC')
 		  				->select('id', 'title')
 		  				->take(10)
 		  				->get();
 		}else{
 			 $all_news = DB::table('news')
 				->where('members_only', '=', 0)
-				->orderby('id', 'DESC')
+				->orderby('news_date', 'DESC')
   				->select('id', 'title')
   				->take(10)
   				->get();
@@ -296,7 +296,7 @@ class NewsController extends BaseController{
 		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
 		        })
 				->where('active', '=', 1)
-				->orderby('news.id', 'DESC')
+				->orderby('news_date', 'DESC')
 				->select('news.id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 				->take(4)
 				->get();
@@ -314,7 +314,7 @@ class NewsController extends BaseController{
 		        })
 			->where('active', '=', 1)
 			->where('members_only', '=', 0)
-			->orderby('news.id', 'DESC')
+			->orderby('news_date', 'DESC')
 			->select('news.id as id', 'title', DB::raw('substr(content,1,300) as content'), 'name as image')
 			->take(4)
 			->get();
