@@ -8,17 +8,6 @@
 
 @endif
 
-@if($errors->has())
-	<div class="alert alert-danger">
-		<p> The following errors has occurred:</p>
-
-		<ul>
-			@foreach($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-@endif
 <div class="container-fluid">
 	<div class="row">
 		<ul id="main-slider" class="col-xs-12">
@@ -32,6 +21,17 @@
 </div>
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
+		@if($errors->has())
+			<div class="alert alert-danger">
+				<p> The following errors has occurred:</p>
+
+				<ul>
+					@foreach($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
 		<div class="col-xs-12 col-md-3">
 			<h3>Head Office</h3>
 			<p>
@@ -58,7 +58,8 @@
 				<input type="text" name="phone" id="phone-txt">
 				<label>Message</label>
 				<textarea name="message" id="message-txta"></textarea><br>
-				<input type="submit" value = "Submit">
+				<label>&nbsp;</label>
+				<input type="submit" value = "Submit" class="btn">
 			</form>
 		</div>
 	</div>
