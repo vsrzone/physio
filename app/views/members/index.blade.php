@@ -45,4 +45,8 @@
 		</div>
 	</div>
 </div>
+
+<div>
+	{{ $members->links() }}
+</div>
 @stop
