@@ -33,7 +33,7 @@
 					<ul class="news-content-cat">
 						<li>{{$news_item->category_name}}</li>
 					</ul>
-					<img src="{{ url() }}/uploads/images/{{$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
+					<img src="{{ url() }}/thumbnail?image={{url().'/uploads/images/'.$news_item->image}}" alt="{{$news_item->title}}" title="{{$news_item->title}}">
 					<p>{{$news_item->summary}}...</p>
 					<a href="{{ url() }}/news/{{$news_item->news_id}}">Read More</a>
 					<?php $date = date_create($news_item->news_date);?>
