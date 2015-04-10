@@ -35,10 +35,10 @@
 
 				</div>
 			</div>
-			<div id="logo" class="col-md-4">
+			<div id="logo" class="col-md-2">
 				<a href="{{ url() }}" target="_self"><img src="{{ url() }}/images/logo.png" width="auto" height="100%" alt="Physiotherapysts Association" title="Physiotherapysts Association"></a>
 			</div>
-			<ul id="nav" class="col-md-8">
+			<ul id="nav" class="col-md-10">
 				<div class="navbar-header mobile-toggle">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>
@@ -48,10 +48,11 @@
 					</button>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<li class="col-xs-12 col-sm-3 col-md-3"><a href="{{ url() }}">Home</a></li>
-					<li class="col-xs-12 col-sm-3 col-md-3"><a href="{{ url() }}/about">About Us</a></li>
-					<li class="col-xs-12 col-sm-3 col-md-3"><a href="{{ url() }}/news">News & Events</a></li>
-					<li class="col-xs-12 col-sm-3 col-md-3"><a href="{{ url() }}/contact">Contact Us</a></li>
+					<li class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-offset-2"><a href="{{ url() }}">Home</a></li>
+					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/about">About Us</a></li>
+					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/news">News & Events</a></li>
+					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/members">Members</a></li>
+					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/contact">Contact Us</a></li>
 				</div>
 			</ul>
 		</nav>
