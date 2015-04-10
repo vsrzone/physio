@@ -526,7 +526,7 @@ footer{
 
 /* members wrapper */
 
-#members-wrapper ul{
+#members-wrapper{
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -535,32 +535,32 @@ footer{
 
 }
 
-#members-wrapper ul li{
+#members-wrapper li{
 	margin: 0;
 }
 
-#members-wrapper ul li p img{
+#members-wrapper li p img{
 	width: 100px;
 	border: 1px solid #000;
 	margin-right: 20px;
 }
 
-#members-wrapper ul li{
+#members-wrapper li{
 	width: 50%;
 	padding: 10px;
 	box-sizing: border-box;
 	display: inline-block;
 }
 
-#members-wrapper ul li:nth-child(4n), #members-wrapper ul li:nth-child(4n+1){
+#members-wrapper li:nth-child(4n), #members-wrapper li:nth-child(4n+1){
 	background-color: #f4f4f4;
 }
 
-#members-wrapper ul li p{
+#members-wrapper li p{
 	font-size: 12px;
 }
 
-#members-wrapper ul li:after{
+#members-wrapper li:after{
 	content: '';
 	clear: both;
 	font-size: 1;
@@ -568,13 +568,13 @@ footer{
 }
 
 
-#members-wrapper ul li > p:nth-child(1){
+#members-wrappers li > p:nth-child(1){
 	float: left;
 	width: 115px;
 	min-height: 100px;
 }
 
-#members-wrapper form{
+#members-wrappers form{
 	width: 100%;
 	vertical-align: middle;
 	padding: 50px;
@@ -583,13 +583,13 @@ footer{
 	text-align: center;
 }
 
-#members-wrapper form input[type="text"]{
+#members-wrappers form input[type="text"]{
 	width: 70%;
 	margin-left: 20px;
 	margin-bottom: 5px;
 }
 
-#members-wrapper form .btn{
+#members-wrappers form .btn{
 	background-color: #E7C345;
 	color: #fff;
 }
@@ -711,15 +711,15 @@ footer{
 		padding-bottom: 120px;
 	}
 
-	#members-wrapper ul li{
+	#members-wrapper li{
 		width: 100%;
 	}
 
-	#members-wrapper ul li:nth-child(4n), #members-wrapper ul li:nth-child(4n+1){
+	#members-wrapper li:nth-child(4n), #members-wrapper li:nth-child(4n+1){
 		background-color: inherit;
 	}
 
-	#members-wrapper ul li:nth-child(odd){
+	#members-wrapper li:nth-child(odd){
 		background-color: #f4f4f4;
 	}
 

@@ -13,7 +13,7 @@
 </div>
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
-		<div class="col-xs-12" id="members-wrapper">
+		<div class="col-xs-12" id="members-wrappers">
 			<p>
 				@if(isset($label))
 					{{$label}}
@@ -22,7 +22,7 @@
 					@endif
 				@endif
 			</p>
-			<ul>
+			<ul id="members-wrapper">
 				@foreach($members as $member)
 				<li>
 					<p><a href="{{url()}}/members/{{$member->id}}"><img src="{{ url() }}/uploads/member/profile/{{$member->profile_picture}}" alt="{{$member->name}}" title="{{$member->name}}" /></a></p>
