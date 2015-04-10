@@ -14,8 +14,8 @@
 <div class="container page-wrapper" id="content-wrapper">
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>Physiotherapy</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate suscipit dictum. Donec convallis sapien elit. Cras vitae orci quis nisl tristique scelerisque et at augue. Fusce finibus vulputate justo. In sagittis vitae ligula sed tristique. Quisque venenatis lectus malesuada lacus porttitor, quis molestie nisl tristique. Suspendisse maximus venenatis massa, eu fringilla ipsum efficitur vel. Vestibulum mollis purus nisi, vitae ornare massa consectetur at.</p>
+			<h1>Government Physiotherapists’ Association</h1>
+			<p>The Government Physiotherapists ’Association is the sole voice for Government Physiotherapists, representing 325 physiotherapists’ island wide .The Association operates as a non-profit organization and is registered in1957 as a trade union under the trade union ordinance. Although the association is a trade union, it works for social wellbeing as an organization while it works to protect, promote the interests of its members in respect of their prospects and privileges and general conditions of employment.</p>
 			<ul id="services">
 				<li class="col-xs-12 col-md-4">
 					<p><img src=""><span class="glyphicon glyphicon-star" aria-hidden="true"></span></p>

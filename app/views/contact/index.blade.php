@@ -35,19 +35,19 @@
 		<div class="col-xs-12 col-md-3">
 			<h3>Head Office</h3>
 			<p>
-				DieSachbearbeiter<br/>
-				Schonahauser Allee 167c<br/>
-				10435 Berlin<br/>
-				Germany<br/>
+				Government Physiotherapist's Association,<br/>
+				Department of Physical Medicine<br/>
+				National Hospital, Colombo.<br/>
+				Sri Lanka<br/>
 			</p>
 
-			<p>Telephone: <a href="tel:+94111231232">011-1231232</a></p>
-			<p>Fax: 011-4212232</p>
+			<p>Telephone: <a href="tel:+94111231232">077-2485468</a></p>
+			<p>Email: secretarygpa@gmail.com</p>
 
 		</div>
 		<div class="col-xs-12 col-md-9" id="contact-info">
 			<h3>Quick Contact Form</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p>If you want to find out more about our services simply fill below and we will get back to you right away.</p>
 			
 			<form method = "post" action = "contact">
 				<label>Name</label>

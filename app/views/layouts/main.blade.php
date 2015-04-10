@@ -104,7 +104,8 @@
 				<label>Username</label>
 				{{ Form::email('email','', array('placeholder'=>'User name')) }}
 				<label>Password</label>
-				{{ Form::password('password', array('placeholder'=>'Password')) }}
+				{{ Form::password('password', array('placeholder'=>'Password')) }}<br/>
+				{{ Form::checkbox('remember') }} Remeber Me <br/>
 				<input type="submit" value="Sign in" class="btn" id="sign-in"/>
 				{{ Form::close() }}	
 				</div>

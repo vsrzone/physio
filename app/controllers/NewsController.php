@@ -272,7 +272,7 @@ class NewsController extends BaseController{
 				$all_news = DB::table('news')
 							->where('active', '=', 1)
 							->orderby('news_date', 'DESC')
-			  				->select('id', DB::raw('substr(title, 1, 25) as title'))
+			  				->select('id', 'title')
 			  				->take(10)
 			  				->get();
 			}else{
@@ -280,7 +280,7 @@ class NewsController extends BaseController{
 					->where('members_only', '=', 0)
 					->where('active', '=', 1)
 					->orderby('news_date', 'DESC')
-	  				->select('id', DB::raw('substr(title, 1, 25)'))
+	  				->select('id', 'title')
 	  				->take(10)
 	  				->get();
 			}

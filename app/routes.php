@@ -38,7 +38,7 @@ Route::post('contact', function() {
 
 			Mail::send('contact.email', array('name'=>Input::get('name'), 'msg'=>Input::get('message'), 'email'=>Input::get('email'), 'phone'=>Input::get('phone')), function($message) {
 
-				$message->to('pulasthilakshan@gmail.com', 'Vikum')->subject('Physio Contact Message');
+				$message->to('secretarygpa@gmail.com', 'Vikum')->subject('Physio Contact Message');
 			});
 			return Redirect::to('contact')
 				->with('message', 'Email Sent');

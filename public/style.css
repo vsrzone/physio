@@ -335,6 +335,19 @@ footer{
 #news-content > li{
 	margin: 0;
 	overflow: auto;
+	padding: 0 10px 10px 10px;
+}
+
+#news-content > li:nth-child(even):hover{
+	background-color: #F9F9F9;
+}
+
+#news-content > li:nth-child(odd):hover{
+	background-color: #E4E4E4;
+}
+
+#news-content > li:nth-child(odd){
+	background-color: #f4f4f4;
 }
 
 #news-content li img{
@@ -376,10 +389,8 @@ footer{
 .news-content-cat li{
 	float: left;
 	margin-right: 5px;
-	background-color: #ccc;
-	padding: 5px;
-	font-size: 10px;
-	color: #fff;
+	font-size: 12px;
+	color: #CBA931;
 	margin-bottom: 5px;
 }
 
@@ -721,6 +732,10 @@ footer{
 
 	#members-wrapper li:nth-child(odd){
 		background-color: #f4f4f4;
+	}
+
+	.page-wrapper{
+		margin-top: 0px;
 	}
 
 
