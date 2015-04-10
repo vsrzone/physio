@@ -24,10 +24,16 @@ Route::get('about', function()
 	return View::make('about.index');
 });
 
-// resize an image
+// resize an image for all news
 Route::get('/thumbnail',function(){
 	
 	include_once(app_path().'\views\admin\image\image.php');
+});
+
+// resize an image for news slider
+Route::get('/slider',function(){
+	
+	include_once(app_path().'\views\admin\image\slider.php');
 });
 
 // Route::get('news', function(){
