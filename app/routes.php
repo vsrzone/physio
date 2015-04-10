@@ -24,6 +24,12 @@ Route::get('about', function()
 	return View::make('about.index');
 });
 
+// resize an image
+Route::get('/thumbnail',function(){
+	
+	include_once(app_path().'\views\admin\image\image.php');
+});
+
 // Route::get('news', function(){
 // 	return View::make('news.index');
 // });
