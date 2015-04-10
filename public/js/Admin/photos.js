@@ -109,9 +109,17 @@ Photo.prototype.resizeY = function(y) {
 Photo.prototype.resizeLongEdge = function(edge) {
 
 	if(this.imgHeight>this.imgWidth) {
-		return new Photo(this.resizeY(edge));
+		if(edge<=this.imgHeight) {
+			return new Photo(this.resizeY(edge));
+		} else {
+			return new Photo(this.resizeY(this.imgHeight));
+		}
 	} else {
-		return new Photo(this.resizeX(edge));
+		if(edge<=this.imgWidth) {
+			return new Photo(this.resizeX(edge));
+		} else {
+			return new Photo(this.resizeX(this.imgWidth));
+		}
 	}
 }
 
@@ -345,7 +353,8 @@ function handleProjectFileSelect(e) {
 			for (var i = 0; i < photo.length; i++) {
 				clearInterval(interval);
 				var resizedThumb = photo[i].resizeLongEdge(400);
-				var resizedImg = photo[i].resizeLongEdge(1400);
+				var resizedImg = photo[i].resizeLongEdge(600);
+				photo[i] = resizedImg;
 				var img_thumb = document.createElement("IMG");
 				img_thumb.src = resizedThumb.imageData;
 				document.getElementById("displayArea1").appendChild(img_thumb);
