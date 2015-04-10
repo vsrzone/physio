@@ -186,9 +186,9 @@ class NewsController extends BaseController{
 			->where('members_only', '=', 0)
 			->where('active', '=', 1)
 			->orderby('news_date', 'DESC')
-			->select('news.id as news_id' , 'summary', 'categories.name as category_name', DB::raw('substr(title, 0, 45) as title'), 'news_date', DB::raw('substr(content, 0, 420) as content'), 'images.name as image')					
+			->select('news.id as news_id' , 'summary', 'categories.name as category_name', DB::raw('substr(title, 1, 45) as title'), 'news_date', 'images.name as image')					
 	        ->paginate(6);
-	   
+	  
 	    $request = Request::create('/categories', 'GET');
 	    $categories = Route::dispatch($request)->getContent();
 	    
@@ -214,7 +214,7 @@ class NewsController extends BaseController{
 				->where('members_only', '=', 1)
 				->where('active', '=', 1)
 				->orderby('news_date', 'DESC')
-				->select('news_id', 'categories.name as category_name', 'summary', DB::raw('substr(title, 0, 45) as title'), 'news_date', DB::raw('substr(content, 0, 420) as content'), 'images.name as image')						
+				->select('news_id', 'categories.name as category_name', 'summary', DB::raw('substr(title, 1, 45) as title'), 'news_date', 'images.name as image')						
 		        ->paginate(6);
 
 		    $request = Request::create('/categories', 'GET');
@@ -244,7 +244,7 @@ class NewsController extends BaseController{
 			->where('active', '=', 1)
 			->where('category_id', '=', $id)
 			->orderby('news_date', 'DESC')
-			->select(DB::raw('substr(title, 0, 45) as title'), 'news_date', 'summary','news.id as news_id' ,'categories.name as category_name', DB::raw('substr(content, 0, 420) as content'), 'images.name as image')						
+			->select(DB::raw('substr(title, 1, 45) as title'), 'news_date', 'summary','news.id as news_id' ,'categories.name as category_name', 'images.name as image')						
 	        ->paginate(6);
 
 	   $request = Request::create('/categories', 'GET');
