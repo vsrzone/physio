@@ -136,9 +136,12 @@ if ((!$maxWidth && !$maxHeight) || (!$color && $maxWidth >= $width && $maxHeight
 // Ratio cropping
 $offsetX	= 0;
 $offsetY	= 0;
-if (isset($_GET['cropratio']))
+//if (isset($_GET['cropratio']))
+$cropRatio = array(200,150);
+if ($cropRatio)
 {
-	$cropRatio		= explode(':', (string) $_GET['cropratio']);
+	//$cropRatio		= explode(':', (string) $_GET['cropratio']);
+	
 	if (count($cropRatio) == 2)
 	{
 		$ratioComputed		= $width / $height;
