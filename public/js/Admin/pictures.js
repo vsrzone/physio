@@ -109,9 +109,17 @@ Photo.prototype.resizeY = function(y) {
 Photo.prototype.resizeLongEdge = function(edge) {
 
 	if(this.imgHeight>this.imgWidth) {
-		return new Photo(this.resizeY(edge));
+		if(edge<=this.imgHeight) {
+			return new Photo(this.resizeY(edge));
+		} else {
+			return new Photo(this.resizeY(this.imgHeight));
+		}
 	} else {
-		return new Photo(this.resizeX(edge));
+		if(edge<=this.imgWidth) {
+			return new Photo(this.resizeX(edge));
+		} else {
+			return new Photo(this.resizeX(this.imgWidth));
+		}
 	}
 }
 
@@ -286,7 +294,7 @@ function uploadProfilePic(e) {
 			for (var i = 0; i < thumb.length; i++) {
 				clearInterval(interval);
 				var resizedImg = thumb[i].resizeLongEdge(200);
-				var maxSize = thumb[i].resizeLongEdge(800)
+				var maxSize = thumb[i].resizeLongEdge(800);
 				var img_thumb = document.createElement("IMG");
 				img_thumb.src = resizedImg.imageData;
 				document.getElementById("profile_pic").appendChild(img_thumb);
