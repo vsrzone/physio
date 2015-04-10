@@ -41,7 +41,7 @@
 					@foreach($latest_news as $news_item)
 					<li>
 						<a href="{{ url() }}/news/{{$news_item->id}}">
-							<img src="{{ url() }}/uploads/images/{{$news_item->image}}">
+							<img src="{{ url() }}/slider?image={{url().'/uploads/images/'.$news_item->image}}">
 							<p>{{$news_item->title}}...</p>
 							<p>{{$news_item->summary}}...</p>
 						</a>
@@ -52,7 +52,7 @@
 			<div id="news-carousel" class="flexslider">
 				<ul class="slides">
 					@foreach($latest_news as $news_item)
-					<li><img src="{{ url() }}/uploads/images/{{$news_item->image}}"></li>
+					<li><img src="{{ url() }}/slider?image={{url().'/uploads/images/'.$news_item->image}}"></li>
 					@endforeach
 				</ul>
 			</div>
