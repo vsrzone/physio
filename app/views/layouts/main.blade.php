@@ -38,7 +38,7 @@
 			<div id="logo" class="col-md-2">
 				<a href="{{ url() }}" target="_self"><img src="{{ url() }}/images/logo.png" width="auto" height="100%" alt="Physiotherapysts Association" title="Physiotherapysts Association"></a>
 			</div>
-			<ul id="nav" class="col-md-10">
+			<ul id="nav" class="col-sm-12 col-md-10">
 				<div class="navbar-header mobile-toggle">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>

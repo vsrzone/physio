@@ -24,16 +24,14 @@
 		</div>
 		<div class="col-xs-12 col-md-9">
 			<h3>Our Services</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate suscipit dictum. Donec convallis sapien elit. Cras vitae orci quis nisl tristique scelerisque et at augue. Fusce finibus vulputate justo. In sagittis vitae ligula sed tristique. Quisque venenatis lectus malesuada lacus porttitor, quis molestie nisl tristique. Suspendisse maximus venenatis massa, eu fringilla ipsum efficitur vel. Vestibulum mollis purus nisi, vitae ornare massa consectetur at.</p>
+			<p>The GPA is committed to the concept of continuing professional education. The GPA offers it’s members advanced training and lectures from renowned and well experienced physiotherapists.</p>
+			<p>The GPA maintains an up to-date database of the active physiotherapists in Sri Lanka. This will enable authenticity and ensure the profession maintains a high standard.</p>
+			<p>Throughout the year GPA plans and implements various awareness programmes to make the general public aware about physiotherapy. This includes online and offline campaigns, workshops and seminars.</p>
 			<h4>Vision</h4>
 			<p>To have Consumers of Physiotherapy in all Environments, be it patient management, Rehabilitation, Prevention or Wellness services within srilanka, receive Physiotherapy from a well qualified Physiotherapist whom the GPA would without any hesitation recommend.</p>
 			<h4>Mission</h4>
 			<p>The mission of the Government Physiotherapists' Association (GPA) is to raise the professional status through protecting, promoting and furthering the interests of the members by promoting or organizing all lawful means, and, through ameliorating the economic condition, the general welfare and well being of the members. The GPA's mission extends to educate the membership in Trade Unionism and the performance of faithful and efficient service.</p>
-			<h3>History</h3>
-			<P>Ut affert appetere has. Denique pericula voluptaria vis te, eum ex virtute intellegam, deserunt urbanitas qui ne. Est ex posse eripuit complectitur, labitur disputando ex mea. Et nec aliquip integre, sea dolores voluptatum ut. Consequat similique duo ne, veri erant eam an, congue graeci scaevola eum ei. Ea aliquip delicatissimi eam, nam sapientem aliquando id, doctus nonumes facilisis eam et. Eos quot putant maluisset no, at accumsan eloquentiam mea.</P>
-			<p>Eripuit euismod partiendo eu mel, est ferri brute ei. Mel no dolor urbanitas tincidunt, qui ludus nonumes graecis et. Latine minimum cu usu. Congue accusamus in cum, quod accusamus adversarium te eum. Sumo admodum instructior ne eos, animal euismod liberavisse et eos. Vis ut dicam mediocrem, epicuri apeirian ei his.</p>
-			<p>Ex his maiorum ponderum repudiare, sit erant diceret constituam et, veri zril cum ex. In qui graeco fuisset sapientem, sit ex duis appetere, viris prompta efficiantur est ut. Et mei mundi causae scripserit, ad sea novum tritani tibique, malis tempor integre cum ut. Eos eius invenire gubergren cu. Cu ius delectus tincidunt.</p>
-		</div>
+			</div>
 	</div>
 </div>
 @stop
