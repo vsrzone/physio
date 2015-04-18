@@ -171,6 +171,7 @@ button:focus {
 #news-slider div ul li a{
 	display: inline-block;
 	padding: 20px;
+	width: 100%;
 }
 
 #news-slider{
