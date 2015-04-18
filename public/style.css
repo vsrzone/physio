@@ -170,10 +170,10 @@ button:focus {
 
 #news-slider div ul li a{
 	display: inline-block;
+	padding: 20px;
 }
 
 #news-slider{
-	padding: 20px;
 	box-sizing: border-box;
 	background-color: #f4f4f4;
 
