@@ -6,7 +6,7 @@
 		<ul id="main-slider" class="col-xs-12">
 			<li>
 				<img src="{{ url() }}/images/slider.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
-				<p>"You're in pretty good shape for the shape you are in You're in pretty good shape for the shape you are in"</p>
+				<p>"Looking after your health today gives you a better hope for tomorrow."</p>
 			</li>
 		</ul>
 	</div>
