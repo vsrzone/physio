@@ -17,8 +17,8 @@
 		<div class="col-xs-12 col-md-3">
 			<h3>Overview</h3>
 			<ul id="overview-wrapper">
-				<li><h5>Founded</h5><p>2001</p></li>
-				<li><h5>Founder</h5><p>Mr Jaliya Uduwella</p></li>
+				<li><h5>Founded</h5><p>1968</p></li>
+				<li><h5>President</h5><p>Mr Jaliya Uduwella</p></li>
 				<li><h5>Active Members</h5><p>400</p></li>
 			</ul>
 		</div>
