@@ -12,8 +12,11 @@ class LessonController extends BaseController{
 
 	//add function
 	public function postCreate(){
+
 		$validator = Validator::make(Input::all(), Lesson::$rules);
+
 		if($validator->passes()){
+
 			$lesson = new Lesson;
 			$lesson->topic = Input::get('topic');
 			$lesson->content = Input::get('content');
@@ -25,6 +28,14 @@ class LessonController extends BaseController{
 		}
 
 		return Redirect::to('admin/lesson/create')
-				->with('message', 'Following errors occurred');
+				->with('message', 'Following errors occurred')
+				->withErrors($validator)
+				->withInput();
+	}
+
+	//view availabel lessons
+	public function getIndex(){
+		return View::make('admin.lesson.index')
+				->with('lessons', Lesson::all());
 	}
 }
