@@ -14,8 +14,15 @@
 @endif
 {{ Form::open(array('url'=>'admin/lesson/create')) }}
 <div> Lesson topic: {{ Form::text('topic', '', array('class'=>'form-control', 'required')) }} </div>
-<div>Content: {{ Form::textarea('content', '', array('required', 'class'=>'form-control')) }}</div>
-<div> {{ Form::submit('Add Category', array('class'=>'btn btn-default')) }} </div>
+<div>Content: {{ Form::textarea('content') }}</div>
+<div> {{ Form::submit('Add Lesson', array('class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script type="text/javascript">
+
+tinymce.init({
+   selector: "textarea",
+});
+</script>
 @stop
