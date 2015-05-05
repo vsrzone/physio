@@ -29,6 +29,8 @@
 	        "searchreplace visualblocks code fullscreen",
         	"insertdatetime media table contextmenu paste"
 	    ],
+	    media_dimensions: false,
+    	image_dimensions: false
 	 });
 
 </script>
