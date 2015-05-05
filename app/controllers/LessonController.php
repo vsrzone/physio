@@ -38,4 +38,18 @@ class LessonController extends BaseController{
 		return View::make('admin.lesson.index')
 				->with('lessons', Lesson::all());
 	}
+
+	//delete function
+	public function postDestroy(){
+		$lesson = Lesson::find(Input::get('id'));
+		if($lesson){
+			$lesson->delete();
+
+			return Redirect::to('admin/lesson/index')
+					->with('message', 'Lesson has been deleted successfully');
+		}
+
+		return Redirect::to('admin/lesson/index')
+					->with('message', 'Something went worng. Please try again');
+	}
 }
