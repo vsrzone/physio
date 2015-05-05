@@ -88,6 +88,9 @@ Route::controller('admin/news', 'NewsController');
 //route to image controller
 Route::controller('admin/image', 'ImageController');
 
+//route to lessons controller
+Route::controller('admin/lesson', 'LessonController');
+
 //routes to auth controller
 Route::controller('admin', 'AuthController');
 
