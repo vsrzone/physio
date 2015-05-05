@@ -16,14 +16,12 @@
 	<tr>
 		<th>Lesson ID</th>
 		<th>Lesson topic</th>
-		<th>Content</th>
 		<th colspan="2">Edit/Delete</th>
 	</tr>
 	@foreach($lessons as $lesson)
 	<tr>
 		<td> {{ $lesson->id }} </td>
 		<td> {{ $lesson->topic }} </td>
-		<td> {{ substr($lesson->content, 0, 20) }}... </td>
 		{{ Form::open(array('url'=>'admin/lesson/edit')) }}
 		{{ Form::hidden('id', $lesson->id) }}
  		<td>{{ Form::submit('Edit', array('class'=>'btn btn-info')) }}</td>
