@@ -52,4 +52,43 @@ class LessonController extends BaseController{
 		return Redirect::to('admin/lesson/index')
 					->with('message', 'Something went worng. Please try again');
 	}
+
+	//views edit page
+	public function postEdit(){
+		$lesson = Lesson::find(Input::get('id'));
+		if($lesson){
+			return View::make('admin.lesson.edit')
+				->with('lesson', $lesson);
+		}
+		
+		return Redirect::to('admin/lesson/index')
+					->with('message', 'Something went worng. Please try again');
+	}
+
+	//update function
+	public function postUpdate(){
+		$lesson = Lesson::find(Input::get('id'));
+		if($lesson){
+			$validator = Validator::make(Input::all(), Lesson::$rules);
+
+			if($validator->passes()){
+
+				$lesson->topic = Input::get('topic');
+				$lesson->content = Input::get('content');
+				$lesson->user_id = Auth::id();
+				$lesson->save();
+
+				return Redirect::to('admin/lesson/create')
+						->with('message', 'Lesson has been updated successfully');
+			}
+
+			return Redirect::to('admin/lesson/create')
+					->with('message', 'Following errors occurred')
+					->withErrors($validator)
+					->withInput();
+		}
+
+		return Redirect::to('admin/lesson/index')
+					->with('message', 'Something went worng. Please try again');
+	}
 }
