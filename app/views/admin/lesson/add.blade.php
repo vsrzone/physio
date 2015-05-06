@@ -18,7 +18,7 @@
 <div> {{ Form::submit('Add Lesson', array('class'=>'btn btn-default')) }} </div>
 {{ Form::close() }}
 
-<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script type="text/javascript" src="{{url()}}/js/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 
 	tinymce.init({
@@ -29,7 +29,7 @@
         	"insertdatetime media table contextmenu paste"
 	    ],
 	    media_dimensions: false,
-    	image_dimensions: false
+    	image_dimensions: false,
 	 });
 
 </script>
