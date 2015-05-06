@@ -91,4 +91,11 @@ class LessonController extends BaseController{
 		return Redirect::to('admin/lesson/index')
 					->with('message', 'Something went worng. Please try again');
 	}
+
+	public function allLessons() {
+	// show all the lessons
+
+		return View::make('members.lesson')
+				->with('lessons', Lesson::paginate(5));
+	}
 }

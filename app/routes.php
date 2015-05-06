@@ -73,6 +73,8 @@ Route::get('contact', function(){
 //route to individual member edit
 Route::post('member/edit', 'WorkController@editMember');
 
+Route::get('members/lesson', 'LessonController@allLessons');
+
 Route::resource('members', 'WorkController');
 
 Route::controller('admin/user', 'UserController');
