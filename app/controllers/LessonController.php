@@ -3,6 +3,8 @@
 class LessonController extends BaseController{
 	public function __construct(){
 		$this->beforeFilter('csfr', array('on'=>'post'));
+		$this->beforeFilter('admin', array('except' => array('allLessons')));
+		$this->beforeFilter('member', array('only'=> array('allLessons')));
 	}
 
 	//views create page
