@@ -16,12 +16,22 @@
 	<tr>
 		<th>Lesson ID</th>
 		<th>Lesson topic</th>
+		<th>Add files</th>
+		<th>Remove files</th>
 		<th colspan="2">Edit/Delete</th>
 	</tr>
 	@foreach($lessons as $lesson)
 	<tr>
 		<td> {{ $lesson->id }} </td>
 		<td> {{ $lesson->topic }} </td>
+		{{ Form::open(array('url'=>'admin/lesson/addfiles')) }}
+		{{ Form::hidden('id', $lesson->id) }}
+ 		<td>{{ Form::submit('Add files', array('class'=>'btn btn-success')) }}</td>
+		{{ Form::close() }}
+		{{ Form::open(array('url'=>'admin/lesson/deletefiles')) }}
+		{{ Form::hidden('id', $lesson->id) }}
+ 		<td>{{ Form::submit('Remove files', array('class'=>'btn btn-warning')) }}</td>
+		{{ Form::close() }}		
 		{{ Form::open(array('url'=>'admin/lesson/edit')) }}
 		{{ Form::hidden('id', $lesson->id) }}
  		<td>{{ Form::submit('Edit', array('class'=>'btn btn-info')) }}</td>

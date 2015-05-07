@@ -32,6 +32,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateAttachmentsTable' => $baseDir . '/app/database/migrations/2015_05_05_060435_create_attachments_table.php',
     'CreateBasicTables' => $baseDir . '/app/database/migrations/2015_04_02_045349_create_basic_tables.php',
     'CreateLessonsTable' => $baseDir . '/app/database/migrations/2015_05_05_040144_create_lessons_table.php',
     'CreateQuestionTables' => $baseDir . '/app/database/migrations/2015_05_07_042236_create_question_tables.php',
