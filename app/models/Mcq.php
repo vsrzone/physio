@@ -1,6 +1,6 @@
 <?php
 
-class Question extends Eloquent
+class Mcq extends Eloquent
 {
 
 	protected $guarded = array();

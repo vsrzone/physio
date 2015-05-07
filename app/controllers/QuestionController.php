@@ -1,6 +1,6 @@
 <?php
 
-class QuestionController extends BaseController{
+class PaperController extends BaseController{
 
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on' => 'post'));
@@ -11,7 +11,7 @@ class QuestionController extends BaseController{
 		// show 10 questions per page
 
 		return View::make('admin.question.view')
-			->with('questions', Question::paginate(10));
+			->with('questions', Mcq::paginate(10));
 	}
 
 	public function getCreate() {
@@ -23,6 +23,10 @@ class QuestionController extends BaseController{
 	public function postCreate() {
 		// This method will save the questions with the answers in the database
 
+		$title = Input::get('title');
+		$description = Input::get('description');
+		$hours = Input::get('hours');
+		$mins = Input::get('mins');
 		$question = Input::get('question');
 		$option1 = Input::get('option1');
 		$option2 = Input::get('option2');
