@@ -146,23 +146,32 @@ class LessonController extends BaseController{
 	//remove existing files function
 	public function postDestroyfiles(){
 		$files = Input::get('files');
-		for ($i=0; $i < sizeof($files); $i++) { 
-			$attach = Attachment::find($files[$i]);
-			if($attach){
-				$attach->delete();
-				$path = 'uploads/files/'.$attach->file;
-				if(file_exists($path)){
-					unlink($path);
-				}
-				
+		if($files){
+			for ($i=0; $i < sizeof($files); $i++) { 
+				$attach = Attachment::find($files[$i]);
+				if($attach){
+					$attach->delete();
+					$path = 'uploads/files/'.$attach->file;
+					if(file_exists($path)){
+						unlink($path);
+					}					
+				}					
+		
 			}
 
 			return Redirect::to('admin/lesson/index')
-						->with('message', 'Files deleted successfully');			
-		
+						->with('message', 'Files deleted successfully');
 		}
+		
 		return Redirect::to('admin/lesson/index')
 						->with('message', 'No files selected');
 		
+	}
+	public function allLessons() {
+	// show all the lessons
+
+		return View::make('members.lesson')
+				->with('lessons', Lesson::paginate(5));
+
 	}
 }
