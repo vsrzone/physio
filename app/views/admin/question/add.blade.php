@@ -81,14 +81,8 @@
 		}
 
 		this.editSavedQuestion = function(k,e){
-			// var editQ = new currentQuestionInput;
-			// editQ.question = this.question();
-			// editQ.options = this.options();
+			
 			this.edit(!this.edit());
-
-			//var parent_element = e.target.parentNode
-
-
 		}
 	};
 
