@@ -93,6 +93,9 @@ Route::controller('admin/image', 'ImageController');
 //route to lessons controller
 Route::controller('admin/lesson', 'LessonController');
 
+//route to questions
+Route::controller('admin/question', 'QuestionController');
+
 //routes to auth controller
 Route::controller('admin', 'AuthController');
 
@@ -116,5 +119,7 @@ Route::resource('news', 'NewsController');
 
 //route to search news by category
 Route::resource('news/category', 'NewsController@newsSearchByCategory');
+
+
 
 
