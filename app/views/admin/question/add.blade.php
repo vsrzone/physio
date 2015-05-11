@@ -23,19 +23,21 @@
 	<label>Paper description</label><textarea id="description" class="form-control" ></textarea>
 </form>
 <form id="newQuestion">
-	<input type="text" data-bind="value: question" placeholder="Add question" class="form-control">
-	<div data-bind="foreach: options">
-		<input type="checkbox" data-bind="value: text" /><input data-bind="value: text" placeholder="Add option" class="form-control">
-		<a href="#" data-bind="click: $parent.removeOption">X</a>
-	</div> 
+	<div data-bind="css : { edit: edit() != false }">
+		<input type="text" data-bind="value: question" placeholder="Add question" class="form-control unedit">
+		<div data-bind="foreach: options">
+			<input  type="checkbox" data-bind="value: setAnswer" class="unedit" /><input type="text" data-bind="value: text" placeholder="Add option" class="form-control unedit">
+			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
+		</div> 
 
-	<button data-bind="click: addOption">Add option</button>
-	<button data-bind="click: saveQuestion">Save question</button>
+		<button class="unedit" data-bind="click: addOption">Add option</button>
+		<button class="unedit" data-bind="click: saveQuestion">Save question</button>
+	</div>
 </form>
 
 <div id="questions-container" data-bind="foreach: questions">
 	<div data-bind="css : { edit: edit() != false }">
-		<h3 data-bind="text: question" class="unedit"></h4>
+		<h3 data-bind="text: question" class="unedit"></h3>
 		<input type="text" data-bind="value: question" class="editable"/>
 		<div data-bind="foreach: options">
 			<h5 data-bind="text: text" class="unedit"></h5>
@@ -43,8 +45,9 @@
 		<div data-bind="foreach: options">
 			<input data-bind="value: text" class="editable" type="text"/>
 		</div>
-		<a href="#" data-bind="click: $parent.removeSavedQuestion">Remove</a>
-		<a href="#" data-bind="click: $parent.editSavedQuestion">Edit</a>
+		<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
+		<a href="#" data-bind="click: $parent.saveEditedQuestion" class="editable">Save</a>
+		<a href="#" data-bind="click: $parent.editSavedQuestion" class="unedit">Edit</a>
 	</div>
 </div>
  <button id="submit">Add paper</button>
@@ -65,10 +68,6 @@
 		this.options = ko.observableArray();
 
 		this.edit = ko.observable(false);
-
-		this.notEdit = ko.computed(function(){
-			return !self.edit();
-		}, this);
 	}
 
 	var savedQuestionsView = function(){
@@ -83,6 +82,14 @@
 		this.editSavedQuestion = function(k,e){
 			
 			this.edit(!this.edit());
+			currQuestion.edit(!currQuestion.edit());
+
+		}
+
+		this.saveEditedQuestion = function(){
+
+			this.edit(!this.edit());
+			currQuestion.edit(!currQuestion.edit());
 		}
 	};
 
@@ -91,6 +98,8 @@
 
 		this.question = ko.observable('');
 		this.options = ko.observableArray([new Option()]);
+
+		this.edit = ko.observable(false);
 
 		this.addOption = function(){
 			self.options.push(new Option());
