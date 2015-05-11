@@ -102,7 +102,9 @@
 		this.edit = ko.observable(false);
 
 		this.addOption = function(){
-			self.options.push(new Option());
+			var addoption = self.options;
+			addoption.push(new Option());
+			// self.options.push(new Option());
 		}
 
 		this.saveQuestion = function(){
@@ -110,7 +112,9 @@
 			question.question = self.question();
 			question.options = self.options();
 
-			savedQuestions.questions.push(question);
+			var qarray = savedQuestions.questions;
+			qarray.push(question);
+			// savedQuestions.questions.push(question);
 		}
 
 		this.removeOption = function(){
