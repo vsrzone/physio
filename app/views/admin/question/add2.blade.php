@@ -25,7 +25,7 @@
 <br>
 <form id="newQuestion">
 	<div data-bind="css : { edit: edit() != false }">
-		<input type="text" data-bind="value: question" placeholder="Add question" class="form-control unedit">
+		<input type="text" id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit">
 		<div data-bind="foreach: options">
 			<input  type="checkbox" data-bind="checked: setAnswer" class="unedit" /><input type="text" data-bind="value: text" placeholder="Add option" class="form-control unedit">
 			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
@@ -45,13 +45,24 @@
 		<h4 data-bind='value: question' class="editable"></h4>	
 		<div data-bind="foreach: options">
 			<h5 data-bind="text: text" class="unedit"></h5>
+<<<<<<< HEAD
 			<span data-bind="text: setAnswer" class="unedit"></span>
 		</div>
 		<div data-bind="foreach: options">
 			<input data-bind="value: text" class="editable" type="text"/>
 			<span data-bind="text: setAnswer" class="editable"></span>
 			<a href="#" data-bind="click: $root.removeOption" class="editable">X</a>
+=======
+			<span class="unedit" data-bind="text: setAnswer"></span>
 		</div>
+		<div data-bind="foreach: options">
+			<input data-bind="value: text" class="editable" type="text"/>
+			
+			<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
+			<a class="editable" href="#" data-bind="click: $parent.removeOption1">X</a>
+>>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
+		</div>
+		<a class="editable" href="#" data-bind="click: addOption">Add option</a>
 		<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
 		<a href="#" data-bind="click: $parent.saveEditedQuestion" class="editable">Save</a>
 		<a href="#" data-bind="click: $parent.editSavedQuestion" class="unedit">Edit</a>
@@ -61,6 +72,8 @@
 
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
+editable = ko.observable(true);
+
 	var Option = function(){
 		var self = this;
 
@@ -75,6 +88,24 @@
 		this.options = ko.observableArray();
 
 		this.edit = ko.observable(false);
+<<<<<<< HEAD
+=======
+
+		this.notEdit = ko.computed(function(){
+			return !self.edit();
+		}, this);
+
+		
+		this.removeOption1 = function(option){
+			if(self.options().length > 1){
+				self.options.remove(option);
+			}
+		}
+		this.addOption = function(){
+			self.options.push(new Option());
+		}
+
+>>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
 	}
 
 	var savedQuestionsView = function(){
@@ -87,6 +118,7 @@
 		}
 
 		this.editSavedQuestion = function(k,e){
+<<<<<<< HEAD
 			
 			this.edit(!this.edit());
 			currQuestion.edit(!currQuestion.edit());
@@ -103,6 +135,50 @@
 
 			console.log(self.options().length);
 		}
+=======
+			if(editable()){				
+				editable(!(editable()));				
+		 
+				this.edit(!this.edit());
+				currQuestion.edit(!currQuestion.edit());	
+			}
+				
+					
+		}
+
+		this.saveEditedQuestion = function(data){
+			
+			if(this.question() !== ""){
+				x=0;
+				for (var i = this.options().length - 1; i >= 0; i--) {
+					
+					if(this.options()[i].text() !== ""){
+						x=1;
+						break;
+					}
+				}
+				
+				if(x==1){
+
+					this.edit(!this.edit());
+					currQuestion.edit(!currQuestion.edit());
+					for (var i = this.options().length - 1; i >= 0; i--) {
+						if(this.options()[i].text() == ""){
+							this.options.remove(this.options()[i]);
+
+						}
+					}
+					editable(!(editable()));
+				}else{
+					alert('Atleast a single option need to be added');
+				}
+			
+			}else{
+				alert('Question field is required');
+			}
+		}
+		
+>>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
 	};
 
 	var currentQuestionInput = function(){
@@ -119,19 +195,43 @@
 		}
 
 		this.saveQuestion = function(){
-			var question = new Question();
-			question.question(self.question());
-		
-			self.options().forEach(function(e){ 
-				option = new Option()
-				option.text(e.text());
-				question.options.push(option);
-			});
+			if(self.question() !== ""){
+				x=0;
+				for (var i = self.options().length - 1; i >= 0; i--) {
+					
+					if(self.options()[i].text() !== ""){
+						x=1;
+						break;
+					}
+				}
+				
+				if(x==1){
+					var question = new Question();
+					question.question(self.question());
+				
+					self.options().forEach(function(e){ 
+						if(!(e.text().trim() == '')){
 
-			savedQuestions.questions.push(question);
+							option = new Option()
+							option.text(e.text());
+							option.setAnswer(e.setAnswer());
+							question.options.push(option);
+						}
+					});
 			
-			currQuestion = new currentQuestionInput();
-			console.log(currQuestion);
+					savedQuestions.questions.push(question);
+
+					self.question('');
+					self.options([new Option()]);
+					console.log(currQuestion);
+					console.log(self.question());
+				}else{
+					alert('Atleast a single option need to be added');
+			}
+				
+			}else{
+				alert('Question field is required');
+			}
 		}
 
 		this.removeOption = function(){
@@ -140,6 +240,13 @@
 				self.options.remove(this);
 			}	
 		}
+
+		this.toggleCheckbox = function(){
+			
+			this.setAnswer(!(this.setAnswer()));
+	        return true;
+		}
+
 	}
 
 	
