@@ -36,14 +36,18 @@
 </form>
 
 <div id="questions-container" data-bind="foreach: questions">
+	
 	<div data-bind="css : { edit: edit() != false }">
 		<h3 data-bind="text: question" class="unedit"></h3>
-		<input type="text" data-bind="value: question" class="editable"/>
+		<input data-bind='value: question, valueUpdate: "afterkeydown"' class="editable"/>	
+		
+		<h4 data-bind='value: question' class="editable"></h4>	
 		<div data-bind="foreach: options">
 			<h5 data-bind="text: text" class="unedit"></h5>
 		</div>
 		<div data-bind="foreach: options">
 			<input data-bind="value: text" class="editable" type="text"/>
+			<a class="editable" href="#" data-bind="click: $parent.removeOption">X</a>
 		</div>
 		<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
 		<a href="#" data-bind="click: $parent.saveEditedQuestion" class="editable">Save</a>
@@ -57,7 +61,7 @@
 	var Option = function(){
 		var self = this;
 
-		this.text = '';
+		this.text = ko.observable('');
 		this.setAnswer = false;
 	}
 
@@ -84,28 +88,31 @@
 		}
 
 		this.editSavedQuestion = function(k,e){
-			// var editQ = new currentQuestionInput;
-			// editQ.question = this.question();
-			// editQ.options = this.options();
+			
 			this.edit(!this.edit());
 			currQuestion.edit(!currQuestion.edit());
-			//var parent_element = e.target.parentNode
-
+		
 		}
 
 		this.saveEditedQuestion = function(){
-			//console.log(self.questions());
-			//self.questions.question = this.question;
-
+		
 			this.edit(!this.edit());
 			currQuestion.edit(!currQuestion.edit());
-
-			var question = new Question();
-			question.question = self.question();
-			question.options = self.options();
-
-			savedQuestions.questions.push(question);
+			self.refresh();			
 		}
+
+		this.removeOption = function(){
+			if(this.options().length > 1){
+				this.options.remove(this);
+			}
+				
+		}
+
+		self.refresh = function(){
+		    var data = self.array().slice(0);
+		    self.questions([]);
+		    self.questions(data);
+		};
 	};
 
 	var currentQuestionInput = function(){
@@ -126,8 +133,13 @@
 
 		this.saveQuestion = function(){
 			var question = new Question();
-			question.question = self.question();
-			question.options = self.options();
+			question.question(self.question());
+		
+			self.options().forEach(function(e){ 
+				option = new Option()
+				option.text(e.text());
+				question.options.push(option);
+			});
 
 			savedQuestions.questions.push(question);
 		}
@@ -140,9 +152,10 @@
 		}
 	}
 
+	
 	var currQuestion = new currentQuestionInput();
 	var savedQuestions = new savedQuestionsView();
-
+	
 	ko.applyBindings(currQuestion, document.getElementById('newQuestion'));
 	ko.applyBindings(savedQuestions, document.getElementById('questions-container'));
 </script>
