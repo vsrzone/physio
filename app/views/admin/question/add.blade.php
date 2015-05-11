@@ -16,23 +16,38 @@
 	}
 </style>
 
-<form id="paper-container">
-	<label>Paper title: </label> <input type="text" id="title" class="form-control" />
-	<label>Duration: </label> <input type="text" id="duration_hr" placeholder="Hours" class="form-control" />
-	<input type="text" id="duartion_min" placeholder="Minutes" class="form-control"class="form-control" />
-	<label>Paper description</label><textarea id="description" class="form-control" ></textarea>
+<form id="paper-container" class="container">
+	<div class="form-group col-xs-6">
+		<label>Paper title: </label> 
+		<input type="text" id="title" class="form-control" />
+	</div>
+	<div class="form-group col-xs-2">
+		<label>Duration: </label> 
+		<div class="controls form-inline">
+			<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
+			<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label>Paper description</label>
+		<textarea id="description" class="form-control" ></textarea>
+	</div>
 </form>
 <form id="newQuestion">
-	<div data-bind="css : { edit: edit() != false }">
+	<div data-bind="css : { edit: edit() != false }" class="panel panel-info">
+		<div class="panel-heading">Add new Question...</div>
+		<div class="panel-body">
 		<input type="text" id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit">
 		<div data-bind="foreach: options">
 			<input  type="checkbox" data-bind="click: $parent.toggleCheckbox" class="unedit" /><input id="options" data-bind="value: text" placeholder="Add option" class="form-control unedit">
 			
 			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
 		</div> 
-
+		</div>
+		<div class="panel-footer">
 		<button data-bind="click: addOption" class="unedit">Add option</button>
 		<button data-bind="click: saveQuestion" class="unedit">Save question</button>
+		</div>
 	</div>
 </form>
 
