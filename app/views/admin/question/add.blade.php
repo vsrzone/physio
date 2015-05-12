@@ -14,68 +14,112 @@
 	.edit .editable{
 		display: block;
 	}
+	.add-question-option{
+		width: 80%;
+		display: inline-block;
+		margin-top: 10px;
+	}
 </style>
+<div class="col-xs-12">
+	<form id="paper-container">
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Paper title: </label> 
+				<input type="text" id="title" class="form-control" />
+			</div>
+			<div class="form-group col-xs-6">
+				<label class="col-xs-12">Duration: </label> 
+				<div class="controls form-inline">
+					<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
+					<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+				</div>
+			</div>
+			<div class="form-group col-xs-6">
+				<label>Paper description</label>
+				<textarea id="description" class="form-control" ></textarea>
+			</div>
+		</div>
+	</form>
+	<form id="newQuestion">
+		<div data-bind="css : { edit: edit() != false }">
+			<div class="panel panel-default unedit">
+				<div class="panel-heading">Add new Question...</div>
+				<div class="panel-body">
+					<textarea id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit"></textarea>
+					<div data-bind="foreach: options">
+						<div>
+							<input  type="checkbox" data-bind="click: $parent.toggleCheckbox" class="unedit" />
+							<input id="options" data-bind="value: text" placeholder="Add option" class="form-control unedit add-question-option">
+							
+							<a class="unedit fa fa-times" href="#" data-bind="click: $parent.removeOption"></a>
+						</div>
+					</div> 
+				</div>
+				<div class="panel-footer">
+					<button data-bind="click: addOption" class="unedit">Add option</button>
+					<button data-bind="click: saveQuestion" class="unedit">Save question</button>
+				</div>
+			</div>
+		</div>
+	</form>
 
-<form id="paper-container" class="container">
-	<div class="form-group col-xs-6">
-		<label>Paper title: </label> 
-		<input type="text" id="title" class="form-control" />
-	</div>
-	<div class="form-group col-xs-2">
-		<label>Duration: </label> 
-		<div class="controls form-inline">
-			<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
-			<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
-		</div>
-	</div>
-	<div class="form-group col-xs-6">
-		<label>Paper description</label>
-		<textarea id="description" class="form-control" ></textarea>
-	</div>
-</form>
-<form id="newQuestion">
-	<div data-bind="css : { edit: edit() != false }" class="panel panel-info">
-		<div class="panel-heading">Add new Question...</div>
-		<div class="panel-body">
-		<input type="text" id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit">
-		<div data-bind="foreach: options">
-			<input  type="checkbox" data-bind="click: $parent.toggleCheckbox" class="unedit" /><input id="options" data-bind="value: text" placeholder="Add option" class="form-control unedit">
-			
-			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
-		</div> 
-		</div>
-		<div class="panel-footer">
-		<button data-bind="click: addOption" class="unedit">Add option</button>
-		<button data-bind="click: saveQuestion" class="unedit">Save question</button>
-		</div>
-	</div>
-</form>
-
-<div id="questions-container" data-bind="foreach: questions">
-	
-	<div data-bind="css : { edit: edit() != false }">
-		<h3 data-bind="text: question" class="unedit"></h3>
-		<input data-bind='value: question, valueUpdate: "afterkeydown"' class="editable"/>	
+	<div id="questions-container" data-bind="foreach: questions">
 		
-		<h4 data-bind='value: question' class="editable"></h4>	
-		<div data-bind="foreach: options">
-			<h5 data-bind="text: text" class="unedit"></h5>
-			<span class="unedit" data-bind="text: setAnswer"></span>
-		</div>
-		<div data-bind="foreach: options">
-			<input data-bind="value: text" class="editable" type="text"/>
-			
-			<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
-			<a class="editable" href="#" data-bind="click: $parent.removeOption1">X</a>
-		</div>
-		<a class="editable" href="#" data-bind="click: addOption">Add option</a>
-		<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
-		<a href="#" data-bind="click: $parent.saveEditedQuestion" class="editable">Save</a>
-		<a href="#" data-bind="click: $parent.editSavedQuestion" class="unedit">Edit</a>
-	</div>
-</div>
- <button id="submit">Add paper</button>
+		<div data-bind="css : { edit: edit() != false }">
+			<div class="well">
+				<h4 data-bind="text: question" class="unedit"></h4>
+				<div data-bind="foreach: options">
+					<div class="add-question-option">
+						<span data-bind="text: text" class="unedit"></span>
+						<span class="unedit" data-bind="text: setAnswer" style="color: red"></span>
+					</div>
+				</div>
+				<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
+				<button data-bind="click: $parent.editSavedQuestion, attr: {'data-target': '#'+savedQuestions.questions.indexOf($data)}" class="btn btn-warning btn-xs  btn-lg unedit" data-toggle="modal" data-backdrop="static"  data-keyboard="false" >Edit</button>
+			</div>			
+			<!-- ******************************************** -->
+			<!-- <div></div>
+				<textarea data-bind='value: question, valueUpdate: "afterkeydown"' class="form-control editable"></textarea>	
+				<div data-bind="foreach: options">
+					
+					<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
+					<input data-bind="value: text" class="form-control editable " type="text"/>				
+				
+					<a class="editable fa fa-times" href="#" data-bind="click: $parent.removeOption1"></a>
+					
+				</div>	
+			<button class="editable btn btn-default"  data-bind="click: addOption">Add option</button>		
+			<button  data-bind="click: $parent.saveEditedQuestion" class="editable btn btn-primary" data-dismiss="modal">Save changes</button>
+		
+ -->
 
+			<!-- *********************************************** -->
+			<div class="modal fade" data-bind="attr: {'id': savedQuestions.questions.indexOf($data)}" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+				<div class="modal-dialog">
+                    <div class="modal-content">
+						<div class="modal-header" >Edit question</div>
+						<div class="modal-body">
+							<textarea data-bind='value: question, valueUpdate: "afterkeydown"' class="form-control editable"></textarea>	
+							<div data-bind="foreach: options">
+								<div>
+									<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
+									<input data-bind="value: text" class="form-control editable add-question-option" type="text"/>				
+									
+									<a class="editable fa fa-times" href="#" data-bind="click: $parent.removeOption1"></a>
+								</div>
+							</div>
+						</div>						
+						<div class="modal-footer">
+							<button class="editable btn btn-default"  data-bind="click: addOption">Add option</button>		
+							<button  data-bind="click: $parent.saveEditedQuestion" class="editable btn btn-primary" data-dismiss="modal">Save changes</button>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	 <button id="submit">Add paper</button>
+</div>
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
 editable = ko.observable(true);
@@ -122,11 +166,14 @@ editable = ko.observable(true);
 		}
 
 		this.editSavedQuestion = function(k,e){
-			if(editable()){				
-				editable(!(editable()));				
-		 
+			
+			if(editable()){	
+				editable(!(editable()));
 				this.edit(!this.edit());
-				currQuestion.edit(!currQuestion.edit());	
+				
+				currQuestion.edit(!currQuestion.edit());
+
+					
 			}
 				
 					
@@ -211,9 +258,7 @@ editable = ko.observable(true);
 
 					self.question('');
 					self.options([new Option()]);
-					console.log(currQuestion);
-					console.log(self.question());
-
+				
 				}else{
 					alert('Atleast a single option need to be added');
 			}
