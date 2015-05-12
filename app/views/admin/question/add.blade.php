@@ -12,7 +12,7 @@
 	}
 
 	.edit .editable{
-		display: block;
+		display: inline-block;
 	}
 	.add-question-option{
 		width: 80%;
@@ -66,34 +66,17 @@
 	<div id="questions-container" data-bind="foreach: questions">
 		
 		<div data-bind="css : { edit: edit() != false }">
-			<div class="well">
-				<h4 data-bind="text: question" class="unedit"></h4>
+			<div class="well unedit">
+				<h4 data-bind="text: question" ></h4>
 				<div data-bind="foreach: options">
 					<div class="add-question-option">
-						<span data-bind="text: text" class="unedit"></span>
-						<span class="unedit" data-bind="text: setAnswer" style="color: red"></span>
+						<span data-bind="text: text" ></span>
+						<span  data-bind="text: setAnswer" style="color: red"></span>
 					</div>
 				</div>
 				<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
 				<button data-bind="click: $parent.editSavedQuestion, attr: {'data-target': '#'+savedQuestions.questions.indexOf($data)}" class="btn btn-warning btn-xs  btn-lg unedit" data-toggle="modal" data-backdrop="static"  data-keyboard="false" >Edit</button>
 			</div>			
-			<!-- ******************************************** -->
-			<!-- <div></div>
-				<textarea data-bind='value: question, valueUpdate: "afterkeydown"' class="form-control editable"></textarea>	
-				<div data-bind="foreach: options">
-					
-					<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
-					<input data-bind="value: text" class="form-control editable " type="text"/>				
-				
-					<a class="editable fa fa-times" href="#" data-bind="click: $parent.removeOption1"></a>
-					
-				</div>	
-			<button class="editable btn btn-default"  data-bind="click: addOption">Add option</button>		
-			<button  data-bind="click: $parent.saveEditedQuestion" class="editable btn btn-primary" data-dismiss="modal">Save changes</button>
-		
- -->
-
-			<!-- *********************************************** -->
 			<div class="modal fade" data-bind="attr: {'id': savedQuestions.questions.indexOf($data)}" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 				<div class="modal-dialog">
                     <div class="modal-content">
@@ -110,16 +93,18 @@
 							</div>
 						</div>						
 						<div class="modal-footer">
-							<button class="editable btn btn-default"  data-bind="click: addOption">Add option</button>		
-							<button  data-bind="click: $parent.saveEditedQuestion" class="editable btn btn-primary" data-dismiss="modal">Save changes</button>
+							<button class="editable fa fa-plus-circle btn btn-default"  data-bind="click: addOption">Add option</button>		
+							<button  data-bind="click: $parent.saveEditedQuestion" class="editable btn btn-primary" id="save">Save changes</button>
 						</div>
 					</div>
 				</div>				
 			</div>
 		</div>
 	</div>
-	 <button id="submit">Add paper</button>
+	 <button id="submit" class="btn btn-outline btn-default">Add paper</button>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
 editable = ko.observable(true);
@@ -196,10 +181,15 @@ editable = ko.observable(true);
 					this.edit(!this.edit());
 					currQuestion.edit(!currQuestion.edit());
 					for (var i = this.options().length - 1; i >= 0; i--) {
+
 						if(this.options()[i].text() == ""){
-							this.options.remove(this.options()[i]);
+							this.options.remove(this.options()[i]);							
+							
 
 						}
+						var modal = '#'+self.questions.indexOf(data);
+						$(modal).modal('hide');
+						
 					}
 					editable(!(editable()));
 				}else{
