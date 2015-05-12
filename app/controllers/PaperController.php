@@ -2,9 +2,9 @@
 
 class PaperController extends BaseController{
 
-	public function __construct() {
-		$this->beforeFilter('csrf', array('on' => 'post'));
-	}
+	// public function __construct() {
+	// 	$this->beforeFilter('csrf', array('on' => 'post'));
+	// }
 
 	public function getIndex() {
 		// This method will show all the questions in the database
@@ -22,39 +22,33 @@ class PaperController extends BaseController{
 
 	public function postCreate() {
 		// This method will save the questions with the answers in the database
+		// return "Request received";
+		// die();
 
 		$title = Input::get('title');
 		$description = Input::get('description');
 		$hours = Input::get('hours');
 		$mins = Input::get('mins');
 		$paper = Input::get('paper');
+		$type = Input::get('type');
 
 		$duration = $hours*60 + $mins;
 
-		$validator = Valiator::make(array('title' => $title, 'paper' => $paper), Mcq::$rules);
+		$mcq = new Mcq;
 
-		if($validator->passes()) {
+		if($mcq) {
 
-			$mcq = new Mcq;
+			$mcq->title = $title;
+			$mcq->description = $description;
+			$mcq->duration = $duration;
+			$mcq->paper = $paper;
+			$mcq->type = $type;
 
-			if($mcq) {
-
-				$mcq->title = $title;
-				$mcq->description = $description;
-				$mcq->duration = $duration;
-				$mcq->paper = $paper;
-
-				if($mcq->save()) {
-
-					return Redirect::to('admin/paper')
-						->with('message', 'Paper Created Successfully');
-				}
-			}
+			$mcq->save();
+			return 'success';
 		}
 
-		return Redirect::to('admin/paper/create')
-			->withErrors($validator)
-			->withInput();
+		return 'Error occured';
 	}
 
 	public function getEdit() {
@@ -76,6 +70,7 @@ class PaperController extends BaseController{
 		$hours = Input::get('hours');
 		$mins = Input::get('mins');
 		$paper = Input::get('paper');
+		$type = Input::get('type');
 
 		$duration = $hours*60 + $mins;
 
@@ -91,6 +86,7 @@ class PaperController extends BaseController{
 				$mcq->description = $description;
 				$mcq->duration = $duration;
 				$mcq->paper = $paper;
+				$mcq->type = $type;
 
 				if($mcq->save()) {
 

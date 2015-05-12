@@ -16,43 +16,49 @@
 	}
 </style>
 
-<form id="paper-container">
-	<label>Paper title: </label> <input type="text" id="title" class="form-control" />
-	<label>Duration: </label> <input type="text" id="duration_hr" placeholder="Hours" class="form-control" />
-	<input type="text" id="duartion_min" placeholder="Minutes" class="form-control"class="form-control" />
-	<label>Paper description</label><textarea id="description" class="form-control" ></textarea>
+<form id="paper-container" class="container">
+	<div class="form-group col-xs-6">
+		<label>Paper title: </label> 
+		<input type="text" id="title" class="form-control" />
+	</div>
+	<div class="form-group col-xs-2">
+		<label>Duration: </label> 
+		<div class="controls form-inline">
+			<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
+			<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label>Paper description</label>
+		<textarea id="description" class="form-control" ></textarea>
+	</div>
 </form>
-<br>
 <form id="newQuestion">
 	<div data-bind="css : { edit: edit() != false }">
 		<input type="text" id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit">
 		<div data-bind="foreach: options">
-			<input  type="checkbox" data-bind="checked: setAnswer" class="unedit" /><input type="text" data-bind="value: text" placeholder="Add option" class="form-control unedit">
+			<input  type="checkbox" data-bind="click: $parent.toggleCheckbox" class="unedit" /><input id="options" data-bind="value: text" placeholder="Add option" class="form-control unedit">
+			
 			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
 		</div> 
 
-		<button class="unedit" data-bind="click: addOption">Add option</button>
-		<button class="unedit" data-bind="click: saveQuestion">Save question</button>
+		<button data-bind="click: addOption" class="unedit">Add option</button>
+		<button data-bind="click: saveQuestion" class="unedit">Save question</button>
 	</div>
 </form>
-
+ <h3 id = "jsonResponse"></h3>
+<span id="jsonObject" class="unedit" data-bind="text: ko.toJSON(questions)" style = "visibility: hidden"></span>
 <div id="questions-container" data-bind="foreach: questions">
-	
+
 	<div data-bind="css : { edit: edit() != false }">
 		<h3 data-bind="text: question" class="unedit"></h3>
 		<input data-bind='value: question, valueUpdate: "afterkeydown"' class="editable"/>	
 		
-		<h4 data-bind='value: question' class="editable"></h4>	
+		<!-- <h4 data-bind='value: question' class="editable"></h4>	 -->
+
 		<div data-bind="foreach: options">
+
 			<h5 data-bind="text: text" class="unedit"></h5>
-<<<<<<< HEAD
-			<span data-bind="text: setAnswer" class="unedit"></span>
-		</div>
-		<div data-bind="foreach: options">
-			<input data-bind="value: text" class="editable" type="text"/>
-			<span data-bind="text: setAnswer" class="editable"></span>
-			<a href="#" data-bind="click: $root.removeOption" class="editable">X</a>
-=======
 			<span class="unedit" data-bind="text: setAnswer"></span>
 		</div>
 		<div data-bind="foreach: options">
@@ -60,7 +66,6 @@
 			
 			<input class="editable"  type="checkbox" data-bind="checked: setAnswer, click: $parent.toggleCheckbox" class="unedit" />
 			<a class="editable" href="#" data-bind="click: $parent.removeOption1">X</a>
->>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
 		</div>
 		<a class="editable" href="#" data-bind="click: addOption">Add option</a>
 		<a href="#" data-bind="click: $parent.removeSavedQuestion" class="unedit">Remove</a>
@@ -68,17 +73,18 @@
 		<a href="#" data-bind="click: $parent.editSavedQuestion" class="unedit">Edit</a>
 	</div>
 </div>
- <button id="submit">Add paper</button>
+ <button id="submit" onclick="sendRequestToServerPost()">Add paper</button>
 
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
-editable = ko.observable(true);
+	editable = ko.observable(true);
 
 	var Option = function(){
 		var self = this;
 
 		this.text = ko.observable('');
 		this.setAnswer = ko.observable(false);
+
 	}
 
 	var Question = function(){
@@ -88,8 +94,6 @@ editable = ko.observable(true);
 		this.options = ko.observableArray();
 
 		this.edit = ko.observable(false);
-<<<<<<< HEAD
-=======
 
 		this.notEdit = ko.computed(function(){
 			return !self.edit();
@@ -105,7 +109,6 @@ editable = ko.observable(true);
 			self.options.push(new Option());
 		}
 
->>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
 	}
 
 	var savedQuestionsView = function(){
@@ -118,32 +121,12 @@ editable = ko.observable(true);
 		}
 
 		this.editSavedQuestion = function(k,e){
-<<<<<<< HEAD
-			
-			this.edit(!this.edit());
-			currQuestion.edit(!currQuestion.edit());
-		}
-
-		this.saveEditedQuestion = function(){
-		
-			this.edit(!this.edit());
-			currQuestion.edit(!currQuestion.edit());
-
-		}
-
-		this.removeOption = function(){
-
-			console.log(self.options().length);
-		}
-=======
-			if(editable()){				
-				editable(!(editable()));				
+			if(editable()){
+				editable(!(editable()));
 		 
 				this.edit(!this.edit());
-				currQuestion.edit(!currQuestion.edit());	
+				currQuestion.edit(!currQuestion.edit());
 			}
-				
-					
 		}
 
 		this.saveEditedQuestion = function(data){
@@ -178,7 +161,6 @@ editable = ko.observable(true);
 			}
 		}
 		
->>>>>>> 96527cce94ce6c310eae437466daa31c93e89935
 	};
 
 	var currentQuestionInput = function(){
@@ -189,8 +171,11 @@ editable = ko.observable(true);
 
 		this.edit = ko.observable(false);
 
-		this.addOption = function(){
+		this.notEdit = ko.computed(function(){
+			return !self.edit();
+		}, this);
 
+		this.addOption = function(){
 			self.options.push(new Option());
 		}
 
@@ -223,22 +208,24 @@ editable = ko.observable(true);
 
 					self.question('');
 					self.options([new Option()]);
-					console.log(currQuestion);
-					console.log(self.question());
+					// console.log(currQuestion);
+					// console.log(self.question());
+
 				}else{
 					alert('Atleast a single option need to be added');
 			}
 				
 			}else{
 				alert('Question field is required');
-			}
+			}			
+			
 		}
 
 		this.removeOption = function(){
-
 			if(self.options().length > 1){
 				self.options.remove(this);
-			}	
+			}
+				
 		}
 
 		this.toggleCheckbox = function(){
@@ -252,9 +239,44 @@ editable = ko.observable(true);
 	
 	var currQuestion = new currentQuestionInput();
 	var savedQuestions = new savedQuestionsView();
+	// var paper = ko.toJSON(savedQuestions);
 	
 	ko.applyBindings(currQuestion, document.getElementById('newQuestion'));
 	ko.applyBindings(savedQuestions, document.getElementById('questions-container'));
+	ko.applyBindings(savedQuestions, document.getElementById('jsonObject'));
+
+	function sendRequestToServerPost() {
+
+		// send all the details to the server by an Ajax request
+
+		var title = document.getElementById('title').value;
+		var duration_hr = document.getElementById('duration_hr').value;
+		var duration_min = document.getElementById('duartion_min').value;
+		var description = document.getElementById('description').value;
+		var paper = document.getElementById('jsonObject').innerHTML;
+		var type = 1;
+
+		// console.log(savedQuestions);
+		// console.log(savedQuestions.questions());
+		// var paper = JSON.stringify(savedQuestions);
+
+		var headers = 'title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+		console.log(headers);
+
+		var xmlhttp=new XMLHttpRequest();
+		
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+	    		document.getElementById('jsonResponse').innerHTML = xmlhttp.responseText;
+	    	}
+	  	}
+
+		xmlhttp.open("POST","{{url()}}/admin/paper/create",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(headers);
+	}
 
 </script>
 @stop
