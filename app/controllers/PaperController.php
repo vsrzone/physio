@@ -10,8 +10,11 @@ class PaperController extends BaseController{
 		// This method will show all the questions in the database
 		// show 10 questions per page
 
-		return View::make('admin.paper.mcq.index')
-			->with('questions', Mcq::paginate(10));
+		$questions = DB::table('mcqs')
+					->where('type', '=', 1)
+					->paginate(10);
+		return View::make('admin.paper.essay.index')
+			->with('questions', $questions);
 	}
 
 	public function getCreate() {

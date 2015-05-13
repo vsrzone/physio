@@ -19,7 +19,6 @@
 	<tr>
 		<th>Paper ID</th>
 		<th>Title</th>
-		<th>Paper</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
@@ -29,7 +28,7 @@
 		<td>{{ $question->id }}</td>
 		<td>{{ $question->title }}</td>
 		<td>
-			{{ Form::open(array('url'=>'admin/paper/edit')) }}
+			{{ Form::open(array('url'=>'admin/paper/essay/edit')) }}
 
 				{{ Form::hidden('id', $question->id) }}
 				{{ Form::submit('Edit', array('class'=>'btn btn-info')) }}
@@ -37,7 +36,7 @@
 			{{ Form::close() }}
 		</td>
 		<td>
-			{{ Form::open(array('url'=>'admin/paper/destroy')) }}
+			{{ Form::open(array('url'=>'admin/paper/essay/destroy')) }}
 
 				{{ Form::hidden('id', $question->id) }}
 				{{ Form::submit('Delete', array('class'=>'btn btn-danger')) }}

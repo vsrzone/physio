@@ -111,6 +111,7 @@
 <script type="text/javascript">
 editable = ko.observable(true);
 
+
 window.onload = function(){
 	paper = {{$mcq->paper}};
 	paper = paper.questions;
