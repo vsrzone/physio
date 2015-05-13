@@ -62,15 +62,60 @@
 			</div>
 		</div>
 	</form>
-	 <h3 id = "jsonResponse"></h3>
+
+<<<<<<< HEAD
+<form id="paper-container" class="container">
+	<div class="form-group col-xs-6">
+		<label>Paper title: </label> 
+		<input type="text" id="title" class="form-control" />
+	</div>
+	<div class="form-group col-xs-2">
+		<label>Duration: </label> 
+		<div class="controls form-inline">
+			<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
+			<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label>Paper description</label>
+		<textarea id="description" class="form-control" ></textarea>
+	</div>
+</form>
+<form id="newQuestion">
+	<div data-bind="css : { edit: edit() != false }">
+		<input type="text" id="question" data-bind="value: question" placeholder="Add question" class="form-control unedit">
+		<div data-bind="foreach: options">
+			<input  type="checkbox" data-bind="click: $parent.toggleCheckbox" class="unedit" /><input id="options" data-bind="value: text" placeholder="Add option" class="form-control unedit">
+			
+			<a class="unedit" href="#" data-bind="click: $parent.removeOption">X</a>
+		</div> 
+
+		<button data-bind="click: addOption" class="unedit">Add option</button>
+		<button data-bind="click: saveQuestion" class="unedit">Save question</button>
+	</div>
+</form>
+ <h3 id = "jsonResponse"></h3>
+<span id="jsonObject" class="unedit" data-bind="text: ko.toJSON(questions)" style = "visibility: hidden"></span>
+<div id="questions-container" data-bind="foreach: questions">
+
+	<div data-bind="css : { edit: edit() != false }">
+		<h3 data-bind="text: question" class="unedit"></h3>
+		<input data-bind='value: question, valueUpdate: "afterkeydown"' class="editable"/>	
+		
+		<!-- <h4 data-bind='value: question' class="editable"></h4>	 -->
+
+		<div data-bind="foreach: options">
+
+			<h5 data-bind="text: text" class="unedit"></h5>
+			<span class="unedit" data-bind="text: setAnswer"></span>
+=======
 	<div id="questions-container" data-bind="foreach: questions">
 		
 		<div data-bind="css : { edit: edit() != false }">
 			<div class="well unedit">
-				<h4 data-bind="text: 'Question '+(savedQuestions.questions.indexOf($data)+1)"></h4>
 				<h4 data-bind="text: question" ></h4>
 				<div data-bind="foreach: options">
-					<div class="add-question-option">						
+					<div class="add-question-option">
 						<span data-bind="text: text" ></span>
 						<span  data-bind="text: setAnswer" style="color: red"></span>
 					</div>
@@ -108,13 +153,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
-editable = ko.observable(true);
+	editable = ko.observable(true);
 
 	var Option = function(){
 		var self = this;
 
 		this.text = ko.observable('');
-		this.setAnswer = ko.observable(false);				
+		this.setAnswer = ko.observable(false);
 
 	}
 
@@ -159,10 +204,7 @@ editable = ko.observable(true);
 				
 				currQuestion.edit(!currQuestion.edit());
 
-					
 			}
-				
-					
 		}
 
 		this.saveEditedQuestion = function(data){
@@ -278,9 +320,11 @@ editable = ko.observable(true);
 	
 	var currQuestion = new currentQuestionInput();
 	var savedQuestions = new savedQuestionsView();
+	// var paper = ko.toJSON(savedQuestions);
 	
 	ko.applyBindings(currQuestion, document.getElementById('newQuestion'));
 	ko.applyBindings(savedQuestions, document.getElementById('questions-container'));
+	ko.applyBindings(savedQuestions, document.getElementById('jsonObject'));
 
 	function sendRequestToServerPost() {
 
@@ -290,7 +334,7 @@ editable = ko.observable(true);
 		var duration_hr = document.getElementById('duration_hr').value;
 		var duration_min = document.getElementById('duartion_min').value;
 		var description = document.getElementById('description').value;
-		var paper = ko.toJSON(savedQuestions);
+		var paper = document.getElementById('jsonObject').innerHTML;
 		var type = 1;
 
 		// console.log(savedQuestions);
@@ -298,6 +342,7 @@ editable = ko.observable(true);
 		// var paper = JSON.stringify(savedQuestions);
 
 		var headers = 'title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+		console.log(headers);
 
 		var xmlhttp=new XMLHttpRequest();
 		
@@ -313,5 +358,6 @@ editable = ko.observable(true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(headers);
 	}
+
 </script>
 @stop
