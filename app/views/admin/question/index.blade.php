@@ -3,9 +3,16 @@
 @section('content')
 
 @if(Session::has('message'))
-
-	<div class="alert alert-danger">{{ Session::get('message') }}</div>
-
+	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
+@endif
+@if($errors->has())
+	<div class="alert alert-danger">
+	<ul>
+		@foreach($errors->all() as $error)			
+				<li> {{ $error }} </li>			
+		@endforeach
+	</ul>
+</div>
 @endif
 
 <table border = "1" class="table table-striped table-bordered table-hover dataTable no-footer">
@@ -44,5 +51,4 @@
 <div>
 	{{ $questions->links() }}
 </div>
-
 @stop
