@@ -77,6 +77,12 @@ Route::get('members/lesson', 'LessonController@allLessons');
 
 Route::resource('members', 'WorkController');
 
+//route to questions
+Route::controller('admin/paper/mcq', 'PaperController');
+
+//route to questions
+Route::controller('admin/paper/essay', 'EssayController');
+
 Route::controller('admin/user', 'UserController');
 
 Route::controller('admin/member', 'MemberController');
@@ -92,9 +98,6 @@ Route::controller('admin/image', 'ImageController');
 
 //route to lessons controller
 Route::controller('admin/lesson', 'LessonController');
-
-//route to questions
-Route::controller('admin/paper', 'PaperController');
 
 //routes to auth controller
 Route::controller('admin', 'AuthController');
