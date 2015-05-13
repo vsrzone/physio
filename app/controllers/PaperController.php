@@ -13,7 +13,7 @@ class PaperController extends BaseController{
 		$questions = DB::table('mcqs')
 					->where('type', '=', 1)
 					->paginate(10);
-		return View::make('admin.paper.essay.index')
+		return View::make('admin.paper.mcq.index')
 			->with('questions', $questions);
 	}
 

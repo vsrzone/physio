@@ -75,6 +75,12 @@ Route::post('member/edit', 'WorkController@editMember');
 
 Route::get('members/lesson', 'LessonController@allLessons');
 
+//route to exam area
+Route::get('members/exams', function()
+{
+	return View::make('members.exam');
+});
+
 Route::resource('members', 'WorkController');
 
 //route to questions
