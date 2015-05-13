@@ -305,6 +305,18 @@ window.onload = function(){
 	ko.applyBindings(currQuestion, document.getElementById('newQuestion'));
 	ko.applyBindings(savedQuestions, document.getElementById('questions-container'));
 
+	var cleanJson = function(que) {
+		//this function remove unwanted properties from the savedQuestions object
+		
+		var copy = ko.toJS(que);
+		for (var i = copy.questions.length - 1; i >= 0; i--) {
+
+			delete copy.questions[i].edit;
+			delete copy.questions[i].notEdit;
+		};
+		return copy;
+	}
+
 	function sendRequestToServerPost() {
 
 		// send all the details to the server by an Ajax request
@@ -314,8 +326,9 @@ window.onload = function(){
 		var duration_hr = document.getElementById('duration_hr').value;
 		var duration_min = document.getElementById('duartion_min').value;
 		var description = document.getElementById('description').value;
-		var paper = ko.toJSON(savedQuestions);
-		var type = 1;	
+		var clean = cleanJson(savedQuestions);
+		var paper = ko.toJSON(clean);
+		var type = 1;
 
 		var headers = 'id=' + id + '&title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
 
@@ -325,7 +338,9 @@ window.onload = function(){
 		{
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
-	    		document.getElementById('jsonResponse').innerHTML = xmlhttp.responseText;
+	    		if(xmlhttp.responseText === 'success') {
+	    			window.location = "{{url()}}/admin/paper";
+	    		}
 	    	}
 	  	}
 
