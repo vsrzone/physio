@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AlterMcqsTable' => $baseDir . '/app/database/migrations/2015_05_12_045950_alter_mcqs_table.php',
     'AlterNewsAddSummary' => $baseDir . '/app/database/migrations/2015_04_09_071829_alter_news_add_summary.php',
+    'Attachment' => $baseDir . '/app/models/Attachment.php',
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
@@ -35,7 +37,6 @@ return array(
     'CreateAttachmentsTable' => $baseDir . '/app/database/migrations/2015_05_05_060435_create_attachments_table.php',
     'CreateBasicTables' => $baseDir . '/app/database/migrations/2015_04_02_045349_create_basic_tables.php',
     'CreateLessonsTable' => $baseDir . '/app/database/migrations/2015_05_05_040144_create_lessons_table.php',
-    'CreateQuestionTables' => $baseDir . '/app/database/migrations/2015_05_07_042236_create_question_tables.php',
     'CreateQuestionsTables' => $baseDir . '/app/database/migrations/2015_05_07_052006_create_questions_tables.php',
     'Crypt_AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
     'Crypt_Base' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Base.php',
@@ -524,6 +525,7 @@ return array(
     'Lesson' => $baseDir . '/app/models/Lesson.php',
     'LessonController' => $baseDir . '/app/controllers/LessonController.php',
     'Math_BigInteger' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
+    'Mcq' => $baseDir . '/app/models/Mcq.php',
     'Member' => $baseDir . '/app/models/Member.php',
     'MemberController' => $baseDir . '/app/controllers/MemberController.php',
     'MemberTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
@@ -789,6 +791,7 @@ return array(
     'PHPParser_TemplateLoader' => $vendorDir . '/nikic/php-parser/lib/PHPParser/TemplateLoader.php',
     'PHPParser_Unserializer' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Unserializer.php',
     'PHPParser_Unserializer_XML' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Unserializer/XML.php',
+    'PaperController' => $baseDir . '/app/controllers/PaperController.php',
     'Patchwork\\PHP\\Shim\\Iconv' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Iconv.php',
     'Patchwork\\PHP\\Shim\\Intl' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Intl.php',
     'Patchwork\\PHP\\Shim\\Mbstring' => $vendorDir . '/patchwork/utf8/class/Patchwork/PHP/Shim/Mbstring.php',
@@ -1072,8 +1075,6 @@ return array(
     'Psr\\Log\\LoggerInterface' => $vendorDir . '/psr/log/Psr/Log/LoggerInterface.php',
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
-    'Question' => $baseDir . '/app/models/Question.php',
-    'QuestionController' => $baseDir . '/app/controllers/QuestionController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'Stack\\Builder' => $vendorDir . '/stack/builder/src/Stack/Builder.php',
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',
