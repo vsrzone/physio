@@ -148,4 +148,27 @@ class EssayController extends BaseController{
 		return 'fail';
 
 	}
+
+	public function postDestroy() {
+		// This method will delete a essay question paper
+
+		$id = Input::get('id');
+		
+		$mcq = Mcq::find($id);
+
+		if($mcq) {
+
+			if($mcq->delete()) {
+
+				return Redirect::to('admin/paper/essay')
+					->with('message', 'Paper Deleted Successfully');
+			}
+
+			return Redirect::to('admin/paper/essay')
+				->with('message', 'Error Occured');
+		}
+
+		return Redirect::to('admin/paper/essay')
+			->with('message', 'Error Occured');
+	}
 }

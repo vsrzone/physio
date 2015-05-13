@@ -108,15 +108,15 @@ class PaperController extends BaseController{
 
 			if($mcq->delete()) {
 
-				return Redirect::to('admin/paper')
+				return Redirect::to('admin/paper/mcq')
 					->with('message', 'Paper Deleted Successfully');
 			}
 
-			return Redirect::to('admin/paper')
+			return Redirect::to('admin/paper/mcq')
 				->with('message', 'Error Occured');
 		}
 
-		return Redirect::to('admin/paper')
+		return Redirect::to('admin/paper/mcq')
 			->with('message', 'Error Occured');
 	}
 }
