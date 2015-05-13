@@ -20,4 +20,39 @@ class EssayController extends BaseController{
 		return View::make('admin.paper.essay.edit')
 			->with('essays', $essay);
 	}
+
+	public function postUpdate() {
+	// update the essay question selected
+
+		$id = Input::get('id');
+		$title = Input::get('title');
+		$description = Input::get('description');
+		$hours = Input::get('hours');
+		$mins = Input::get('mins');
+		$paper = Input::get('paper');
+		$type = Input::get('type');
+		$examiners = Input::get('examiners');
+
+		$duration = $hours*60 + $mins;
+
+
+		$essay = Mcq::find($id);
+
+		if($essay) {
+
+			$essay->title = $title;
+			$essay->description = $description;
+			$essay->duration = $duration;
+			$essay->paper = $paper;
+			$essay->type = $type;
+			$essay->examiners = $examiners;
+
+			if($mcq->save()) {
+
+				return 'success';
+			}
+		}
+		
+		return 'fail';
+	}
 }
