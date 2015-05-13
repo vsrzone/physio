@@ -329,7 +329,7 @@ window.onload = function(){
 	    	}
 	  	}
 
-		xmlhttp.open("POST","{{url()}}/admin/paper/update",true);
+		xmlhttp.open("POST","{{url()}}/admin/paper/essay/update",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(headers);
 	}

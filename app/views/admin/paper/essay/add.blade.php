@@ -259,6 +259,7 @@ editable = ko.observable(true);
 						if (xmlhttp.readyState==4 && xmlhttp.status==200)
 						{
 				    		if(xmlhttp.responseText === 'success') {
+				    			
 				    			window.location = "{{url()}}/admin/paper/essay";
 				    		}
 				    	}

@@ -27,6 +27,7 @@ class EssayController extends BaseController{
 		$paper = Input::get('paper');
 		$type = Input::get('type');
 		$examiners = Input::get('examiners');
+		$examiners_arr = explode(",", $examiners);
 
 		$duration = $hours*60 + $mins;
 
@@ -41,8 +42,24 @@ class EssayController extends BaseController{
 			$mcq->type = $type;
 			$mcq->examiners = $examiners;
 
-			$mcq->save();
-			return 'success';
+
+
+			if($mcq->save()) {
+
+				foreach ($examiners_arr as $ex) {
+
+					$user = User::find($ex);
+
+					Mail::send('admin.paper.essay.sendmail', array('title' => $title), function($message) use ($user, $title) {
+
+						$message->to($user->email, $user->name)->subject($title.' Essay Question Paper Added');
+					});
+				}
+
+				return 'success';
+			}
+
+			return 'failed';
 		}
 
 		return 'Error occured';
@@ -69,6 +86,7 @@ class EssayController extends BaseController{
 		$paper = Input::get('paper');
 		$type = Input::get('type');
 		$examiners = Input::get('examiners');
+		$examiners_arr = explode(",", $examiners);
 
 		$duration = $hours*60 + $mins;
 
@@ -82,9 +100,24 @@ class EssayController extends BaseController{
 			$essay->duration = $duration;
 			$essay->paper = $paper;
 			$essay->type = $type;
+			$exist_examiners = $essay->examiners;	// used this varible to find the existing examiners so sending emails to them can be avoided
+			$exist_examiners_arr = explode(",", $exist_examiners);
 			$essay->examiners = $examiners;
 
-			if($mcq->save()) {
+			if($essay->save()) {
+
+				foreach ($examiners_arr as $ex) {
+
+					if(!in_array($ex, $exist_examiners_arr)) {
+
+						$user = User::find($ex);
+
+						Mail::send('admin.paper.essay.sendmail', array('title' => $title), function($message) use ($user, $title) {
+
+							$message->to($user->email, $user->name)->subject($title.' Essay Question Paper Added');
+						});
+					}
+				}
 
 				return 'success';
 			}
