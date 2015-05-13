@@ -3,7 +3,7 @@
 class EssayController extends BaseController{
 
 	public function __construct(){
-		beforFilter('csrf', array('on'=>'post'));
+		$this->beforeFilter('csrf', array('on'=>'post'));
 	}
 
 	//views create page
