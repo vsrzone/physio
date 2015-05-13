@@ -45,13 +45,13 @@ class PaperController extends BaseController{
 			$mcq->type = $type;
 
 			$mcq->save();
-			return 'success';
+			return $paper;
 		}
 
 		return 'Error occured';
 	}
 
-	public function getEdit() {
+	public function postEdit() {
 		// This method will show the question paper where user can edit anything he wants.
 
 		$id = Input::get('id');
