@@ -325,7 +325,7 @@ editable = ko.observable(true);
 						if (xmlhttp.readyState==4 && xmlhttp.status==200)
 						{
 				    		if(xmlhttp.responseText === 'success') {
-				    			window.location = "{{url()}}/admin/paper";
+				    			window.location = "{{url()}}/admin/paper/mcq";
 				    		}
 				    	}
 				  	}
@@ -337,8 +337,6 @@ editable = ko.observable(true);
 
 					alert('You Should Enter a Valid Duration');
 				}
-
-				
 			}
 		} else {
 
