@@ -1,6 +1,7 @@
 @extends('admin.layouts.main')
 
 @section('content')
+
 @if(Session::has('message'))
 	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
@@ -14,25 +15,40 @@
 </div>
 @endif
 
-<table border="1">
+<table border = "1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
-		<th>Paper Id</th>
-		<th>Paper Title</th>
-		<th colspan="2">Edit/Delete</th>
+		<th>Paper ID</th>
+		<th>Title</th>
+		<th>Edit</th>
+		<th>Delete</th>
 	</tr>
-	@foreach($papers as $paper)
+
+@foreach($questions as $question)
 	<tr>
-		<td>$paper->id</td>
-		<td>$paper->title</td>
-		{{ Form::open(array('url'=>'admin/paper/edit')) }}
-		{{ Form::hidden('id', $paper->id) }}
-		<td> {{ Form::submit('Edit') }} </td>
-		{{ Form::close() }}
-		{{ Form::open(array('url'=>'admin/paper/destroy')) }}
-		{{ Form::hidden('id', $paper->id) }}
-		<td> {{ Form::submit('Delete') }} </td>
-		{{ Form::close() }}		
+		<td>{{ $question->id }}</td>
+		<td>{{ $question->title }}</td>
+		<td>
+			{{ Form::open(array('url'=>'admin/paper/edit')) }}
+
+				{{ Form::hidden('id', $question->id) }}
+				{{ Form::submit('Edit', array('class'=>'btn btn-info')) }}
+
+			{{ Form::close() }}
+		</td>
+		<td>
+			{{ Form::open(array('url'=>'admin/paper/destroy')) }}
+
+				{{ Form::hidden('id', $question->id) }}
+				{{ Form::submit('Delete', array('class'=>'btn btn-danger')) }}
+
+			{{ Form::close() }}
+		</td>
 	</tr>
-	@endforeach
+@endforeach
+	
 </table>
+
+<div>
+	{{ $questions->links() }}
+</div>
 @stop
