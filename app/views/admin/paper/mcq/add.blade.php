@@ -304,24 +304,44 @@ editable = ko.observable(true);
 		var clean = cleanJson(savedQuestions);
 		var paper = ko.toJSON(clean);
 		var type = 1;
+		console.log(duration_hr);
 
-		var headers = 'title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+		if(title !== '') {
 
-		var xmlhttp=new XMLHttpRequest();
-		
-		xmlhttp.onreadystatechange=function()
-		{
-			if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-	    		if(xmlhttp.responseText === 'success') {
-	    			window.location = "{{url()}}/admin/paper";
-	    		}
-	    	}
-	  	}
+			if(duration_hr === '' && duration_min === '') {
 
-		xmlhttp.open("POST","{{url()}}/admin/paper/create",true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send(headers);
+				alert('You Should Enter a Duration');
+			}
+			else {
+
+				if(!isNaN(duration_hr) && !isNaN(duration_min)) {
+
+					var headers = 'title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+
+					var xmlhttp=new XMLHttpRequest();
+					
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+				    		if(xmlhttp.responseText === 'success') {
+				    			window.location = "{{url()}}/admin/paper/mcq";
+				    		}
+				    	}
+				  	}
+
+					xmlhttp.open("POST","{{url()}}/admin/paper/mcq/create",true);
+					xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					xmlhttp.send(headers);
+				} else {
+
+					alert('You Should Enter a Valid Duration');
+				}
+			}
+		} else {
+
+			alert('You Should Enter a Title');
+		}
 	}
 </script>
 @stop

@@ -48,7 +48,7 @@ class PaperController extends BaseController{
 			$mcq->type = $type;
 
 			$mcq->save();
-			return $paper;
+			return 'success';
 		}
 
 		return 'Error occured';
@@ -78,24 +78,23 @@ class PaperController extends BaseController{
 		$duration = $hours*60 + $mins;
 
 
-			$mcq = Mcq::find($id);
+		$mcq = Mcq::find($id);
 
-			if($mcq) {
+		if($mcq) {
 
-				$mcq->title = $title;
-				$mcq->description = $description;
-				$mcq->duration = $duration;
-				$mcq->paper = $paper;
-				$mcq->type = $type;
+			$mcq->title = $title;
+			$mcq->description = $description;
+			$mcq->duration = $duration;
+			$mcq->paper = $paper;
+			$mcq->type = $type;
 
-				if($mcq->save()) {
+			if($mcq->save()) {
 
-					return 'success';
-				}
+				return 'success';
 			}
+		}
 
-			return 'fail';
-		
+		return 'fail';	
 	}
 
 	public function postDestroy() {
