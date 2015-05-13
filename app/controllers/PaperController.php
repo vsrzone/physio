@@ -45,7 +45,7 @@ class PaperController extends BaseController{
 			$mcq->type = $type;
 
 			$mcq->save();
-			return 'success';
+			return $paper;
 		}
 
 		return 'Error occured';
