@@ -169,6 +169,7 @@ class LessonController extends BaseController{
 						->with('message', 'No files selected');
 		
 	}
+	
 	public function allLessons() {
 	// show all the lessons
 
