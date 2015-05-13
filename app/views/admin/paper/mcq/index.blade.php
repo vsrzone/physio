@@ -19,6 +19,7 @@
 	<tr>
 		<th>Paper ID</th>
 		<th>Title</th>
+		<th>Paper</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
