@@ -23,29 +23,32 @@
 <div class="col-xs-12">
 	<form id="paper-container">
 		<div class="row">
+			<input type="hidden" value="{{$essay->id}}" id="paper_id" />
 			<div class="form-group col-xs-6">
 				<label>Paper title: </label> 
-				<input type="text" id="title" class="form-control" />
+				<input type="text" id="title" class="form-control" value="{{$essay->title}}" />
 			</div>
 			<div class="form-group col-xs-6">
 				<label class="col-xs-12">Duration: </label> 
 				<div class="controls form-inline">
-					<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
-					<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+					<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" value="{{(int)($essay->duration/60)}}" />
+					<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" value="{{$essay->duration%60}}" />
 				</div>
 			</div>
 			<div class="col-xs-12 alert alert-success alert-dismissable">
 				<label>Examiners</label>
 				@foreach($examiners as $examiner)
-				<div>
-					<input type="checkbox" name="examiners[]" value="{{$examiner->user_id}}" id="examiners"/>
-					 <label>{{$examiner->name.'('.$examiner->email.')'}}</label>
+				<div>				
+					<input type="checkbox" name="examiners[]" value="{{$examiner->user_id}}" id="examiners"<?php
+							if(in_array($examiner->user_id, explode(',', $essay->examiners))) {echo "checked";}
+							?> />					
+					<label>{{$examiner->name.'('.$examiner->email.')'}}</label>
 				</div>
 				@endforeach
 			</div>
 			<div class="form-group col-xs-6">
 				<label>Paper description</label>
-				<textarea id="description" class="form-control" ></textarea>
+				<textarea id="description" class="form-control" >{{$essay->description}}</textarea>
 			</div>
 		</div>
 	</form>
@@ -102,6 +105,21 @@
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
 editable = ko.observable(true);
+
+
+window.onload = function(){
+	paper = {{$essay->paper}};
+	paper = paper.questions;
+	for (var j = paper.length - 1; j >= 0; j--) {
+		
+		var question = new Question();
+		question.question(paper[j].question);
+		question.marks(paper[j].marks);		
+
+		savedQuestions.questions.push(question);
+	}
+	
+}
 
 	var Question = function(){
 		var self = this;
@@ -224,6 +242,7 @@ editable = ko.observable(true);
 
 		// send all the details to the server by an Ajax request
 
+		var id = document.getElementById('paper_id').value;
 		var title = document.getElementById('title').value;
 		var duration_hr = document.getElementById('duration_hr').value;
 		var duration_min = document.getElementById('duartion_min').value;
@@ -231,7 +250,7 @@ editable = ko.observable(true);
 		var description = document.getElementById('description').value;
 		var clean = cleanJson(savedQuestions);
 		var paper = ko.toJSON(clean);
-		var type = 1;
+		var type = 2;
 
 		var selectedRows = [];
 	    for (var i = 0, l = rows.length; i < l; i++) {
@@ -239,24 +258,43 @@ editable = ko.observable(true);
 	            selectedRows.push(rows[i].value);
 	        }
 	    }
-	    alert(selectedRows);
-		var headers = 'title=' + title + '&examiners=' + selectedRows + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
 
-		var xmlhttp=new XMLHttpRequest();
-		
-		xmlhttp.onreadystatechange=function()
-		{
-			if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-	    		if(xmlhttp.responseText === 'success') {
-	    			window.location = "{{url()}}/admin/paper/essay";
-	    		}
-	    	}
-	  	}
+	    if(title !== '') {
 
-		xmlhttp.open("POST","{{url()}}/admin/paper/essay/create",true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send(headers);
+			if(duration_hr === '' && duration_min === '') {
+
+				alert('You Should Enter a Duration');
+			}
+			else {
+
+				if(!isNaN(duration_hr) && !isNaN(duration_min)) {
+
+					var headers = 'id=' + id + '&title=' + title + '&examiners=' + selectedRows + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+
+					var xmlhttp=new XMLHttpRequest();
+					
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+				    		if(xmlhttp.responseText === 'success') {
+				    			window.location = "{{url()}}/admin/paper/essay";
+				    		}
+				    	}
+				  	}
+
+					xmlhttp.open("POST","{{url()}}/admin/paper/essay/update",true);
+					xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					xmlhttp.send(headers);
+				} else {
+
+					alert('You Should Enter a Valid Duration');
+				}
+			}
+		} else {
+
+			alert('You Should Enter a Title');
+		}
 	}
 </script>
 @stop

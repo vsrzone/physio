@@ -106,7 +106,7 @@ class EssayController extends BaseController{
 			$essay->type = $type;
 			$essay->examiners = $examiners;
 
-			if($mcq->save()) {
+			if($essay->save()) {
 
 				return 'success';
 			}
