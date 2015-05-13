@@ -51,7 +51,7 @@ class PaperController extends BaseController{
 		return 'Error occured';
 	}
 
-	public function getEdit() {
+	public function postEdit() {
 		// This method will show the question paper where user can edit anything he wants.
 
 		$id = Input::get('id');
@@ -74,9 +74,6 @@ class PaperController extends BaseController{
 
 		$duration = $hours*60 + $mins;
 
-		$validator = Valiator::make(array('title' => $title, 'paper' => $paper), Mcq::$rules);
-
-		if($validator->passes()) {
 
 			$mcq = Mcq::find($id);
 
@@ -90,15 +87,12 @@ class PaperController extends BaseController{
 
 				if($mcq->save()) {
 
-					return Redirect::to('admin/paper')
-						->with('message', 'Paper Edited Successfully');
+					return 'success';
 				}
 			}
-		}
 
-		return Redirect::to('admin/paper')
-			->withErrors($validator)
-			->withInput();
+			return 'fail';
+		
 	}
 
 	public function postDestroy() {

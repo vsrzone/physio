@@ -24,19 +24,20 @@
 	<form id="paper-container">
 		<div class="row">
 			<div class="form-group col-xs-6">
+				<input type="hidden" value="{{$mcq->id}}" id="paper_id">
 				<label>Paper title: </label> 
-				<input type="text" id="title" class="form-control" />
+				<input type="text" id="title" class="form-control" value="{{$mcq->title}}"/>
 			</div>
 			<div class="form-group col-xs-6">
 				<label class="col-xs-12">Duration: </label> 
 				<div class="controls form-inline">
-					<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" />
-					<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" />
+					<input type="text" id="duration_hr" placeholder="Hours" class="form-control col-xs-6" value="{{(int)($mcq->duration / 60)}}"/>
+					<input type="text" id="duartion_min" placeholder="Minutes" class="form-control col-xs-6" value="{{$mcq->duration % 60}}"/>
 				</div>
 			</div>
 			<div class="form-group col-xs-6">
 				<label>Paper description</label>
-				<textarea id="description" class="form-control" ></textarea>
+				<textarea id="description" class="form-control" >{{$mcq->description}}</textarea>
 			</div>
 		</div>
 	</form>
@@ -102,13 +103,35 @@
 			</div>
 		</div>
 	</div>
-	 <button id="submit" class="btn btn-outline btn-default">Add paper</button>
+	 <button id="submit" class="btn btn-outline btn-default" onclick="sendRequestToServerPost()">Save changes</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
 editable = ko.observable(true);
+
+window.onload = function(){
+	paper = {{$mcq->paper}};
+	paper = paper.questions;
+	for (var j = paper.length - 1; j >= 0; j--) {
+		
+		var question = new Question();
+		question.question(paper[j].question);
+
+		for (var i = paper[j].options.length - 1; i >= 0; i--) {
+			
+			if(!(paper[j].options[i].text.trim() == '')){
+				option = new Option()
+				option.text(paper[j].options[i].text);
+				option.setAnswer(paper[j].options[i].setAnswer);
+				question.options.push(option);
+			}
+		};	
+		savedQuestions.questions.push(question);
+	};
+	
+}
 
 	var Option = function(){
 		var self = this;
@@ -281,5 +304,34 @@ editable = ko.observable(true);
 	
 	ko.applyBindings(currQuestion, document.getElementById('newQuestion'));
 	ko.applyBindings(savedQuestions, document.getElementById('questions-container'));
+
+	function sendRequestToServerPost() {
+
+		// send all the details to the server by an Ajax request
+
+		var id = document.getElementById('paper_id').value;
+		var title = document.getElementById('title').value;
+		var duration_hr = document.getElementById('duration_hr').value;
+		var duration_min = document.getElementById('duartion_min').value;
+		var description = document.getElementById('description').value;
+		var paper = ko.toJSON(savedQuestions);
+		var type = 1;	
+
+		var headers = 'id=' + id + '&title=' + title + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+
+		var xmlhttp=new XMLHttpRequest();
+		
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+	    		document.getElementById('jsonResponse').innerHTML = xmlhttp.responseText;
+	    	}
+	  	}
+
+		xmlhttp.open("POST","{{url()}}/admin/paper/update",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(headers);
+	}
 </script>
 @stop
