@@ -10,14 +10,14 @@ class PaperController extends BaseController{
 		// This method will show all the questions in the database
 		// show 10 questions per page
 
-		return View::make('admin.question.index')
+		return View::make('admin.paper.mcq.index')
 			->with('questions', Mcq::paginate(10));
 	}
 
 	public function getCreate() {
 		// This method will show the form to add the question and to add the answers to the database
 
-		return View::make('admin.question.add');
+		return View::make('admin.paper.mcq.add');
 	}
 
 	public function postCreate() {
@@ -57,7 +57,7 @@ class PaperController extends BaseController{
 		$id = Input::get('id');
 		$mcq = Mcq::find($id);
 
-		return View::make('admin.question.edit')
+		return View::make('admin.paper.mcq.edit')
 			->with('mcq', $mcq);
 	}
 

@@ -36,6 +36,7 @@ return array(
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
     'CreateAttachmentsTable' => $baseDir . '/app/database/migrations/2015_05_05_060435_create_attachments_table.php',
     'CreateBasicTables' => $baseDir . '/app/database/migrations/2015_04_02_045349_create_basic_tables.php',
+    'CreateEssaysTable' => $baseDir . '/app/database/migrations/2015_05_13_060654_create_essays_table.php',
     'CreateLessonsTable' => $baseDir . '/app/database/migrations/2015_05_05_040144_create_lessons_table.php',
     'CreateQuestionsTables' => $baseDir . '/app/database/migrations/2015_05_07_052006_create_questions_tables.php',
     'Crypt_AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
