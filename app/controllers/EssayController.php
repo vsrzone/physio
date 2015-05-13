@@ -2,9 +2,9 @@
 
 class EssayController extends BaseController{
 
-	public function __construct(){
-		$this->beforeFilter('csrf', array('on'=>'post'));
-	}
+	// public function __construct(){
+	// 	$this->beforeFilter('csrf', array('on'=>'post'));
+	// }
 
 	//views create page
 	public function getCreate(){
@@ -15,6 +15,37 @@ class EssayController extends BaseController{
 				        ->get();
 		return View::make('admin.paper.essay.add')
 				->with('examiners', $examiners);
+	}
+
+	public function postCreate() {
+	// save the essay questions in the mcqs table
+
+		$title = Input::get('title');
+		$description = Input::get('description');
+		$hours = Input::get('hours');
+		$mins = Input::get('mins');
+		$paper = Input::get('paper');
+		$type = Input::get('type');
+		$examiners = Input::get('examiners');
+
+		$duration = $hours*60 + $mins;
+
+		$mcq = new Mcq;
+
+		if($mcq) {
+
+			$mcq->title = $title;
+			$mcq->description = $description;
+			$mcq->duration = $duration;
+			$mcq->paper = $paper;
+			$mcq->type = $type;
+			$mcq->examiners = $examiners;
+
+			$mcq->save();
+			return 'success';
+		}
+
+		return 'Error occured';
 	}
 
 	public function postEdit() {

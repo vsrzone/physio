@@ -231,7 +231,7 @@ editable = ko.observable(true);
 		var description = document.getElementById('description').value;
 		var clean = cleanJson(savedQuestions);
 		var paper = ko.toJSON(clean);
-		var type = 1;
+		var type = 2;
 
 		var selectedRows = [];
 	    for (var i = 0, l = rows.length; i < l; i++) {
@@ -239,24 +239,43 @@ editable = ko.observable(true);
 	            selectedRows.push(rows[i].value);
 	        }
 	    }
-	    alert(selectedRows);
-		var headers = 'title=' + title + '&examiners=' + selectedRows + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
 
-		var xmlhttp=new XMLHttpRequest();
-		
-		xmlhttp.onreadystatechange=function()
-		{
-			if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-	    		if(xmlhttp.responseText === 'success') {
-	    			window.location = "{{url()}}/admin/paper/essay";
-	    		}
-	    	}
-	  	}
+	    if(title !== '') {
 
-		xmlhttp.open("POST","{{url()}}/admin/paper/essay/create",true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send(headers);
+			if(duration_hr === '' && duration_min === '') {
+
+				alert('You Should Enter a Duration');
+			}
+			else {
+
+				if(!isNaN(duration_hr) && !isNaN(duration_min)) {
+
+					var headers = 'title=' + title + '&examiners=' + selectedRows + '&description=' + description + '&hours=' + duration_hr + '&mins=' + duration_min + '&paper=' + paper + '&type=' + type;
+
+					var xmlhttp=new XMLHttpRequest();
+					
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+				    		if(xmlhttp.responseText === 'success') {
+				    			window.location = "{{url()}}/admin/paper/essay";
+				    		}
+				    	}
+				  	}
+
+					xmlhttp.open("POST","{{url()}}/admin/paper/essay/create",true);
+					xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					xmlhttp.send(headers);
+				} else {
+
+					alert('You Should Enter a Valid Duration');
+				}
+			}
+		} else {
+
+			alert('You Should Enter a Title');
+		}
 	}
 </script>
 @stop
