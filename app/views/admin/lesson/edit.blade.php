@@ -22,7 +22,6 @@
 <script type="text/javascript" src="{{url()}}/js/admin/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
 	
-	tinymce.PluginManager.load('advimagescale', '{{url()}}/js/admin/tinymce/js/tinymce/plugins/advimagescale/editor_plugin.js');
 	tinymce.init({
 	    selector: "textarea",
 	    plugins: [

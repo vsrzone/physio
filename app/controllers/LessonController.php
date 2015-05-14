@@ -169,11 +169,26 @@ class LessonController extends BaseController{
 						->with('message', 'No files selected');
 		
 	}
+	
 	public function allLessons() {
 	// show all the lessons
 
 		return View::make('members.lesson')
 				->with('lessons', Lesson::paginate(5));
+
+	}
+
+	public function oneLesson($id) {
+	// show a Single Lesson
+
+		$lesson = Lesson::find($id);
+		$attachments = DB::table('attachments')
+							->where('lesson_id', $id)
+							->get();
+
+		return View::make('members.onelesson')
+				->with('lesson', $lesson)
+				->with('attachments', $attachments);
 
 	}
 }
