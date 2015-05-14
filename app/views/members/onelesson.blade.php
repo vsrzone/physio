@@ -24,7 +24,7 @@
 						if($new_iframe_tag) {
 							$new_img_tag = str_replace("<img", "<img id = \"tinymce_img\"", $new_iframe_tag);
 						} else {
-							$new_img_tag =  str_replace("<img", "<img id = \"tinymce_img\"", $$lesson->content);
+							$new_img_tag =  str_replace("<img", "<img id = \"tinymce_img\"", $lesson->content);
 						}
 						
 						echo $new_img_tag;
@@ -36,7 +36,7 @@
 			@endif
 			
 			@foreach ($attachments as $attachment)
-				<a href="{{url()}}/uploads/files/{{$attachment->file}}">{{$attachment->title}}</a>
+				<a href="{{url()}}/uploads/files/{{$attachment->file}}" download>{{$attachment->title}}</a>
 			@endforeach
 			<hr>
 		</div>
