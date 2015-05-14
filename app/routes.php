@@ -73,6 +73,10 @@ Route::get('contact', function(){
 //route to individual member edit
 Route::post('member/edit', 'WorkController@editMember');
 
+// show only one lesson
+Route::get('member/lesson/{id}', 'LessonController@oneLesson');
+
+// show all the lessons available
 Route::get('members/lesson', 'LessonController@allLessons');
 
 Route::get('members/learning', function() {

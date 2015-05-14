@@ -80,10 +80,11 @@ class EssayController extends BaseController{
 				foreach ($examiners_arr as $ex) {
 
 					$user = User::find($ex);
+					$user_name = Member::find($user->member_id);
 
-					Mail::send('admin.paper.essay.sendmail', array('title' => $title), function($message) use ($user, $title) {
+					Mail::send('admin.paper.essay.sendmail', array('title' => $title, 'name' => $user_name->name), function($message) use ($user, $title, $user_name) {
 
-						$message->to($user->email, $user->name)->subject($title.' Essay Question Paper Added');
+						$message->to($user->email, $user_name->name)->subject($title.' Essay Question Paper Added');
 					});
 				}
 
