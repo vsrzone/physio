@@ -83,7 +83,8 @@ Route::get('members/learning', function() {
 //route to exam area
 Route::get('members/exams', function()
 {
-	return View::make('members.exam');
+	return View::make('members.exam')
+			->with('exams', Mcq::all());
 });
 
 Route::resource('members', 'WorkController');
