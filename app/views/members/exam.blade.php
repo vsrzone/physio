@@ -4,6 +4,8 @@
 <div id="timer"></div>
 <div id="clock"></div>
 
+{{ Form::open(array('url'=>'members/exam/markresults')) }}
+{{ Form::hidden('paper_id', $exam->id) }}
 @foreach(json_decode($exam->paper) as $obj)
 	@foreach($obj as $cont)
 		<p><b>{{'('.(array_search($cont, $obj)+1).') '. $cont->question }}</b></p>
