@@ -73,6 +73,7 @@ class ExamController extends BaseController{
 
 	public function postMarkresults() {
 	// get the submitted answers and calculate the marks
+
 		$j = 0;
 		$answers_json = Input::get('answers');
 		$answers = json_decode($answers_json, true);
@@ -92,9 +93,10 @@ class ExamController extends BaseController{
 		// $marks_id = Input::get('marks_id');
 		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;;
 
-		// $member_id = Input::get('member_id');
+		$member_id = Session::get('member_id');
 		$paper_id = Input::get('paper_id');
-		// $end_time = Input::get('end_time');
+		$start_time = Session::get('start_time');
+		$end_time = Session::get('end_time');
 		// $acceptance_id = Input::get('acceptance_id');
 
 		$paper = Mcq::find($paper_id)->paper;
@@ -124,30 +126,51 @@ class ExamController extends BaseController{
 			}
 
 			$result = ($correct_answers/$total_questions)*100;
+
+			$marks = new Mark;
+
+			// saving the data to the acceptance table with the completed status
+			$acceptance = new Acceptance;
+			$acceptance->state = 3;
+			$acceptance->member_id = Auth::user()->member_id;
+			$acceptance->paper_id = $paper_id;
+
+			// saving the data to the marks table
+			$marks->member_id = $member_id;
+			$marks->start_time = $start_time;
+			$marks->paper_id = $paper_id;
+			$marks->end_time = $end_time;
+			$marks->acceptance_id = $acceptance->id;
+			$marks->marks = $result;
+
 			
-			return 'success';
-			// return Redirect::to('members/exams');
+
+			if($acceptance->save()) {
+
+				if($marks->save()) {
+
+					return 'success';
+				}
+			}
 		}
+	}
 
-		
+	public function showEnableStatus() {
+		// admin accepting the requests for an exam
 
-		// var_dump($correct_answers);
-		// die();
-		// var_dump($answer_arr);
-		// var_dump($paper_arr['questions'][1]['options'][0]['setAnswer']);
+		$acceptances = DB::table('acceptances')
+                    ->orderBy('created_at', 'desc')
+                    ->groupBy('member_id', 'paper_id')
+                    ->having('state', '=', 1)
+                    ->get();
 
-		// foreach ($paper_arr['questions'] as $level2) {
+		return View::make('admin.exam.request')
+			->with('exams', $acceptances);
+	}
 
-		// 	foreach ($level2['options'] as $level3) {
+	public function enablestatus() {
+		// admin accepting the requests for an exam
 
-		// 		// var_dump($level3['setAnswer']);
-		// 		// $correct_answers = $correct_answers+1;
-		// 	}
-		// 	$total_questions = $total_questions+1;
-		// // }
-		// var_dump($correct_answers);
-		// die();
 
-		
 	}
 }

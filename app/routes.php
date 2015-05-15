@@ -99,6 +99,12 @@ Route::controller('members/exam', 'ExamController');
 
 Route::resource('members', 'WorkController');
 
+//route to managing exams for Admins
+Route::get('admin/exam/enablestatus', 'ExamController@showEnableStatus');
+
+//route to accepting the requests for exams
+Route::post('admin/exam/enablestatus', 'ExamController@endblestatue');
+
 //route to questions
 Route::controller('admin/paper/mcq', 'PaperController');
 
