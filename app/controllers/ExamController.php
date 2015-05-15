@@ -1,9 +1,9 @@
 <?php
 
 class ExamController extends BaseController{
-	public function __construct(){
-		$this->beforeFilter('csrf', array('on'=>'post'));
-	}
+	// public function __construct(){
+	// 	$this->beforeFilter('csrf', array('on'=>'post'));
+	// }
 
 	public function getIndex(){
 		var_dump('expression');
@@ -15,7 +15,7 @@ class ExamController extends BaseController{
 					->where('paper_id', '=', $paper_id)
 					->orderBy('created_at', 'desc')
 					->first();
-		
+
 		if(!$state){
 			$acceptance = new Acceptance;
 			$acceptance->state = 1;
@@ -31,6 +31,7 @@ class ExamController extends BaseController{
 				->with('message', 'Your request to try this axamination is pending');
 		}else if($state->state == 2){
 			$exam = Mcq::find($paper_id);
+
 			
 			if($exam->type == 1){
 				// $accept = Acceptance::find($state->id);
@@ -72,23 +73,37 @@ class ExamController extends BaseController{
 
 	public function postMarkresults() {
 	// get the submitted answers and calculate the marks
+		$j = 0;
+		$answers_json = Input::get('answers');
+		$answers = json_decode($answers_json, true);
+		$answers_arr = array();
 
-		$marks_id = Input::get('marks_id');
+		foreach ($answers['answerArray'] as $level1) {
+
+	 		$k = 0;
+			foreach ($level1['optionArray'] as $level2) {
+
+				$answers_arr[$j][$k] = $level2['state'];
+				$k++;
+			}
+			$j++;
+		}
+
+		// $marks_id = Input::get('marks_id');
 		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;;
 
-		$member_id = Input::get('member_id');
+		// $member_id = Input::get('member_id');
 		$paper_id = Input::get('paper_id');
-		$end_time = Input::get('end_time');
-		$acceptance_id = Input::get('acceptance_id');
+		// $end_time = Input::get('end_time');
+		// $acceptance_id = Input::get('acceptance_id');
 
 		$paper = Mcq::find($paper_id)->paper;
 		$paper_arr = json_decode($paper, true);
 
-		$answer_arr = [[true, false], [false, true], [false, true, true]];
+		if($answers_arr) {
 
-		if($answer_arr) {
+			foreach ($answers_arr as $ans_level1) {
 
-			foreach ($answer_arr as $ans_level1) {
 
 				foreach ($ans_level1 as $ans) {
 
@@ -109,8 +124,9 @@ class ExamController extends BaseController{
 			}
 
 			$result = ($correct_answers/$total_questions)*100;
-			var_dump($result);
-			die();
+			
+			return 'success';
+			// return Redirect::to('members/exams');
 		}
 
 		

@@ -115,12 +115,12 @@ editable = ko.observable(true);
 window.onload = function(){
 	paper = {{$mcq->paper}};
 	paper = paper.questions;
-	for (var j = paper.length - 1; j >= 0; j--) {
+	for (var j = 0; j <= paper.length - 1; j++) {
 		
 		var question = new Question();
 		question.question(paper[j].question);
 
-		for (var i = paper[j].options.length - 1; i >= 0; i--) {
+		for (var i = 0; i <= paper[j].options.length - 1; i++) {
 			
 			if(!(paper[j].options[i].text.trim() == '')){
 				option = new Option()

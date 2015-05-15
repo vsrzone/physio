@@ -87,8 +87,11 @@ Route::get('members/learning', function() {
 //route to exam area
 Route::get('members/exams', function()
 {
+	// $marks = Input::get('marks');
+
 	return View::make('members.exams')
-			->with('exams', Mcq::all());
+			->with('exams', Mcq::all())
+			->with('marks', '');
 });
 
 //route to  examcontroller 

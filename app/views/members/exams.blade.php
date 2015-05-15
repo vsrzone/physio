@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+<h1>Your marks: {{$marks}}</h1>
 <div class="container-fluid">
 	<div class="row">
 		<ul id="main-slider" class="col-xs-12">
