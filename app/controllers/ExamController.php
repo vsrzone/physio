@@ -158,19 +158,52 @@ class ExamController extends BaseController{
 	public function showEnableStatus() {
 		// admin accepting the requests for an exam
 
+		$acceptances_arr = array();
+
 		$acceptances = DB::table('acceptances')
-                    ->orderBy('created_at', 'desc')
+					->select('member_id', 'paper_id', DB::raw('max(updated_at) as max_date'))
+                    ->orderBy('updated_at', 'desc')
                     ->groupBy('member_id', 'paper_id')
-                    ->having('state', '=', 1)
-                    ->get();
+                    ->paginate(5);
+
+        foreach ($acceptances as $ex) {
+
+        	$exam_id = DB::table('acceptances')
+        			->select('id', 'state')
+        			->where('member_id', '=', $ex->member_id)
+        			->where('paper_id', '=', $ex->paper_id)
+        			->where('updated_at', '=', $ex->max_date)
+        			->first();
+
+        	$ex->id = $exam_id->id;
+        	$ex->state = $exam_id->state;
+        }
 
 		return View::make('admin.exam.request')
 			->with('exams', $acceptances);
 	}
 
-	public function enablestatus() {
+	public function enableStatue() {
 		// admin accepting the requests for an exam
 
+		$id = Input::get('id');
 
+		$exam = Acceptance::find($id);
+
+		if($exam) {
+			if($exam->state !== 2) {
+
+				$exam->state = 2;
+
+				$exam->save();
+				
+			}
+			
+			return Redirect::to('admin/exam/enablestatus')
+				->with('message', 'Successfully Changed the Status');
+
+		}
+		return Redirect::to('admin/exam/enablestatus')
+			->with('message', 'Error Occured');
 	}
 }
