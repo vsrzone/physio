@@ -60,12 +60,39 @@
 	    }, 1000);
 	}
 
+	var endPool;
+
+	function pooling() {
+
+		endPool = setInterval(
+				function examState() {
+					var paper_id = document.getElementById('paper_id').value;
+					var headers = 'state=5&paper_id=' + paper_id;
+
+					var xmlhttp=new XMLHttpRequest();
+					
+					xmlhttp.onreadystatechange=function()
+					{
+						if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+				    		return xmlhttp.responseText;
+				    	}
+				  	}
+
+					xmlhttp.open("POST","{{url()}}/members/exam/pooling",true);
+					xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					xmlhttp.send(headers);
+				}
+			, 5000);
+	}
+
 
 	window.onload = function () {
 	    var minutes = {{$exam->duration}} * 60,
 	    display = document.querySelector('#timer');
 	    startTimer(minutes, display);
 	    loadPaper();
+	    pooling();
 	};
 	
 
@@ -126,6 +153,7 @@
 		// send all the details to the server by an Ajax request
 
 		// var title = document.getElementById('title').value;
+		clearInterval(endPool);
 		var answers = ko.toJSON(questions);
 		var paper_id = document.getElementById('paper_id').value;
 

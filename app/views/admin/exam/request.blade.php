@@ -19,7 +19,11 @@
 			<td> {{ $exam->paper_id }} </td>
 			{{Form::open(array('url'=>'admin/exam/postenablestatus'))  }}
 			{{ Form::hidden('id', $exam->id) }}
+			@if($exam->state === 1)
 			<td> {{ Form::submit('Accept', array('class'=>'btn btn-info')) }} </td>
+			@elseif ($exam->state >= 2)
+			<td> {{ Form::submit('Accepted', array('class'=>'btn btn-success')) }} </td>
+			@endif
 			{{ Form::close() }}
 		</tr>
 	@endforeach
