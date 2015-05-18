@@ -45,6 +45,7 @@ class ExamController extends BaseController{
 				// $marks->paper_id = $paper_id;
 				// $marks->start_time = date('h:i:s', time());
 				// $marks->end_time = date('h:i:s', time());
+				// Session::put('mark_id', $marks->id);
 
 				// $marks->save();
 
@@ -127,20 +128,21 @@ class ExamController extends BaseController{
 
 			$result = ($correct_answers/$total_questions)*100;
 
-			$marks = new Mark;
+			// $marks = Mark::find(Session::get('marks_id'));
+			$marks = new Marks;
 
 			// saving the data to the acceptance table with the completed status
 			$acceptance = new Acceptance;
 			$acceptance->state = 3;
-			$acceptance->member_id = Auth::user()->member_id;
+			$acceptance->member_id = Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
 			$acceptance->paper_id = $paper_id;
 
 			// saving the data to the marks table
-			$marks->member_id = $member_id;
-			$marks->start_time = $start_time;
+			$marks->member_id =Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
+			$marks->start_time = date('h:i:s', time());	//**************** NEED TO FIND THE START TIME *****************//
 			$marks->paper_id = $paper_id;
-			$marks->end_time = $end_time;
-			$marks->acceptance_id = $acceptance->id;
+			$marks->end_time = date('h:i:s', time());	//**************** NEED TO FIND THE END TIME *****************//
+			$marks->acceptance_id = 5;		//**************** NEED TO FIND THE ACCEPTANCE ID *****************//
 			$marks->marks = $result;
 
 			
@@ -191,19 +193,42 @@ class ExamController extends BaseController{
 		$exam = Acceptance::find($id);
 
 		if($exam) {
-			if($exam->state !== 2) {
+			if($exam->state === 1) {
 
 				$exam->state = 2;
-
 				$exam->save();
-				
+
+				return Redirect::to('admin/exam/enablestatus')
+					->with('message', 'Successfully Changed the Status');
 			}
 			
 			return Redirect::to('admin/exam/enablestatus')
-				->with('message', 'Successfully Changed the Status');
+				->with('message', 'Cannot Change the Status');
 
 		}
 		return Redirect::to('admin/exam/enablestatus')
 			->with('message', 'Error Occured');
+	}
+
+	public function postPooling() {
+		// saves a record in the acceptance table stating the ongoing state of the exam
+		$acceptances = new Acceptance;
+
+		$acceptances->state = Input::get('state');
+		$acceptances->member_id = Auth::user()->member_id;
+		$acceptances->paper_id = Input::get('paper_id');
+
+		$acceptances->save();
+
+		// returning the current server time after every request
+		$time_format = getdate();
+		$hours = $time_format['hours'];
+		$minutes = $time_format['minutes'];
+		$seconds = $time_format['seconds'];
+		$time_return = $hours.":".$minutes.":".$seconds;
+
+		return $time_return;
+
+		// if the state fail there will be no requests. So in the "postIndex" method, status can be set to 4
 	}
 }
