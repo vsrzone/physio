@@ -151,7 +151,7 @@ class EssayController extends BaseController{
 	}
 
 	public function postDestroy() {
-		// This method will delete a essay question paper
+		//delete an essay question paper
 
 		$id = Input::get('id');
 		
@@ -171,5 +171,36 @@ class EssayController extends BaseController{
 
 		return Redirect::to('admin/paper/essay')
 			->with('message', 'Error Occured');
+	}
+
+	public function getEssaymarking() {
+		//shows the essays questions to be marked
+		$essays = DB::table('essays')
+						->where('marks', null)
+						->paginate(10);
+
+		return View::make('admin.exam.marking')
+						->with('essays', $essays);
+	}
+
+	public function postMarking() {
+		//update the marks and examiner id in the database
+		
+		$id = Input::get('id');
+		$marks = Input::get('marks');
+		$examiner_id = Auth::user()->member_id;
+
+		$essay = Essay::find($id);
+
+		if($essay) {
+			$essay->marks = $marks;
+			$essay->examiner_id = $examiner_id;
+
+			if($essay->save()) {
+
+				return Redirect::to('admin/paper/essay/essaymarking')
+					->with('message', 'Marks Added Successfully');
+			}
+		}
 	}
 }

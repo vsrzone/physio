@@ -15,13 +15,13 @@
 	<div class="row">
 		<div class="col-xs-12" id="members-wrappers">
 			<div class="well">			
-				@foreach($exams as $exam)
-				{{ Form::open(array('url'=>'members/exam')) }}
+				@foreach($essays as $essay)
+				{{ Form::open(array('url'=>'members/essay')) }}
 				<div class="panel panel-default">					
-					<div class="panel-heading">{{$exam->title}}</div>
-					<div class="panel-body">{{$exam->description}}</div> 
-					{{ Form::hidden('id', $exam->id) }}
-					{{ Form::submit('Try exam') }}  					            
+					<div class="panel-heading">{{$essay->title}}</div>
+					<div class="panel-body">{{$essay->description}}</div> 
+					{{ Form::hidden('id', $essay->id) }}
+					{{ Form::submit('Try essay') }}  					            
 				</div>
 				{{ Form::close() }}     
 				@endforeach	
