@@ -1,32 +1,14 @@
-<div><h3>{{$exam->title}}</h3></div>
-<div> <p>{{$exam->description}}</p> </div>
-<div> <p>Duration: {{($exam->duration/60).'Hours only'}} </p> </div>
+<div><h3>{{$essay->title}}</h3></div>
+<div> <p>{{$essay->description}}</p> </div>
+<div> <p>Duration: {{($essay->duration/60).'Hours only'}} </p> </div>
 <div id="timer"></div>
 <div id="clock"></div>
 
-<!-- {{ Form::open(array('url'=>'members/exam/markresults')) }}
-{{ Form::hidden('paper_id', $exam->id) }}
-@foreach(json_decode($exam->paper) as $obj)
-	@foreach($obj as $cont)
-		<p><b>{{'('.(array_search($cont, $obj)+1).') '. $cont->question }}</b></p>
-		@foreach($cont->options as $option)
-			<p>
-				<input type="checkbox" />
-				{{$option->text}}			
-			</p>
-		@endforeach
-	@endforeach
-@endforeach
-
-{{ Form::submit('Submit Answers', array('id'=>'submit')) }} -->
-<input type = "hidden" id = "paper_id" value = "{{$exam->id}}">
+<input type = "hidden" id = "paper_id" value = "{{$essay->id}}">
 <div data-bind="foreach: answerArray">
 	<h3 data-bind="text: question"></h3>
-	<div data-bind="foreach: optionArray">
-		<input type="checkbox" data-bind="checked: state">
-		<p style = "display: inline" data-bind="text: text"></p>
-		</br>
-	</div>
+	<textarea rows="6" cols="80" data-bind="value: answer"></textarea>
+	</br>
 </div>
 <div>
 	<button onclick = "sendRequestToServerPost()">Submit Answers</button>
@@ -83,7 +65,7 @@
 			    	}
 			  	}
 
-				xmlhttp.open("POST","{{url()}}/members/exam/pooling",true);
+				xmlhttp.open("POST","{{url()}}/members/essay/pooling",true);
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send(headers);
 			}
@@ -92,53 +74,36 @@
 
 
 	window.onload = function () {
-	    var minutes = {{$exam->duration}} * 60,
+	    var minutes = {{$essay->duration}} * 60,
 	    display = document.querySelector('#timer');
 	    startTimer(minutes, display);
 	    loadPaper();
-	    pooling();
+	    // pooling();
 	};
-	
-
 
 	//loading paper
 	var loadPaper = function(){
-		paper = {{$exam->paper}};
+		paper = {{$essay->paper}};
 		paper = paper.questions;
 		console.log(paper)
 		for (var j = 0; j <= paper.length - 1; j++) {
 		
 			var question = new Question();
 			question.question(paper[j].question);
+			question.answer('');
+			question.marks(paper[j].marks);
 
-			for (var i = 0; i <= paper[j].options.length - 1; i++) {
-				
-				if(!(paper[j].options[i].text.trim() == '')){
-					option = new Option();
-					option.text(paper[j].options[i].text);
-					option.state(false);
-					question.optionArray.push(option);
-				}
-			};	
 			questions.answerArray.push(question);
 		};
 	}
-
-	//option class
-	var Option = function(){
-		var self = this;
-
-		this.text = ko.observable('');
-		this.state = ko.observable(false);
-	}
-
 	
 	//question class
 	var Question = function(){
 		var self = this;
 
 		this.question = ko.observable();
-		this.optionArray = ko.observableArray();
+		this.answer = ko.observable(' ');
+		this.marks = ko.observable();
 	}
 
 	//answers class
@@ -157,8 +122,9 @@
 		// send all the details to the server by an Ajax request
 
 		// var title = document.getElementById('title').value;
-		clearInterval(endPool);
+		// clearInterval(endPool);
 		var answers = ko.toJSON(questions);
+		console.log(answers);
 		var paper_id = document.getElementById('paper_id').value;
 
 		var headers = 'answers=' + answers + '&paper_id=' + paper_id;
@@ -179,5 +145,4 @@
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(headers);
 	}
-
 </script>

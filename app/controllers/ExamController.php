@@ -92,7 +92,7 @@ class ExamController extends BaseController{
 		}
 
 		// $marks_id = Input::get('marks_id');
-		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;;
+		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
 
 		$member_id = Session::get('member_id');
 		$paper_id = Input::get('paper_id');

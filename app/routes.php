@@ -90,9 +90,20 @@ Route::get('members/exams', function()
 	// $marks = Input::get('marks');
 
 	return View::make('members.exams')
-			->with('exams', Mcq::all())
+			->with('exams', Mcq::where('type',1)->get())
 			->with('marks', '');
 });
+
+Route::get('members/essays', function()
+{
+	//shows all the essay questions in the database
+
+	return View::make('members.essays')
+			->with('essays', Mcq::where('type',2)->get());
+});
+
+//route to essayAnswerController
+Route::controller('members/essay','EssayAnswerController');
 
 //route to  examcontroller 
 Route::controller('members/exam', 'ExamController');

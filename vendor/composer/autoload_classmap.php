@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Acceptance' => $baseDir . '/app/models/Acceptance.php',
+    'AlterEssaysTable' => $baseDir . '/app/database/migrations/2015_05_19_081931_alter_essays_table.php',
     'AlterMcqsTable' => $baseDir . '/app/database/migrations/2015_05_12_045950_alter_mcqs_table.php',
     'AlterNewsAddSummary' => $baseDir . '/app/database/migrations/2015_04_09_071829_alter_news_add_summary.php',
     'Attachment' => $baseDir . '/app/models/Attachment.php',
@@ -52,6 +54,8 @@ return array(
     'Crypt_TripleDES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/TripleDES.php',
     'Crypt_Twofish' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Twofish.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
+    'Essay' => $baseDir . '/app/models/Essay.php',
+    'EssayAnswerController' => $baseDir . '/app/controllers/EssayAnswerController.php',
     'EssayController' => $baseDir . '/app/controllers/EssayController.php',
     'ExamController' => $baseDir . '/app/controllers/ExamController.php',
     'File_ANSI' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ANSI.php',
@@ -528,6 +532,7 @@ return array(
     'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
     'Lesson' => $baseDir . '/app/models/Lesson.php',
     'LessonController' => $baseDir . '/app/controllers/LessonController.php',
+    'Marks' => $baseDir . '/app/models/Marks.php',
     'Math_BigInteger' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
     'Mcq' => $baseDir . '/app/models/Mcq.php',
     'Member' => $baseDir . '/app/models/Member.php',
