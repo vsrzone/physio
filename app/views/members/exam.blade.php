@@ -79,6 +79,9 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200)
 					{
+			    		if(xmlhttp.responseText == 1){
+			    			sendRequestToServerPost();
+			    		}
 			    		return xmlhttp.responseText;
 			    	}
 			  	}
@@ -87,7 +90,7 @@
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send(headers);
 			}
-		, 5000);
+		, 10000);
 	}
 
 
