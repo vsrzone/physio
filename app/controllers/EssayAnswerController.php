@@ -71,35 +71,24 @@ class EssayAnswerController extends BaseController{
 	public function postMarkresults() {
 	// save the questions and answers to essay questions in the database and send an email to the appropriate examiner.
 
-		$j = 0;
 		$answers = Input::get('answers');
-		$member_id = Auth::user()->member_id;
-		$paper_id = Input::get('paper_id');
-		$start_time = Session::get('start_time');
-		$end_time = Session::get('end_time');
-		$acceptance_id = Input::get('acceptance_id');
-
-		$essay = new Essay;
 
 		// saving the data to the acceptance table with the completed status
-		$acceptance = new Acceptance;
+		$acceptance = Acceptance::find(Session::get('accept_id'));
 		$acceptance->state = 3;
-		$acceptance->member_id = Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
-		$acceptance->paper_id = $paper_id;
 
-		// saving the data to the marks table
-		$essay->member_id =Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
-		$essay->start_time = date('h:i:s', time());	//**************** NEED TO FIND THE START TIME *****************//
-		$essay->paper_id = $paper_id;
-		$essay->end_time = date('h:i:s', time());	//**************** NEED TO FIND THE END TIME *****************//
+		$acceptance->save();
+
+		// updating the essays table
+		$essay = Essay::find(Session::get('essay_mark_id'));
+		$essay->end_time = date('h:i:s', time());
 		$essay->answers = $answers;
-		$essay->acceptance_id = 3;		//**************** NEED TO FIND THE ACCEPTANCE ID *****************//
 
 		// email attributes
-		$paper_details = Mcq::find($paper_id);
+		$paper_details = Mcq::find($essay->paper_id);
 		$examiners_arr = explode(",", $paper_details->examiners);
 		$title = $paper_details->title;
-		$member = Member::find($member_id);
+		$member = Member::find($essay->member_id);
 
 		if($acceptance->save()) {
 

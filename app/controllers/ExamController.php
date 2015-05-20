@@ -90,15 +90,11 @@ class ExamController extends BaseController{
 			}
 			$j++;
 		}
-
-		// $marks_id = Input::get('marks_id');
+		
 		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
 
-		$member_id = Session::get('member_id');
 		$paper_id = Input::get('paper_id');
 		$start_time = Session::get('start_time');
-		$end_time = Session::get('end_time');
-		// $acceptance_id = Input::get('acceptance_id');
 
 		$paper = Mcq::find($paper_id)->paper;
 		$paper_arr = json_decode($paper, true);
@@ -128,21 +124,14 @@ class ExamController extends BaseController{
 
 			$result = ($correct_answers/$total_questions)*100;
 
-			// $marks = Mark::find(Session::get('marks_id'));
-			$marks = new Marks;
+			$marks = Mark::find(Session::get('mark_id'));
 
-			// saving the data to the acceptance table with the completed status
-			$acceptance = new Acceptance;
+			// Updating the acceptance table with the completed status
+			$acceptance = Acceptance::find(Session::get('accept_id'));
 			$acceptance->state = 3;
-			$acceptance->member_id = Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
-			$acceptance->paper_id = $paper_id;
 
-			// saving the data to the marks table
-			$marks->member_id =Auth::user()->member_id;	//**************** NEED TO DECIDE MEMBER_ID OR USER_ID *****************//
-			$marks->start_time = date('h:i:s', time());	//**************** NEED TO FIND THE START TIME *****************//
-			$marks->paper_id = $paper_id;
-			$marks->end_time = date('h:i:s', time());	//**************** NEED TO FIND THE END TIME *****************//
-			$marks->acceptance_id = 5;		//**************** NEED TO FIND THE ACCEPTANCE ID *****************//
+			// updating the marks table
+			$marks->end_time = date('h:i:s', time());
 			$marks->marks = $result;
 
 			
