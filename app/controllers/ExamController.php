@@ -97,7 +97,6 @@ class ExamController extends BaseController{
 		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
 
 		$paper_id = Input::get('paper_id');
-		$start_time = Session::get('start_time');
 
 		$paper = Mcq::find($paper_id)->paper;
 		$paper_arr = json_decode($paper, true);
@@ -127,7 +126,7 @@ class ExamController extends BaseController{
 
 			$result = ($correct_answers/$total_questions)*100;
 
-			$marks = Mark::find(Session::get('mark_id'));
+			$marks = Marks::find(Session::get('marks_id'));
 
 			// Updating the acceptance table with the completed status
 			$acceptance = Acceptance::find(Session::get('accept_id'));

@@ -2,14 +2,12 @@
 
 class EssayAnswerController extends BaseController{
 
-	public function postIndex() {
-		//show the selected essay question paper
-
+	public function postIndex(){
 		$paper_id = Input::get('id');
 		$state = DB::table('acceptances')
 					->where('member_id', '=', Auth::user()->member_id)
 					->where('paper_id', '=', $paper_id)
-					->orderBy('updated_at', 'desc')
+					->orderBy('created_at', 'desc')
 					->first();
 
 		if(!$state){
@@ -20,38 +18,39 @@ class EssayAnswerController extends BaseController{
 
 			$acceptance->save();
 
-			return Redirect::to('members/essays')
+			return Redirect::to('members/exams')
 						->with('message', 'Request to try the selected examination is sent');
 		}else if($state->state == 1){
-			return Redirect::to('members/essays')
+			return Redirect::to('members/exams')
 				->with('message', 'Your request to try this axamination is pending');
 		}else if($state->state == 2){
-			$essay = Mcq::find($paper_id);
+			$exam = Mcq::find($paper_id);
 
 			
-			if($essay->type == 2){
-				// $accept = Acceptance::find($state->id);
-				// $accept->state = 5;
+			if($exam->type == 2){
+				$accept = Acceptance::find($state->id);
+				$accept->state = 5;
 
-				// $accept->save();
+				$accept->save();
 
-				// $marks = new Marks;
-				// $marks->member_id = Auth::user()->member_id;
-				// $marks->acceptance_id = $state->id;
-				// $marks->paper_id = $paper_id;
-				// $marks->start_time = date('h:i:s', time());
-				// $marks->end_time = date('h:i:s', time());
-				// Session::put('mark_id', $marks->id);
+				$marks = new Marks;
+				$marks->member_id = Auth::user()->member_id;
+				$marks->acceptance_id = $state->id;
+				$marks->paper_id = $paper_id;
+				$marks->start_time = date('h:i:s', time());
+				$marks->end_time = date('h:i:s', time());
+				//Session::put('mark_id', $marks->id);
 
-				// $marks->save();
+				$marks->save();
 
-				// Session::put('marks_id', $marks->id);
+				Session::put('essay_marks_id', $marks->id);
+				Session::put('essay_accept_id', $accept->id);
 
-				return View::make('members.essay')
-					->with('essay', $essay);
+				return View::make('members.exam')
+					->with('exam', $exam);
 			}
 		}else if($state->state == 3){
-			return Redirect::to('members/essays')
+			return Redirect::to('members/exams')
 				->with('message', 'You have successfully completed this examination');
 		}else if($state->state == 4){
 			$acceptance = new Acceptance;
@@ -61,10 +60,10 @@ class EssayAnswerController extends BaseController{
 
 			$acceptance->save();
 
-			return Redirect::to('members/essays')
+			return Redirect::to('members/exams')
 						->with('message', 'Request to try the selected examination again, is sent');
 		}		
-		return Redirect::to('members/essays')
+		return Redirect::to('members/exams')
 				->with('message', 'Something went wrong. Please try again');
 	}
 
@@ -74,7 +73,7 @@ class EssayAnswerController extends BaseController{
 		$answers = Input::get('answers');
 
 		// saving the data to the acceptance table with the completed status
-		$acceptance = Acceptance::find(Session::get('accept_id'));
+		$acceptance = Acceptance::find(Session::get('essay_accept_id'));
 		$acceptance->state = 3;
 
 		$acceptance->save();
