@@ -222,11 +222,10 @@ class ExamController extends BaseController{
 			$end_time = $marks->end_time;
 			$curr_time = date('h:i:s', time());
 			$marks->end_time = $curr_time;
-			var_dump($curr_time);
-			var_dump($end_time);
-			var_dump($curr_time - $end_time);
-			die();
-			if($curr_time - $end_time > 5000){
+
+			$marks->save();
+			
+			if(strtotime($curr_time) - strtotime($end_time) > 60){
 
 				return 1;
 			}
