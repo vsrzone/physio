@@ -175,9 +175,12 @@ class EssayController extends BaseController{
 
 	public function getEssaymarking() {
 		//shows the essays questions to be marked
+		
 		$essays = DB::table('essays')
-						->where('marks', null)
-						->paginate(10);
+						->leftJoin('members', 'members.id', '=', 'essays.member_id')
+						->leftJoin('acceptances', 'acceptances.id', '=', 'essays.acceptance_id')
+						->select('essays.id as id', 'essays.paper_id', 'members.name', 'essays.member_id', 'state', 'marks', 'start_time', 'end_time')	
+			       		->paginate(10);
 
 		return View::make('admin.exam.marking')
 						->with('essays', $essays);

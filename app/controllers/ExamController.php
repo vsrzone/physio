@@ -76,7 +76,7 @@ class ExamController extends BaseController{
 	}
 
 	public function postMarkresults() {
-	// get the submitted answers and calculate the marks
+		//get the submitted answers and calculate the marks
 
 		$j = 0;
 		$answers_json = Input::get('answers');
