@@ -79,7 +79,11 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200)
 					{
-		    			sendRequestToServerPost(xmlhttp.responseText);
+						if(xmlhttp.responseText != 0){
+							sendRequestToServerPost(xmlhttp.responseText);
+						}
+		    			
+		    			return xmlhttp.responseText;
 			    		
 			    	}
 			  	}
@@ -171,7 +175,7 @@
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
 	    		if(xmlhttp.responseText === 'success') {
-	    			window.location = "{{url()}}/members/essays";
+	    			window.location = "{{url()}}/members/exams";
 	    		}
 	    	}
 	  	}

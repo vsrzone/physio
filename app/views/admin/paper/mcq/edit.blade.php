@@ -340,12 +340,12 @@ window.onload = function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
 	    		if(xmlhttp.responseText === 'success') {
-	    			window.location = "{{url()}}/admin/paper";
+	    			window.location = "{{url()}}/admin/paper/mcq";
 	    		}
 	    	}
 	  	}
 
-		xmlhttp.open("POST","{{url()}}/admin/paper/update",true);
+		xmlhttp.open("POST","{{url()}}/admin/paper/mcq/update",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(headers);
 	}

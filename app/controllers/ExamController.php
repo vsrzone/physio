@@ -18,62 +18,85 @@ class ExamController extends BaseController{
 					->orderBy('created_at', 'desc')
 					->first();
 
-		if(!$state){
-			$acceptance = new Acceptance;
-			$acceptance->state = 1;
-			$acceptance->member_id = Auth::user()->member_id;
-			$acceptance->paper_id = $paper_id;
-
-			$acceptance->save();
-
-			return Redirect::to('members/exams')
-						->with('message', 'Request to try the selected examination is sent');
-		}else if($state->state == 1){
-			return Redirect::to('members/exams')
-				->with('message', 'Your request to try this axamination is pending');
-		}else if($state->state == 2){
-			$exam = Mcq::find($paper_id);
-
-			
-			if($exam->type == 1){
-				$accept = Acceptance::find($state->id);
-				$accept->state = 5;
-
-				$accept->save();
-
-				$marks = new Marks;
-				$marks->member_id = Auth::user()->member_id;
-				$marks->acceptance_id = $state->id;
-				$marks->paper_id = $paper_id;
-				$marks->start_time = date('h:i:s', time());
-				$marks->end_time = date('h:i:s', time());
-				//Session::put('mark_id', $marks->id);
-
-				$marks->save();
-
-				Session::put('marks_id', $marks->id);
-				Session::put('accept_id', $accept->id);
-
-				return View::make('members.exam')
-					->with('exam', $exam);
-			}
-		}else if($state->state == 3){
-			return Redirect::to('members/exams')
-				->with('message', 'You have successfully completed this examination');
-		}else if($state->state == 4){
-			$acceptance = new Acceptance;
-			$acceptance->state = 1;
-			$acceptance->member_id = Auth::user()->member_id;
-			$acceptance->paper_id = $paper_id;
-
-			$acceptance->save();
-
-			return Redirect::to('members/exams')
-						->with('message', 'Request to try the selected examination again, is sent');
-		}		
-		return Redirect::to('members/exams')
-				->with('message', 'Something went wrong. Please try again');
+		return View::make('members.examinfo')
+				->with('type', $state)
+				->with('id', $paper_id);
 	}
+
+	//Get registered for an exam
+	public function postRegister(){
+		$paper_id = Input::get('id');
+		$acceptance = new Acceptance;
+		$acceptance->state = 1;
+		$acceptance->member_id = Auth::user()->member_id;
+		$acceptance->paper_id = $paper_id;
+
+		$acceptance->save();
+
+		return Redirect::to('members/exams')
+					->with('message', 'Request to try the selected examination is sent');
+	}
+
+	//answer to a exam
+	public function postAnswer(){
+		$paper_id = Input::get('id');
+		$exam = Mcq::find($paper_id);
+		$state = DB::table('acceptances')
+					->where('member_id', '=', Auth::user()->member_id)
+					->where('paper_id', '=', $paper_id)
+					->orderBy('created_at', 'desc')
+					->first();
+
+		
+		if($exam->type == 1){
+			$accept = Acceptance::find($state->id);
+			$accept->state = 5;
+
+			$accept->save();
+
+			$marks = new Marks;
+			$marks->member_id = Auth::user()->member_id;
+			$marks->acceptance_id = $state->id;
+			$marks->paper_id = $paper_id;
+			$marks->start_time = date('h:i:s', time());
+			$marks->end_time = date('h:i:s', time());
+
+			$marks->save();
+
+			Session::put('marks_id', $marks->id);
+			Session::put('accept_id', $accept->id);
+
+			return View::make('members.exam')
+				->with('exam', $exam);
+		}
+	}
+
+	//
+	// public function post(){
+	// 	if(!$state){
+			
+	// 	}else if($state->state == 1){
+	// 		return Redirect::to('members/exams')
+	// 			->with('message', 'Your request to try this axamination is pending');
+	// 	}else if($state->state == 2){
+
+	// 	}else if($state->state == 3){
+	// 		return Redirect::to('members/exams')
+	// 			->with('message', 'You have successfully completed this examination');
+	// 	}else if($state->state == 4){
+	// 		$acceptance = new Acceptance;
+	// 		$acceptance->state = 1;
+	// 		$acceptance->member_id = Auth::user()->member_id;
+	// 		$acceptance->paper_id = $paper_id;
+
+	// 		$acceptance->save();
+
+	// 		return Redirect::to('members/exams')
+	// 					->with('message', 'Request to try the selected examination again, is sent');
+	// 	}		
+	// 	return Redirect::to('members/exams')
+	// 			->with('message', 'Something went wrong. Please try again');
+	// }
 
 	public function postMarkresults() {
 	// get the submitted answers and calculate the marks
@@ -227,7 +250,8 @@ class ExamController extends BaseController{
 			$marks->end_time = $curr_time;
 
 			$marks->save();
-			
+			$paper = Mcq::find($marks->paper_id);
+					
 			if(strtotime($curr_time) - strtotime($end_time) > 60){
 
 				return 1;
