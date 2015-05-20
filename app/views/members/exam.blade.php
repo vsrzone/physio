@@ -178,7 +178,7 @@
 	    	}
 	  	}
 
-		xmlhttp.open("POST","{{url()}}/members/essay/markresults",true);
+		xmlhttp.open("POST","{{url()}}/members/exam/markresults",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(headers);
 	}
