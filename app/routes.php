@@ -114,7 +114,7 @@ Route::resource('members', 'WorkController');
 Route::get('admin/exam/enablestatus', 'ExamController@showEnableStatus');
 
 //route to accepting the requests for exams
-Route::post('admin/exam/postenablestatus', 'ExamController@enableStatue');
+Route::post('admin/exam/postenablestatus', 'ExamController@enableStatus');
 
 //route to questions
 Route::controller('admin/paper/mcq', 'PaperController');
