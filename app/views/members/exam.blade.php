@@ -79,10 +79,8 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200)
 					{
-			    		if(xmlhttp.responseText == 1){
-			    			sendRequestToServerPost();
-			    		}
-			    		return xmlhttp.responseText;
+		    			sendRequestToServerPost(xmlhttp.responseText);
+			    		
 			    	}
 			  	}
 
@@ -155,7 +153,7 @@
 	
 	ko.applyBindings(questions);
 
-	function sendRequestToServerPost() {
+	function sendRequestToServerPost(status) {
 
 		// send all the details to the server by an Ajax request
 
@@ -164,7 +162,7 @@
 		var answers = ko.toJSON(questions);
 		var paper_id = document.getElementById('paper_id').value;
 
-		var headers = 'answers=' + answers + '&paper_id=' + paper_id;
+		var headers = 'answers=' + answers + '&paper_id=' + paper_id + '&status=' + status;
 
 		var xmlhttp=new XMLHttpRequest();
 		

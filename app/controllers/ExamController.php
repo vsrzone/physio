@@ -131,6 +131,15 @@ class ExamController extends BaseController{
 			// Updating the acceptance table with the completed status
 			$acceptance = Acceptance::find(Session::get('accept_id'));
 			$acceptance->state = 3;
+			$status = Input::get('status');
+			if($status == 1){
+				$acceptance->state = 4;
+				Session::put('alert', 'Connection failed and session has been expired.');
+			}else if($status == 2){
+				Session::put('alert', 'Examination time is over.');
+			}else if($status == 0){
+				Session::put('alert', 'You have successfully finished the examination.');
+			}
 
 			// updating the marks table
 			$marks->end_time = date('h:i:s', time());
@@ -151,29 +160,35 @@ class ExamController extends BaseController{
 	public function showEnableStatus() {
 		// admin accepting the requests for an exam
 
-		$acceptances_arr = array();
+		$exams = DB::table('marks')
+						->leftJoin('members', 'members.id', '=', 'marks.member_id')
+						->leftJoin('acceptances', 'acceptances.id', '=', 'marks.acceptance_id')
+						->select('marks.id as id', 'marks.paper_id', 'members.name', 'marks.member_id', 'state', 'marks', 'start_time', 'end_time', 'acceptance_id')						
+				        ->paginate(10);
+		
+		// $acceptances_arr = array();
 
-		$acceptances = DB::table('acceptances')
-					->select('member_id', 'paper_id', DB::raw('max(updated_at) as max_date'))
-                    ->orderBy('updated_at', 'desc')
-                    ->groupBy('member_id', 'paper_id')
-                    ->paginate(5);
+		// $acceptances = DB::table('acceptances')
+		// 			->select('member_id', 'paper_id', DB::raw('max(updated_at) as max_date'))
+  //                   ->orderBy('updated_at', 'desc')
+  //                   ->groupBy('member_id', 'paper_id')
+  //                   ->paginate(5);
 
-        foreach ($acceptances as $ex) {
+  //       foreach ($acceptances as $ex) {
 
-        	$exam_id = DB::table('acceptances')
-        			->select('id', 'state')
-        			->where('member_id', '=', $ex->member_id)
-        			->where('paper_id', '=', $ex->paper_id)
-        			->where('updated_at', '=', $ex->max_date)
-        			->first();
+  //       	$exam_id = DB::table('acceptances')
+  //       			->select('id', 'state')
+  //       			->where('member_id', '=', $ex->member_id)
+  //       			->where('paper_id', '=', $ex->paper_id)
+  //       			->where('updated_at', '=', $ex->max_date)
+  //       			->first();
 
-        	$ex->id = $exam_id->id;
-        	$ex->state = $exam_id->state;
-        }
+  //       	$ex->id = $exam_id->id;
+  //       	$ex->state = $exam_id->state;
+  //       }
 
 		return View::make('admin.exam.request')
-			->with('exams', $acceptances);
+			->with('exams', $exams);
 	}
 
 	public function enableStatue() {
@@ -210,13 +225,17 @@ class ExamController extends BaseController{
 			$end_time = $marks->end_time;
 			$curr_time = date('h:i:s', time());
 			$marks->end_time = $curr_time;
-			var_dump($curr_time);
-			var_dump($end_time);
-			var_dump($curr_time - $end_time);
-			die();
-			if($curr_time - $end_time > 5000){
+
+			$marks->save();
+			
+			if(strtotime($curr_time) - strtotime($end_time) > 60){
 
 				return 1;
+			}
+			$paper = Mcq::find($marks->paper_id);
+			if(strtotime($marks->end_time) - strtotime($marks->start_time) >= ($paper->duration * 60)){
+
+				return 2;
 			}
 		}
 		
