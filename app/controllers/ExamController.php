@@ -8,6 +8,8 @@ class ExamController extends BaseController{
 	public function getIndex(){
 		var_dump('expression');
 	}
+
+	//views the exam blade
 	public function postIndex(){
 		$paper_id = Input::get('id');
 		$state = DB::table('acceptances')
@@ -34,22 +36,23 @@ class ExamController extends BaseController{
 
 			
 			if($exam->type == 1){
-				// $accept = Acceptance::find($state->id);
-				// $accept->state = 5;
+				$accept = Acceptance::find($state->id);
+				$accept->state = 5;
 
-				// $accept->save();
+				$accept->save();
 
-				// $marks = new Marks;
-				// $marks->member_id = Auth::user()->member_id;
-				// $marks->acceptance_id = $state->id;
-				// $marks->paper_id = $paper_id;
-				// $marks->start_time = date('h:i:s', time());
-				// $marks->end_time = date('h:i:s', time());
-				// Session::put('mark_id', $marks->id);
+				$marks = new Marks;
+				$marks->member_id = Auth::user()->member_id;
+				$marks->acceptance_id = $state->id;
+				$marks->paper_id = $paper_id;
+				$marks->start_time = date('h:i:s', time());
+				$marks->end_time = date('h:i:s', time());
+				//Session::put('mark_id', $marks->id);
 
-				// $marks->save();
+				$marks->save();
 
-				// Session::put('marks_id', $marks->id);
+				Session::put('marks_id', $marks->id);
+				Session::put('accept_id', $accept->id);
 
 				return View::make('members.exam')
 					->with('exam', $exam);
@@ -212,22 +215,24 @@ class ExamController extends BaseController{
 
 	public function postPooling() {
 		// saves a record in the acceptance table stating the ongoing state of the exam
-		$acceptances = new Acceptance;
+		$acceptances = Acceptance::find(Session::get('accept_id'));
 
-		$acceptances->state = Input::get('state');
-		$acceptances->member_id = Auth::user()->member_id;
-		$acceptances->paper_id = Input::get('paper_id');
+		if($acceptances->state == 5){
+			$marks = Marks::find(Session::get('marks_id'));
+			$end_time = $marks->end_time;
+			$curr_time = date('h:i:s', time());
+			$marks->end_time = $curr_time;
+			var_dump($curr_time);
+			var_dump($end_time);
+			var_dump($curr_time - $end_time);
+			die();
+			if($curr_time - $end_time > 5000){
 
-		$acceptances->save();
-
-		// returning the current server time after every request
-		$time_format = getdate();
-		$hours = $time_format['hours'];
-		$minutes = $time_format['minutes'];
-		$seconds = $time_format['seconds'];
-		$time_return = $hours.":".$minutes.":".$seconds;
-
-		return $time_return;
+				return 1;
+			}
+		}
+		
+		return 0;
 
 		// if the state fail there will be no requests. So in the "postIndex" method, status can be set to 4
 	}
