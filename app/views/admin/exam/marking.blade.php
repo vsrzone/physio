@@ -36,13 +36,18 @@
 			 </td>
 			<td> {{ $essay->start_time }}</td>
 			<td> {{ $essay->end_time }}</td>
-			{{Form::open(array('url'=>'admin/paper/essay/marking'))  }}
-			{{ Form::hidden('id', $essay->id) }}
+			
 			@if($essay->state === 1)
+			{{Form::open(array('url'=>'admin/paper/essay/changestate'))  }}
+			{{ Form::hidden('id', $essay->id) }}
 			<td> {{ Form::submit('Enable', array('class'=>'btn btn-info')) }} </td>
 			@elseif($essay->marks === null)
+			{{Form::open(array('url'=>'admin/paper/essay/paper'))  }}
+			{{ Form::hidden('id', $essay->id) }}
 			<td> {{ Form::submit('Mark', array('class'=>'btn btn-info')) }} </td>
 			@else
+			{{Form::open(array('url'=>'admin/paper/essay/results'))  }}
+			{{ Form::hidden('id', $essay->id) }}
 			<td> {{ Form::submit('View Answer', array('class'=>'btn btn-info')) }} </td>
 			@endif
 			{{ Form::close() }}

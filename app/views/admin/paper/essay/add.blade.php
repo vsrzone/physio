@@ -38,7 +38,7 @@
 				<label>Examiners</label>
 				@foreach($examiners as $examiner)
 				<div>
-					<input type="checkbox" name="examiners[]" value="{{$examiner->user_id}}" id="examiners"/>
+					<input type="checkbox" name="examiners[]" value="{{$examiner->member_id}}" id="examiners"/>
 					 <label>{{$examiner->name.'('.$examiner->email.')'}}</label>
 				</div>
 				@endforeach

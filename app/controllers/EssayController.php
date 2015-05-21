@@ -194,6 +194,16 @@ class EssayController extends BaseController{
 						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
 	}
 
+	public function postPaper() {
+		//show the answers for the question member has written
+
+		$id = Input::get('id');
+		$answers = Essay::find($id)->answers;
+
+		return View::make('admin.exam.markanswer')
+						->with('answers', json_decode($answers, true));
+	}
+
 	public function postMarking() {
 		//update the marks and examiner id in the database
 		
@@ -229,7 +239,7 @@ class EssayController extends BaseController{
 	}
 
 	public function postChangestate() {
-		//show the page for accepting the exam requests
+		//
 		
 		$id = Input::get('id');
 
@@ -255,7 +265,7 @@ class EssayController extends BaseController{
 	}
 
 	public function getFormarking() {
-		//show the page for accepting the exam requests
+		//
 		
 		$essay_arr = array();
 		$essays = DB::table('essays')
@@ -277,7 +287,7 @@ class EssayController extends BaseController{
 	}
 
 	public function postFormarking() {
-		//show the page for accepting the exam requests
+		//
 		
 		$exams = DB::table('essays')
 						->leftJoin('members', 'members.id', '=', 'essays.member_id')
@@ -289,7 +299,7 @@ class EssayController extends BaseController{
 	}
 
 	public function getResults() {
-		//show the page for accepting the exam requests
+		//
 		
 		$essay_arr = array();
 		$essays = DB::table('essays')
@@ -312,12 +322,15 @@ class EssayController extends BaseController{
 	}
 
 	public function postResults() {
-		//show the page for accepting the exam requests
+		//
 
 		$id = Input::get('id');
-		$answers = Essay::find($id)->answers;
+		$essay = Essay::find($id);
+		$answers = $essay->answers;
+		$marks = $essay->marks;
 
 		return View::make('admin.exam.answer')
-						->with('answers', json_decode($answers, true));
+						->with('answers', json_decode($answers, true))
+						->with('marks', $marks);
 	}
 }
