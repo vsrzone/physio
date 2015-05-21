@@ -10,7 +10,7 @@
 @endforeach
 {{Form::open(array('url'=>'admin/paper/essay/marking'))  }}
 {{ Form::hidden('id', $id) }}
-<input type = "text" name = "marks" />
-<input type = "submit">Submit Marks
+Enter the Total Marks: <input type = "text" name = "marks" />
+<input type = "submit">
 {{ Form::close() }}
 

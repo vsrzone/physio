@@ -3,13 +3,10 @@
 class ExamController extends BaseController{
 	public function __construct(){
 	// 	$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin', array('only' => array('showEnableStatus', 'enableStatus')));
-		$this->beforeFilter('member', array('except' => array('showEnableStatus', 'enableStatus')));
+		$this->beforeFilter('admin', array('only' => array('showAll', 'showEnableStatus', 'enableStatus')));
+		$this->beforeFilter('member', array('except' => array('showAll', 'showEnableStatus', 'enableStatus')));
 	}
 
-	public function getIndex(){
-		var_dump('expression');
-	}
 
 	//views the exam blade
 	public function postIndex(){
@@ -183,7 +180,7 @@ class ExamController extends BaseController{
 	}
 
 	public function showEnableStatus() {
-		// admin accepting the requests for an exam
+		// admin views the exam details and marks
 
 		$exams = DB::table('marks')
 						->leftJoin('members', 'members.id', '=', 'marks.member_id')
@@ -191,9 +188,22 @@ class ExamController extends BaseController{
 						->select('marks.id as id', 'marks.paper_id', 'members.name', 'marks.member_id', 'state', 'marks', 'start_time', 'end_time', 'acceptance_id')						
 				        ->paginate(10);
 
+		return View::make('admin.exam.details')
+			->with('exams', $exams);
+	}
+
+	public function showAll() {
+		// admin accepting the requests for an exam
+
+		$exams = DB::table('acceptances')
+						->leftJoin('members', 'members.id', '=', 'acceptances.member_id')
+						->select('acceptances.id as id', 'paper_id', 'members.name', 'member_id', 'state')				
+				        ->paginate(10);
+
 		return View::make('admin.exam.request')
 			->with('exams', $exams);
 	}
+
 
 	public function enableStatus() {
 		// admin accepting the requests for an exam
@@ -209,15 +219,15 @@ class ExamController extends BaseController{
 				$exam->state = 2;
 				$exam->save();
 
-				return Redirect::to('admin/exam/enablestatus')
+				return Redirect::to('admin/exam/showall')
 					->with('message', 'Successfully Changed the Status');
 			}
 			
-			return Redirect::to('admin/exam/enablestatus')
+			return Redirect::to('admin/exam/showall')
 				->with('message', 'Cannot Change the Status');
 
 		}
-		return Redirect::to('admin/exam/enablestatus')
+		return Redirect::to('admin/exam/showall')
 			->with('message', 'Error Occured');
 	}
 
