@@ -2,9 +2,10 @@
 
 class EssayController extends BaseController{
 
-	// public function __construct(){
+	public function __construct(){
 	// 	$this->beforeFilter('csrf', array('on'=>'post'));
-	// }
+		$this->beforeFilter('admin');
+	}
 
 	//views create page
 	public function getCreate(){

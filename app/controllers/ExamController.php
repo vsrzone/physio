@@ -1,9 +1,11 @@
 <?php
 
 class ExamController extends BaseController{
-	// public function __construct(){
+	public function __construct(){
 	// 	$this->beforeFilter('csrf', array('on'=>'post'));
-	// }
+		$this->beforeFilter('admin', array('only' => array('showEnableStatus', 'enableStatus')));
+		$this->beforeFilter('member', array('except' => array('showEnableStatus', 'enableStatus')));
+	}
 
 	public function getIndex(){
 		var_dump('expression');
