@@ -57,7 +57,6 @@
 	        if (--timer < 0) {
 	        	window.clearTimeout(interval);
 	        	sendRequestToServerPost();
-	            alert('Time out');
 	        }
 	    }, 1000);
 	}
