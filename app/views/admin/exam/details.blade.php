@@ -9,7 +9,10 @@
 	<tr>
 		<th>Paper</th>
 		<th>Member</th>
-		<th>Examination status</th>
+		<th>Examination status</th>		
+		<th>Marks</th>
+		<th>Paper start time</th>
+		<th>Paper end time</th>
 		<th colspan="2"></th>
 	</tr>
 	@foreach($exams as $exam)
@@ -29,8 +32,11 @@
 					{{'In progress'}}
 				@endif
 			 </td>
+			<td> {{ $exam->marks }} </td>
+			<td> {{ $exam->start_time }} </td>
+			<td> {{ $exam->end_time }} </td>
 			{{Form::open(array('url'=>'admin/exam/postenablestatus'))  }}
-			{{ Form::hidden('id', $exam->id) }}
+			{{ Form::hidden('id', $exam->acceptance_id) }}
 			@if($exam->state === 1)
 			<td> {{ Form::submit('Accept', array('class'=>'btn btn-info')) }} </td>
 			@elseif ($exam->state >= 2)
