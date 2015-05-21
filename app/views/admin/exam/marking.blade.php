@@ -5,9 +5,22 @@
 	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 
-<a href="{{url()}}/admin/paper/essay/changestate">Change the Statue</a>
-<a href="{{url()}}/admin/paper/essay/formarking">Papers Available for Marking</a>
-<a href="{{url()}}/admin/paper/essay/results">View Results</a>
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a data-toggle="tab" aria-expanded="true" href="{{url()}}/admin/paper/essay/changestate#two">Change the Statue</a>
+	</li>
+	<li class>
+		<a data-toggle="tab" aria-expanded="false" href="{{url()}}/admin/paper/essay/formarking#two">Papers Available for Marking</a>
+	</li>
+	<li class>
+		<a data-toggle="tab" aria-expanded="false" href="{{url()}}/admin/paper/essay/results#two">View Results</a>
+	</li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane fade" id="two"></div>
+</div>
+
+
 <table border="1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
 		<th>Paper</th>
