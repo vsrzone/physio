@@ -285,20 +285,8 @@ class EssayController extends BaseController{
 			}
 		}
 
-		return View::make('admin.exam.marking')
-						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
-	}
-
-	public function postFormarking() {
-		//
-		
-		$exams = DB::table('essays')
-						->leftJoin('members', 'members.id', '=', 'essays.member_id')
-						->where('marks', null)
-				        ->paginate(10);
-
 		return View::make('admin.exam.formarking')
-						->with('exams', $exams);
+						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
 	}
 
 	public function getResults() {
