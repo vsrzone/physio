@@ -13,6 +13,7 @@
 		<th>Paper</th>
 		<th>Member</th>
 		<th>Examination Status</th>
+		<th>Marks</th>
 		<th>Star Time</th>
 		<th>End Time</th>
 		<th></th>
@@ -34,9 +35,10 @@
 					{{'In progress'}}
 				@endif
 			 </td>
+			 <td> {{ $essay->marks }}</td>
 			<td> {{ $essay->start_time }}</td>
 			<td> {{ $essay->end_time }}</td>
-			{{Form::open(array('url'=>'admin/paper/essay/marking'))  }}
+			{{Form::open(array('url'=>'admin/paper/essay/results'))  }}
 			{{ Form::hidden('id', $essay->id) }}
 			@if($essay->state === 1)
 			<td> {{ Form::submit('Enable', array('class'=>'btn btn-info')) }} </td>

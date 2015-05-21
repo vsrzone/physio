@@ -175,12 +175,23 @@ class EssayController extends BaseController{
 
 	public function getEssaymarking() {
 		//shows the essays questions to be marked
+		
+		$essay_arr = array();
 		$essays = DB::table('essays')
-						->where('marks', null)
-						->paginate(10);
+						->leftJoin('members', 'members.id', '=', 'essays.member_id')
+						->leftJoin('acceptances', 'acceptances.id', '=', 'essays.acceptance_id')
+						->select('essays.id as id', 'essays.paper_id', 'members.name', 'essays.member_id', 'state', 'marks', 'start_time', 'end_time', 'examiner_id')
+			       		->get();
+
+		foreach ($essays as $es) {
+			if(in_array(Auth::id(), explode(',', $es->examiner_id))) {
+
+				$essay_arr[] = $es;
+			}
+		}
 
 		return View::make('admin.exam.marking')
-						->with('essays', $essays);
+						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
 	}
 
 	public function postMarking() {
@@ -202,5 +213,111 @@ class EssayController extends BaseController{
 					->with('message', 'Marks Added Successfully');
 			}
 		}
+	}
+
+	public function getChangestate() {
+		//show the page for accepting the exam requests
+		
+		$exams = DB::table('acceptances')
+						->leftJoin('members', 'members.id', '=', 'acceptances.member_id')
+						->select('acceptances.id as id', 'paper_id', 'members.name', 'acceptances.member_id', 'state')
+						->orderBy('state')
+				        ->paginate(10);
+
+		return View::make('admin.exam.status')
+						->with('exams', $exams);
+	}
+
+	public function postChangestate() {
+		//show the page for accepting the exam requests
+		
+		$id = Input::get('id');
+
+		$exam = Acceptance::find($id);
+
+		if($exam) {
+			
+			if($exam->state === 1) {
+
+				$exam->state = 2;
+				$exam->save();
+
+				return Redirect::to('admin/paper/essay/changestate')
+					->with('message', 'Successfully Changed the Status');
+			}
+			
+			return Redirect::to('admin/paper/essay/changestate')
+				->with('message', 'Cannot Change the Status');
+
+		}
+		return Redirect::to('admin/paper/essay/changestate')
+			->with('message', 'Error Occured');
+	}
+
+	public function getFormarking() {
+		//show the page for accepting the exam requests
+		
+		$essay_arr = array();
+		$essays = DB::table('essays')
+						->leftJoin('members', 'members.id', '=', 'essays.member_id')
+						->leftJoin('acceptances', 'acceptances.id', '=', 'essays.acceptance_id')
+						->select('essays.id as id', 'essays.paper_id', 'members.name', 'essays.member_id', 'state', 'marks', 'start_time', 'end_time', 'examiner_id')
+						->where('marks', null)
+			       		->get();
+
+		foreach ($essays as $es) {
+			if(in_array(Auth::id(), explode(',', $es->examiner_id))) {
+
+				$essay_arr[] = $es;
+			}
+		}
+
+		return View::make('admin.exam.marking')
+						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
+	}
+
+	public function postFormarking() {
+		//show the page for accepting the exam requests
+		
+		$exams = DB::table('essays')
+						->leftJoin('members', 'members.id', '=', 'essays.member_id')
+						->where('marks', null)
+				        ->paginate(10);
+
+		return View::make('admin.exam.formarking')
+						->with('exams', $exams);
+	}
+
+	public function getResults() {
+		//show the page for accepting the exam requests
+		
+		$essay_arr = array();
+		$essays = DB::table('essays')
+						->leftJoin('members', 'members.id', '=', 'essays.member_id')
+						->leftJoin('acceptances', 'acceptances.id', '=', 'essays.acceptance_id')
+						->select('essays.id as id', 'essays.paper_id', 'members.name', 'essays.member_id', 'state', 'marks', 'start_time', 'end_time', 'examiner_id')
+						->where('marks', '<>' ,'')
+			       		->get();
+
+		foreach ($essays as $es) {
+
+			if(in_array(Auth::id(), explode(',', $es->examiner_id))) {
+
+				$essay_arr[] = $es;
+			}
+		}
+
+		return View::make('admin.exam.results')
+						->with('essays', Paginator::make($essay_arr, count($essay_arr), 2));
+	}
+
+	public function postResults() {
+		//show the page for accepting the exam requests
+
+		$id = Input::get('id');
+		$answers = Essay::find($id)->answers;
+
+		return View::make('admin.exam.answer')
+						->with('answers', json_decode($answers, true));
 	}
 }

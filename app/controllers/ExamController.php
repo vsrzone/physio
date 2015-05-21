@@ -99,7 +99,7 @@ class ExamController extends BaseController{
 	// }
 
 	public function postMarkresults() {
-	// get the submitted answers and calculate the marks
+		//get the submitted answers and calculate the marks
 
 		$j = 0;
 		$answers_json = Input::get('answers');
@@ -188,33 +188,12 @@ class ExamController extends BaseController{
 						->leftJoin('acceptances', 'acceptances.id', '=', 'marks.acceptance_id')
 						->select('marks.id as id', 'marks.paper_id', 'members.name', 'marks.member_id', 'state', 'marks', 'start_time', 'end_time', 'acceptance_id')						
 				        ->paginate(10);
-		
-		// $acceptances_arr = array();
-
-		// $acceptances = DB::table('acceptances')
-		// 			->select('member_id', 'paper_id', DB::raw('max(updated_at) as max_date'))
-  //                   ->orderBy('updated_at', 'desc')
-  //                   ->groupBy('member_id', 'paper_id')
-  //                   ->paginate(5);
-
-  //       foreach ($acceptances as $ex) {
-
-  //       	$exam_id = DB::table('acceptances')
-  //       			->select('id', 'state')
-  //       			->where('member_id', '=', $ex->member_id)
-  //       			->where('paper_id', '=', $ex->paper_id)
-  //       			->where('updated_at', '=', $ex->max_date)
-  //       			->first();
-
-  //       	$ex->id = $exam_id->id;
-  //       	$ex->state = $exam_id->state;
-  //       }
 
 		return View::make('admin.exam.request')
 			->with('exams', $exams);
 	}
 
-	public function enableStatue() {
+	public function enableStatus() {
 		// admin accepting the requests for an exam
 
 		$id = Input::get('id');
@@ -222,6 +201,7 @@ class ExamController extends BaseController{
 		$exam = Acceptance::find($id);
 
 		if($exam) {
+			
 			if($exam->state === 1) {
 
 				$exam->state = 2;
