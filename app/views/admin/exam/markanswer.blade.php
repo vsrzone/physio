@@ -7,5 +7,6 @@
 			</ul>
 		</ul>
 	@endforeach
-	<h2 style = "color:red">Marks {{$marks}}</h2>
 @endforeach
+<input type = "text" id = "marks" />
+<button id = "addMarks" onclick = "sendMarks()">Submit Marks</button>
