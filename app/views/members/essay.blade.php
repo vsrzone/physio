@@ -39,7 +39,6 @@
 	        if (--timer < 0) {
 	        	window.clearTimeout(interval);
 	        	sendRequestToServerPost();
-	            alert('Time out');
 	        }
 	    }, 1000);
 	}
@@ -61,7 +60,11 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200)
 					{
-			    		return xmlhttp.responseText;
+			    		if(xmlhttp.responseText != 0){
+							sendRequestToServerPost(xmlhttp.responseText);
+						}
+
+						return xmlhttp.responseText;
 			    	}
 			  	}
 
@@ -69,7 +72,7 @@
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send(headers);
 			}
-		, 5000);
+		, 10000);
 	}
 
 
@@ -78,7 +81,7 @@
 	    display = document.querySelector('#timer');
 	    startTimer(minutes, display);
 	    loadPaper();
-	    // pooling();
+	    pooling();
 	};
 
 	//loading paper
@@ -117,7 +120,7 @@
 	
 	ko.applyBindings(questions);
 
-	function sendRequestToServerPost() {
+	function sendRequestToServerPost(status) {
 
 		// send all the details to the server by an Ajax request
 
@@ -127,7 +130,7 @@
 		console.log(answers);
 		var paper_id = document.getElementById('paper_id').value;
 
-		var headers = 'answers=' + answers + '&paper_id=' + paper_id;
+		var headers = 'answers=' + answers + '&paper_id=' + paper_id + '&status=' + status;;
 
 		var xmlhttp=new XMLHttpRequest();
 		

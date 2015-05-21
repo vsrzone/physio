@@ -13,7 +13,7 @@ class AlterEssaysTable extends Migration {
 	public function up()
 	{
 		Schema::table('essays', function($table) {
-			$table->integer('examiner_id');
+			$table->text('examiner_id');
 		});
 	}
 
