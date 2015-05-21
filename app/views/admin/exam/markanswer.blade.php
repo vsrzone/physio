@@ -8,5 +8,9 @@
 		</ul>
 	@endforeach
 @endforeach
-<input type = "text" id = "marks" />
-<button id = "addMarks" onclick = "sendMarks()">Submit Marks</button>
+{{Form::open(array('url'=>'admin/paper/essay/marking'))  }}
+{{ Form::hidden('id', $id) }}
+<input type = "text" name = "marks" />
+<input type = "submit">Submit Marks
+{{ Form::close() }}
+

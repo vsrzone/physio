@@ -122,7 +122,7 @@
 		// send all the details to the server by an Ajax request
 
 		// var title = document.getElementById('title').value;
-		// clearInterval(endPool);
+		clearInterval(endPool);
 		var answers = ko.toJSON(questions);
 		console.log(answers);
 		var paper_id = document.getElementById('paper_id').value;

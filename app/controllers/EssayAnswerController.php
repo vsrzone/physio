@@ -107,10 +107,10 @@ class EssayAnswerController extends BaseController{
 									->with('member_id', $member->id);
 
 					//sending the email				
-					// Mail::send('admin.paper.essay.answers', array('title' => $title, 'name' => $examiner_details->name, 'answers' => $answres, 'member_name' => $member->name, 'member_id' => $member->id), function($message) use ($examiner, $examiner_details)
-					// {
-					// 	$message->to($examiner->email, $examiner_details->name)->subject('Essay Question Paper Available for Marking');
-					// });
+					Mail::send('admin.paper.essay.answers', array('title' => $title, 'name' => $examiner_details->name, 'answers' => $answres, 'member_name' => $member->name, 'member_id' => $member->id), function($message) use ($examiner, $examiner_details)
+					{
+						$message->to($examiner->email, $examiner_details->name)->subject('Essay Question Paper Available for Marking');
+					});
 				}
 				
 				return 'success';

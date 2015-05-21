@@ -201,7 +201,8 @@ class EssayController extends BaseController{
 		$answers = Essay::find($id)->answers;
 
 		return View::make('admin.exam.markanswer')
-						->with('answers', json_decode($answers, true));
+						->with('answers', json_decode($answers, true))
+						->with('id', $id);
 	}
 
 	public function postMarking() {
@@ -209,6 +210,7 @@ class EssayController extends BaseController{
 		
 		$id = Input::get('id');
 		$marks = Input::get('marks');
+		
 		$examiner_id = Auth::user()->member_id;
 
 		$essay = Essay::find($id);
