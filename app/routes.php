@@ -73,7 +73,57 @@ Route::get('contact', function(){
 //route to individual member edit
 Route::post('member/edit', 'WorkController@editMember');
 
+// show only one lesson
+Route::get('member/lesson/{id}', 'LessonController@oneLesson');
+
+// show all the lessons available
+Route::get('members/lesson', 'LessonController@allLessons');
+
+Route::get('members/learning', function() {
+	return View::make('members.learning')
+		->with('lessons', Lesson::all());
+});
+
+//route to exam area
+Route::get('members/exams', function()
+{
+	// $marks = Input::get('marks');
+
+	return View::make('members.exams')
+			->with('exams', Mcq::where('type',1)->get())
+			->with('marks', '');
+});
+
+Route::get('members/essays', function()
+{
+	//shows all the essay questions in the database
+
+	return View::make('members.essays')
+			->with('essays', Mcq::where('type',2)->get());
+});
+
+//route to essayAnswerController
+Route::controller('members/essay','EssayAnswerController');
+
+//route to  examcontroller 
+Route::controller('members/exam', 'ExamController');
+
 Route::resource('members', 'WorkController');
+
+//route to managing exams for Admins
+Route::get('admin/exam/enablestatus', 'ExamController@showEnableStatus');
+
+//route to managing exams details for Admins
+Route::get('admin/exam/showall', 'ExamController@showAll');
+
+//route to accepting the requests for exams
+Route::post('admin/exam/postenablestatus', 'ExamController@enableStatus');
+
+//route to questions
+Route::controller('admin/paper/mcq', 'PaperController');
+
+//route to questions
+Route::controller('admin/paper/essay', 'EssayController');
 
 Route::controller('admin/user', 'UserController');
 
@@ -87,6 +137,9 @@ Route::controller('admin/news', 'NewsController');
 
 //route to image controller
 Route::controller('admin/image', 'ImageController');
+
+//route to lessons controller
+Route::controller('admin/lesson', 'LessonController');
 
 //routes to auth controller
 Route::controller('admin', 'AuthController');
@@ -111,5 +164,7 @@ Route::resource('news', 'NewsController');
 
 //route to search news by category
 Route::resource('news/category', 'NewsController@newsSearchByCategory');
+
+
 
 

@@ -93,7 +93,7 @@
 					                        <a href="{{URL::to('/')}}/admin/category/create">Add</a>
 					                    </li>
 					                </ul>
-					            </li>                        
+					            </li>
 					            <li>
 					                <a href="#"><i class="fa fa-files-o fa-fw"></i>News<span class="fa arrow"></span></a>
 					                <ul class="nav nav-second-level">
@@ -105,6 +105,44 @@
 					                    </li>
 					                </ul>
 					                <!-- /.nav-second-level -->
+					            </li>
+					            <li>
+					                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Lessons<span class="fa arrow"></span></a>
+					                <ul class="nav nav-second-level">
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/lesson">View</a>
+					                    </li>
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/lesson/create">Add</a>
+					                    </li>
+					                </ul>
+					            </li>
+					            <li>
+					                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Papers<span class="fa arrow"></span></a>
+					                <ul class="nav nav-second-level">
+					                    <li>
+					                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>MCQ<span class="fa arrow"></span></a>
+					                        <ul class="nav nav-second-level">
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/mcq">View</a>
+							                    </li>
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/mcq/create">Add</a>
+							                    </li>
+							                </ul>
+					                    </li>
+					                    <li>
+					                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Essay<span class="fa arrow"></span></a>
+					                         <ul class="nav nav-second-level">
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/essay">View</a>
+							                    </li>
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/essay/create">Add</a>
+							                    </li>
+							                </ul>
+					                    </li>
+					                </ul>
 					            </li>
 					        </ul>
 					    </div>
