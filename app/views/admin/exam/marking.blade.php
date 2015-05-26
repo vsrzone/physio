@@ -5,12 +5,9 @@
 	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 
-<ul class="nav">
-	<a style = "font-weight: bold; color: #FF0000;" href="{{url()}}/admin/paper/essay/changestate">Change the Statue</a>
-	<a href="{{url()}}/admin/paper/essay/formarking">Papers Available for Marking</a>
-	<a style = "font-weight: bold; color: #FF0000;" href="{{url()}}/admin/paper/essay/results">View Results</a>
-</ul>
-</br>
+<a href="{{url()}}/admin/paper/essay/changestate">Change the Statue</a>
+<a href="{{url()}}/admin/paper/essay/formarking">Papers Available for Marking</a>
+<a href="{{url()}}/admin/paper/essay/results">View Results</a>
 <table border="1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
 		<th>Paper</th>

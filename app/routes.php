@@ -113,6 +113,9 @@ Route::resource('members', 'WorkController');
 //route to managing exams for Admins
 Route::get('admin/exam/enablestatus', 'ExamController@showEnableStatus');
 
+//route to managing exams details for Admins
+Route::get('admin/exam/showall', 'ExamController@showAll');
+
 //route to accepting the requests for exams
 Route::post('admin/exam/postenablestatus', 'ExamController@enableStatus');
 
