@@ -1,5 +1,7 @@
 @extends('layouts.main')
-
+<?php 
+	$page = 'exams';
+?>
 @section('content')
 <div class="container-fluid">
 	<div class="row">

@@ -21,23 +21,23 @@
 			<h3>Available Examinations</h3>
 
 			<ul>
-				@foreach($exams as $exam)				
-				<li>					
-					<h4>{{$exam->title}}</h4>
-					<p>{{$exam->description}}</p>
-					<input class="btn" type="button" value="Register for Exam" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
-					
-				</li>				
-				@endforeach					
-				@foreach($acceptances as $acceptance)
 				<li>
-					<h4>{{$exam->title}}</h4>
-					<p>{{$exam->description}}</p>
-
-					<input class="btn" type="button" value="Pending approval" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
-					<input class="btn" type="button" value="Take Exam" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
-				</li>		
-				@endforeach						
+					<h4>Sample Exam</h4>
+					<p>Tiny description of the exam Tiny description of the examTiny description of the exam</p>
+					<input class="btn" type="button" value="Register" data-toggle="modal" data-target="#confirm-modal">
+					<span class="pending-reg">Pending Registration</span>
+					<input class="btn" type="button" value="Take Exam" data-toggle="modal" data-target="#exam-modal">
+				</li>
+				<li>
+					<h4>Sample Exam</h4>
+					<p>Tiny description of the exam Tiny description of the examTiny description of the examTiny description of the exam</p>
+					<input class="btn" type="button" value="Register">
+				</li>
+				<li>
+					<h4>Sample Exam</h4>
+					<p>Tiny description of the examTiny description of the examTiny description of the examTiny description of the examTiny description of the exam</p>
+					<input class="btn" type="button" value="Register">
+				</li>
 			</ul>
 		</div>
 		<div class="col-xs-12 col-md-3 exams-container">
@@ -66,10 +66,7 @@
 		<div class="modal-content">
 			<div class="modal-body" id="login-area">
 				<h3>Are you sure you want to register?</h3>
-				{{ Form::open(array('url'=>'members/exam')) }}
-				{{ Form::hidden('id', '', array('id'=>'mod_exam_id')) }}
-				<input class="btn" type="submit" value="Yes">
-				{{ Form::close() }}
+				<input class="btn" type="button" value="Yes">
 				<input class="btn" type="button" value="No">
 				</div>
 			</div>
@@ -89,13 +86,5 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	document.getElementById('takeExam').onclick = function(){		
-		loadToConfirmModel();
-	}
 
-	var loadToConfirmModel = function(){
-		document.getElementById('mod_exam_id').value = document.getElementById('exam_id').value;
-	}
-</script>
 @stop

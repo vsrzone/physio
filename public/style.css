@@ -421,7 +421,6 @@ footer{
 	padding: 15px;
 }
 
-
 #overview-wrapper li h5{
 	margin-bottom: 0;
 	color: #FED206 !important;
@@ -484,7 +483,7 @@ footer{
 
 #news-content li a{
 	padding: 5px;
-	background-color: #E7C345;
+	background-color: #FED206;
 	color: #fff;
 	display: inline-block;
 	font-size: 10px;
@@ -533,8 +532,33 @@ footer{
 }
 
 .btn{
-	background-color: #E7C345;
+	background-color: #FED206;
 	color: #fff;
+	font-size: 11px !important;
+}
+
+.pending-reg{
+	background-color: #FED206;
+	color: #fff;
+	font-size: 11px !important;
+	  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 #contact-info input[type="text"]{
@@ -645,7 +669,6 @@ footer{
 
 #sign-in{
 	margin-top: 10px;
-	background-color: #E7C345;
 	color: #fff;
 }
 
@@ -716,7 +739,6 @@ footer{
 }
 
 #members-wrappers form .btn{
-	background-color: #E7C345;
 	color: #fff;
 }
 /* individual news page */
@@ -738,8 +760,8 @@ footer{
 /* pagination */
 
 .pagination>.active>span{
-	background-color: #E7C345 !important;
-	border-color: #E7C345 !important;
+	background-color: #FED206 !important;
+	border-color: #FED206 !important;
 }
 
 /* new styles  */
@@ -872,8 +894,21 @@ footer{
  	background: #FED206 !important;
  }
 
- .flex-direction-nav a{
- 	height: 45px !important;
+.flex-direction-nav a{
+	height: 45px !important;
+}
+
+#exams-taken li p{
+	margin-bottom: 0;
+	margin-top: 10px;
+}
+
+ .exams-container h3,  .exams-container > h4{
+ 	margin-top: 0;
+ }
+
+ #learning-topics li{
+ 	
  }
 
 section {
@@ -975,7 +1010,7 @@ section {
 	}
 
 	#page{
-		padding-bottom: 120px;
+		padding-bottom: 20px;
 	}
 
 	#members-wrapper li{
