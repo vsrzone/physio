@@ -1,12 +1,14 @@
+<?php 
+	$page = 'members';
+?>
+
 @extends('layouts.main')
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<ul id="main-slider" class="col-xs-12">
-			<li>
-				<img src="{{ url() }}/images/slider5.jpg" width="100%" height="auto" alt="Physiotherapysts Association" title="Physiotherapysts Association">
-				<p>To enjoy the glow of good health, you must exercise</p>
+<div id="banner-container">
+		<ul id="main-slider" class="">
+			<li style="background-image:url({{ url() }}/images/slider/01.jpg)">
+				<p>"Looking after your health today gives you a better hope for tomorrow."</p>
 			</li>
 		</ul>
 	</div>

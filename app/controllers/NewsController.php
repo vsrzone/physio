@@ -3,7 +3,7 @@
 class NewsController extends BaseController{
 	public function __construct() {
 		//$this->beforeFilter('csrf', array('on' => 'post'));
-		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show', 'latestFourNews')));
+		$this->beforeFilter('admin', array('except' => array('index', 'allMembersOnlyNews', 'newsSearchByCategory', 'show', 'latestNewsEvents')));
 	}
 
 	//views create page
@@ -302,42 +302,66 @@ class NewsController extends BaseController{
 	    return Redirect::to('/news');	    
 	}
 
-	//returns the latest 4 news
-	public function latestFourNews(){
+	//returns the latest 2 news and 3 event category news
+	public function latestNewsEvents(){
+
 		if(Auth::check()){
 			$news = DB::table('news')
-				->join('images', function($join)
-		        {
-		            $join->on('news.id', '=', 'images.news_id')
-		                 ->on('images.id', '=',
-		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
-		        })
-				->where('active', '=', 1)
-				->orderby('news_date', 'DESC')
-				->select('news.id', 'summary', DB::raw('substr(title, 1, 45) as title'), 'name as image')
-				->take(4)
-				->get();
-		
-			return View::make('home.index')
-				->with('latest_news', $news);
+						->join('images', function($join)
+				        {
+				            $join->on('news.id', '=', 'images.news_id')
+				                 ->on('images.id', '=',
+				                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+				        })
+				        ->leftJoin('categories', 'categories.id', '=', 'news.category_id')
+						->where('active', '=', 1)
+						->where('categories.name', '<>', 'Events')
+						->orderby('news_date', 'DESC')
+						->select('news.id', DB::raw('substr(summary, 1, 125) as summary'), DB::raw('substr(title, 1, 23) as title'), 'images.name as image')
+						->take(2)
+						->get();
+
+			$events = DB::table('news')						
+				        ->leftJoin('categories', 'categories.id', '=', 'news.category_id')
+						->where('active', '=', 1)
+						->where('categories.name', '=', 'Events')
+						->orderby('news_date', 'DESC')
+						->select('news.id', DB::raw('substr(summary, 1, 125) as summary'), DB::raw('substr(title, 1, 23) as title'), DB::raw('month(news_date) as month'), DB::raw('day(news_date) as day'))
+						->take(3)
+						->get();
+				
+					return View::make('home.index')
+						->with('latest_news', $news)
+						->with('latest_events', $events);
 		}
 
 		$news = DB::table('news')
-			->join('images', function($join)
-		        {
-		            $join->on('news.id', '=', 'images.news_id')
-		                 ->on('images.id', '=',
-		                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
-		        })
-			->where('active', '=', 1)
-			->where('members_only', '=', 0)
-			->orderby('news_date', 'DESC')
-			->select('news.id as id', 'summary', DB::raw('substr(title, 1, 45) as title'), 'name as image')
-			->take(4)
-			->get();
+					->join('images', function($join)
+				        {
+				            $join->on('news.id', '=', 'images.news_id')
+				                 ->on('images.id', '=',
+				                 		DB::raw('(select max(id) from images where news.id = images.news_id)'));	          
+				        })
+					->leftJoin('categories', 'categories.id', '=', 'news.category_id')
+					->where('active', '=', 1)
+					->where('categories.name', '<>', 'Events')
+					->where('members_only', '=', 0)
+					->orderby('news_date', 'DESC')
+					->select('news.id as id', DB::raw('substr(summary, 1, 125) as summary'), DB::raw('substr(title, 1, 23) as title'), 'images.name as image')
+					->take(2)
+					->get();
 
-			
+		$events = DB::table('news')			
+					->leftJoin('categories', 'categories.id', '=', 'news.category_id')
+					->where('active', '=', 1)
+					->where('categories.name', '=', 'Events')
+					->where('members_only', '=', 0)
+					->orderby('news_date', 'DESC')
+					->select('news.id as id', DB::raw('substr(summary, 1, 125) as summary'), DB::raw('substr(title, 1, 23) as title'), DB::raw('month(news_date) as month'), DB::raw('day(news_date) as day'))
+					->take(3)
+					->get();	
 			return View::make('home.index')
-				->with('latest_news', $news);
+				->with('latest_news', $news)
+				->with('latest_events', $events);
 	}
 }

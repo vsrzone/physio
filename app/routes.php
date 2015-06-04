@@ -17,7 +17,7 @@
 // });
 
 
-Route::get('/', 'NewsController@latestFourNews');
+Route::get('/', 'NewsController@latestNewsEvents');
 
 Route::get('about', function()
 {
