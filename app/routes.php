@@ -97,11 +97,16 @@ Route::get('members/learning', function() {
 //route to exam area
 Route::get('members/exams', function()
 {
-	// $marks = Input::get('marks');
+	$marks = Marks::where('member_id', '=', Auth::user()->member_id)
+				->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
+				->select('marks.id as id', 'title', 'marks')
+				->paginate(3);
+
+	
 
 	return View::make('members.exams')
-			->with('exams', Mcq::where('type',1)->get())
-			->with('marks', '');
+			->with('exams', Mcq::where('type',1)->paginate(10))
+			->with('marks', $marks);
 });
 
 Route::get('members/essays', function()
