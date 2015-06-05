@@ -70,33 +70,6 @@ class ExamController extends BaseController{
 		}
 	}
 
-	//
-	// public function post(){
-	// 	if(!$state){
-			
-	// 	}else if($state->state == 1){
-	// 		return Redirect::to('members/exams')
-	// 			->with('message', 'Your request to try this axamination is pending');
-	// 	}else if($state->state == 2){
-
-	// 	}else if($state->state == 3){
-	// 		return Redirect::to('members/exams')
-	// 			->with('message', 'You have successfully completed this examination');
-	// 	}else if($state->state == 4){
-	// 		$acceptance = new Acceptance;
-	// 		$acceptance->state = 1;
-	// 		$acceptance->member_id = Auth::user()->member_id;
-	// 		$acceptance->paper_id = $paper_id;
-
-	// 		$acceptance->save();
-
-	// 		return Redirect::to('members/exams')
-	// 					->with('message', 'Request to try the selected examination again, is sent');
-	// 	}		
-	// 	return Redirect::to('members/exams')
-	// 			->with('message', 'Something went wrong. Please try again');
-	// }
-
 	public function postMarkresults() {
 		//get the submitted answers and calculate the marks
 
