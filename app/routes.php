@@ -71,11 +71,6 @@ Route::get('contact', function(){
 });
 
 
-Route::get('exams', function(){
-	return View::make('exams.index');
-});
-
-
 Route::get('learn', function(){
 	return View::make('learn.index');
 });
@@ -97,16 +92,21 @@ Route::get('members/learning', function() {
 //route to exam area
 Route::get('members/exams', function()
 {
-	$marks = Marks::where('member_id', '=', Auth::user()->member_id)
-				->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
-				->select('marks.id as id', 'title', 'marks')
-				->paginate(3);
+	if(Auth::check()){
+		$marks = Marks::where('member_id', '=', Auth::user()->member_id)
+					->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
+					->select('marks.id as id', 'title', 'marks')
+					->paginate(3);
 
+		
+
+		return View::make('members.exams')
+				->with('exams', Mcq::where('type',1)->paginate(10))
+				->with('marks', $marks);
+	}
+
+	return Redirect::to('/');
 	
-
-	return View::make('members.exams')
-			->with('exams', Mcq::where('type',1)->paginate(10))
-			->with('marks', $marks);
 });
 
 Route::get('members/essays', function()
