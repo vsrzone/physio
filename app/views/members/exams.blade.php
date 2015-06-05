@@ -21,23 +21,18 @@
 			<h3>Available Examinations</h3>
 
 			<ul>
-				@foreach($exams as $exam)				
+				@foreach($exams as $exam)	
+				{{ Form::open(array('url'=>'members/exam')) }}			
 				<li>					
 					<h4>{{$exam->title}}</h4>
 					<p>{{$exam->description}}</p>
-					<input class="btn" type="button" value="Register for Exam" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
+					{{Form::hidden('id', $exam->id, array('id'=>'exam_id'))}}
+					<input class="btn" type="submit" value="Take exam" id="takeExam">
 					
-				</li>				
-				@endforeach					
-				@foreach($acceptances as $acceptance)
-				<li>
-					<h4>{{$exam->title}}</h4>
-					<p>{{$exam->description}}</p>
-
-					<input class="btn" type="button" value="Pending approval" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
-					<input class="btn" type="button" value="Take Exam" data-toggle="modal" data-target="#confirm-modal" id="takeExam">
-				</li>		
-				@endforeach						
+				</li>	
+				{{ Form::close() }}			
+				@endforeach				
+									
 			</ul>
 		</div>
 		<div class="col-xs-12 col-md-3 exams-container">
@@ -89,13 +84,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	document.getElementById('takeExam').onclick = function(){		
-		loadToConfirmModel();
-	}
-
-	var loadToConfirmModel = function(){
-		document.getElementById('mod_exam_id').value = document.getElementById('exam_id').value;
-	}
-</script>
 @stop
