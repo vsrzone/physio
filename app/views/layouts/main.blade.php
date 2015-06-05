@@ -13,8 +13,8 @@
 </head>
 <body>
  <div id="page">
-	<div class="container">
-		<nav class="row">
+	<div class="login-container-wrapper">
+		<nav class="">
 			<div id="login-container">
 				<div id="login" class="col-xs-12">
 					@if(Auth::check())
@@ -35,63 +35,30 @@
 
 				</div>
 			</div>
-			<div id="logo" class="col-md-2">
+			<!-- <div id="logo" class="col-md-2">
 				<a href="{{ url() }}" target="_self"><img src="{{ url() }}/images/logo.png" width="auto" height="100%" alt="Physiotherapysts Association" title="Physiotherapysts Association"></a>
-			</div>
-			<ul id="nav" class="col-sm-12 col-md-10">
-				<div class="navbar-header mobile-toggle">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<li class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-offset-2"><a href="{{ url() }}">Home</a></li>
-					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/about">About Us</a></li>
-					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/news">News & Events</a></li>
-					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/members">Members</a></li>
-					<li class="col-xs-12 col-sm-2"><a href="{{ url() }}/contact">Contact Us</a></li>
-				</div>
-			</ul>
+			</div> -->
 		</nav>
 	</div>
 
 
-
+	<div id="nav">
+		<ul>
+			<li <?php  if ($page == 'home') { echo 'class="active"'; } ?>><a href="{{ url() }}/">HOME</a></li>
+			<li <?php  if ($page == 'about') { echo 'class="active"'; } ?>><a href="{{ url() }}/about">ABOUT</a></li>
+			<li <?php  if ($page == 'news') { echo 'class="active"'; } ?>><a href="{{ url() }}/news">NEWS</a></li>
+			<li <?php  if ($page == 'members') { echo 'class="active"'; } ?>><a href="{{ url() }}/members">MEMBERS</a></li>
+			<li <?php  if ($page == 'exams') { echo 'class="active"'; } ?>><a href="{{ url() }}/exams">EXAMS</a></li>
+			<li <?php  if ($page == 'learn') { echo 'class="active"'; } ?>><a href="{{ url() }}/learn">LEARN</a></li>
+			<li <?php  if ($page == 'contact') { echo 'class="active"'; } ?>><a href="{{ url() }}/contact">CONTACT</a></li>
+		</ul>
+	</div>
 	<section>
 		@yield('content')
 	</section>
 
 
 
-	<footer>
-		<div class="container" id="footer-wrapper">
-			<div class="col-xs-* col-md-9 nopadding" id="bottom-nav-container">
-				<ul id="secondary-nav">
-					<li>
-						<a href="{{ url() }}/about">About Us</a>
-					</li>
-					<li>
-						<a href="{{ url() }}/members">Members</a>
-					</li>
-					<li>
-						<a href="{{ url() }}/contact">Contact Us</a>
-					</li>
-					<li>
-						<a href="{{ url() }}/privacy">Privacy Policy</a>
-					</li>
-					<li>
-						<a href="{{ url() }}/terms">Terms and Conditions</a>
-					</li>
-				</ul>
-			</div>
-			<div class="col-xs-12 col-md-3 nopadding" id="copyrights">
-				<p>Copyright © GPA2015<br/>Design and Development by <a href="http://ingenslk.com">INGENS</a></p>
-			</div>
-		</div>
-	</footer>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModelLabel" aria-hidden="true">
@@ -120,8 +87,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ url() }}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ url() }}/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="{{ url() }}/js/libs.js"></script>
 
 <script type="text/javascript">
+
+var page = '<?php echo $page; ?>';
+console.log(page);
+
 var noItems = 4;
 $(document).ready(function() {
 	@if(Session::has('login_popup'))  //php
@@ -131,6 +103,12 @@ $(document).ready(function() {
 	if(w < 768) {
 		noItems = 2;
 	}
+
+	$(window).load(function() {
+	  $('.flexslider').flexslider({
+	    animation: "slide"
+	  });
+	});
 	  // The slider being synced must be initialized first
 	$('#news-carousel').flexslider({
 		animation: "slide",

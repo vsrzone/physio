@@ -1,7 +1,5 @@
 @extends('layouts.main')
-<?php 
-	$page = 'exams';
-?>
+
 @section('content')
 <div class="container-fluid">
 	<div class="row">
@@ -17,11 +15,11 @@
 	<div>
 		Are you sure you want to get registered for the selected examination?
 
-		{{ Form::open(array('url'=>'members/exam/register')) }}
+		{{ Form::open(array('url'=>'members/essay/register')) }}
 		{{ Form::hidden('id', Input::get('id')) }}
 		{{ Form::submit('Yes') }}
 		{{ Form::close() }}
-		{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+		{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
 		{{ Form::submit('No') }}
 		{{ Form::close() }}
 	</div>
@@ -30,7 +28,7 @@
 		You have registered for the selected examination.
 
 		
-		{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+		{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
 		{{ Form::submit('Back') }}
 		{{ Form::close() }}
 	</div>
@@ -38,11 +36,11 @@
 	<div>
 		Are you sure you want start answering the selected examination?
 
-		{{ Form::open(array('url'=>'members/exam/answer')) }}
+		{{ Form::open(array('url'=>'members/essay/answer')) }}
 		{{ Form::hidden('id', Input::get('id')) }}
 		{{ Form::submit('Yes') }}
 		{{ Form::close() }}
-		{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+		{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
 		{{ Form::submit('No') }}
 		{{ Form::close() }}
 	</div>
@@ -51,7 +49,7 @@
 		You have sat for the selected examination.
 
 		
-		{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+		{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
 		{{ Form::submit('Back') }}
 		{{ Form::close() }}
 	</div>
@@ -59,11 +57,11 @@
 	<div>
 		Are you sure you want to get re-registered for the selected examination?
 
-		{{ Form::open(array('url'=>'members/exams/register')) }}
+		{{ Form::open(array('url'=>'members/essay/register')) }}
 		{{ Form::hidden('id', Input::get('id')) }}
 		{{ Form::submit('Yes') }}
 		{{ Form::close() }}
-		{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+		{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
 		{{ Form::submit('No') }}
 		{{ Form::close() }}
 	</div>
