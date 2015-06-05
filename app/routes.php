@@ -99,23 +99,9 @@ Route::get('members/exams', function()
 {
 	// $marks = Input::get('marks');
 
-	$exam = Mcq::where('type',1)->get();
-	$acceptances = DB::table('mcqs')
-		->join('acceptances', function ($q) {
-	   			$q->on('acceptances.paper_id', '=', 'mcqs.id')
-	     		->where('acceptances.id', '=', 
-	     			DB::raw('select id from acceptances where member_id = Auth::user()->member_id order by created_at DESC limit 1'));
- 			})		
-		->where('type', '=', 1)
-		->select('mcqs.id as id', 'paper', 'title', 'description', 'duration', 'examiners', 'state')						
-        ->paginate(10);
-      
-	if(sizeOf($exam) > 0){
-		return View::make('members.exams')
-			->with('exams', $exam)
-			->with('marks', '')
-			->with('acceptances', $acceptances);
-	}	
+	return View::make('members.exams')
+			->with('exams', Mcq::where('type',1)->get())
+			->with('marks', '');
 });
 
 Route::get('members/essays', function()
