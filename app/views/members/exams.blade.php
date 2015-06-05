@@ -38,50 +38,15 @@
 		<div class="col-xs-12 col-md-3 exams-container">
 			<h4>Examinations Already done</h4>
 			<ul id="exams-taken">
+				@foreach($marks as $marks_record)
 				<li>
-					<p>Examination Name</p>
-					<span>Marks : 50</span>
+					<p>{{$marks_record->title}}</p>
+					<span>Marks : {{$marks_record->marks}}</span>
 				</li>
-				<li>
-					<p>Examination Name</p>
-					<span>Marks : 72</span>
-				</li>
-				<li>
-					<p>Examination Name</p>
-					<span>Marks : 68</span>
-				</li>
+				@endforeach
 			</ul>
 		</div>
 	</div>
 </div>
 
-
-<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-labelledby="loginModelLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body" id="login-area">
-				<h3>Are you sure you want to register?</h3>
-				{{ Form::open(array('url'=>'members/exam')) }}
-				{{ Form::hidden('id', '', array('id'=>'mod_exam_id')) }}
-				<input class="btn" type="submit" value="Yes">
-				{{ Form::close() }}
-				<input class="btn" type="button" value="No">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="exam-modal" tabindex="-1" role="dialog" aria-labelledby="loginModelLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body" id="login-area">
-				<h3>Are you sure you want to take this examination?</h3>
-				<input class="btn" type="button" value="Yes">
-				<input class="btn" type="button" value="No">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 @stop
