@@ -48,8 +48,10 @@
 			<li <?php  if ($page == 'about') { echo 'class="active"'; } ?>><a href="{{ url() }}/about">ABOUT</a></li>
 			<li <?php  if ($page == 'news') { echo 'class="active"'; } ?>><a href="{{ url() }}/news">NEWS</a></li>
 			<li <?php  if ($page == 'members') { echo 'class="active"'; } ?>><a href="{{ url() }}/members">MEMBERS</a></li>
+			@if(Auth::check())
 			<li <?php  if ($page == 'exams') { echo 'class="active"'; } ?>><a href="{{ url() }}/members/exams">EXAMS</a></li>
-			<li <?php  if ($page == 'learn') { echo 'class="active"'; } ?>><a href="{{ url() }}/learn">LEARN</a></li>
+			<li <?php  if ($page == 'learn') { echo 'class="active"'; } ?>><a href="{{ url() }}/members/lessons">LEARN</a></li>
+			@endif
 			<li <?php  if ($page == 'contact') { echo 'class="active"'; } ?>><a href="{{ url() }}/contact">CONTACT</a></li>
 		</ul>
 	</div>
