@@ -7,6 +7,10 @@ body{
 	overflow-y: scroll !important;
 }
 
+div#login label a {
+  color: inherit;
+}
+
 p{
 	color: #A1A1A1;
 	font-family: 'Open Sans', sans-serif;
