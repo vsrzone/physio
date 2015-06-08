@@ -158,7 +158,7 @@ class ExamController extends BaseController{
 		$exams = DB::table('marks')
 						->leftJoin('members', 'members.id', '=', 'marks.member_id')
 						->leftJoin('acceptances', 'acceptances.id', '=', 'marks.acceptance_id')
-						->select('marks.id as id', 'marks.paper_id', 'members.name', 'marks.member_id', 'state', 'marks', 'start_time', 'end_time', 'acceptance_id')						
+						->select('marks.id as id', 'marks.paper_id', 'members.name', 'marks.member_id', 'state', 'marks', 'start_time', 'end_time', 'acceptance_id')
 				        ->paginate(10);
 
 		return View::make('admin.exam.details')
@@ -170,7 +170,8 @@ class ExamController extends BaseController{
 
 		$exams = DB::table('acceptances')
 						->leftJoin('members', 'members.id', '=', 'acceptances.member_id')
-						->select('acceptances.id as id', 'paper_id', 'members.name', 'member_id', 'state')				
+						->select('acceptances.id as id', 'paper_id', 'members.name', 'member_id', 'state')
+						->orderBy('state')			
 				        ->paginate(10);
 
 		return View::make('admin.exam.request')
