@@ -5,9 +5,6 @@
 	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
 @endif
 
-<a href="{{url()}}/admin/paper/essay/changestate">Change the Statue</a>
-<a href="{{url()}}/admin/paper/essay/formarking">Papers Available for Marking</a>
-<a href="{{url()}}/admin/paper/essay/results">View Results</a>
 <table border="1" class="table table-striped table-bordered table-hover dataTable no-footer">
 	<tr>
 		<th>Paper</th>

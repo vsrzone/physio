@@ -144,6 +144,36 @@
 					                    </li>
 					                </ul>
 					            </li>
+					            <li>
+					                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Exam Requests<span class="fa arrow"></span></a>
+					                <ul class="nav nav-second-level">
+					                    <li>
+					                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>MCQ<span class="fa arrow"></span></a>
+					                        <ul class="nav nav-second-level">
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/exam/enablestatus">View Pending Requests</a>
+							                    </li>
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/exam/showall">Show All Requests</a>
+							                    </li>
+							                </ul>
+					                    </li>
+					                    <li>
+					                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Essay<span class="fa arrow"></span></a>
+					                         <ul class="nav nav-second-level">
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/essay/changestate">View Pending Requests</a>
+							                    </li>
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/essay/formarking">Papers Available for Marking</a>
+							                    </li>
+							                    <li>
+							                        <a href="{{URL::to('/')}}/admin/paper/essay/results">View Marked Results</a>
+							                    </li>
+							                </ul>
+					                    </li>
+					                </ul>
+					            </li>
 					        </ul>
 					    </div>
 				    <!-- /.sidebar-collapse -->
