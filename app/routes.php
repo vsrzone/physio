@@ -82,7 +82,7 @@ Route::post('member/edit', 'WorkController@editMember');
 Route::get('member/lesson/{id}', 'LessonController@oneLesson');
 
 // show all the lessons available
-Route::get('members/lesson', 'LessonController@allLessons');
+Route::get('members/lessons', 'LessonController@allLessons');
 
 Route::get('members/learning', function() {
 	return View::make('members.learning')
@@ -101,7 +101,8 @@ Route::get('members/exams', function()
 		
 
 		return View::make('members.exams')
-				->with('exams', Mcq::where('type',1)->paginate(10))
+				->with('exams', Mcq::where('type', 1)->paginate(5))
+				->with('essays', Mcq::where('type', 2)->paginate(5))
 				->with('marks', $marks);
 	}
 
@@ -109,13 +110,13 @@ Route::get('members/exams', function()
 	
 });
 
-Route::get('members/essays', function()
-{
-	//shows all the essay questions in the database
+// Route::get('members/essays', function()
+// {
+// 	//shows all the essay questions in the database
 
-	return View::make('members.essays')
-			->with('essays', Mcq::where('type',2)->get());
-});
+// 	return View::make('members.essays')
+// 			->with('essays', Mcq::where('type',2)->get());
+// });
 
 //route to essayAnswerController
 Route::controller('members/essay','EssayAnswerController');

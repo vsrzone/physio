@@ -17,7 +17,7 @@
 				<div class="modal-content">
 					<div class="modal-body" id="login-area">
 						@if(!$type)
-							<div>
+							<div class="confirm-box">
 								Are you sure you want to get registered for the selected examination?
 
 								{{ Form::open(array('url'=>'members/exam/register')) }}
