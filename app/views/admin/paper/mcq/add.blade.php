@@ -339,6 +339,6 @@ editable = ko.observable(true);
 
 			alert('You Should Enter a Title');
 		}
-	}
+	} 
 </script>
 @stop
