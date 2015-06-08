@@ -157,11 +157,8 @@ editable = ko.observable(true);
 				editable(!(editable()));
 				this.edit(!this.edit());
 				
-				currQuestion.edit(!currQuestion.edit());
-
-					
-			}
-				
+				currQuestion.edit(!currQuestion.edit());					
+			}			
 					
 		}
 

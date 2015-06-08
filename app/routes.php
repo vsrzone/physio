@@ -70,6 +70,11 @@ Route::get('contact', function(){
 	return View::make('contact.index');
 });
 
+
+Route::get('learn', function(){
+	return View::make('learn.index');
+});
+
 //route to individual member edit
 Route::post('member/edit', 'WorkController@editMember');
 
@@ -87,11 +92,21 @@ Route::get('members/learning', function() {
 //route to exam area
 Route::get('members/exams', function()
 {
-	// $marks = Input::get('marks');
+	if(Auth::check()){
+		$marks = Marks::where('member_id', '=', Auth::user()->member_id)
+					->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
+					->select('marks.id as id', 'title', 'marks')
+					->paginate(3);
 
-	return View::make('members.exams')
-			->with('exams', Mcq::where('type',1)->get())
-			->with('marks', '');
+		
+
+		return View::make('members.exams')
+				->with('exams', Mcq::where('type',1)->paginate(10))
+				->with('marks', $marks);
+	}
+
+	return Redirect::to('/');
+	
 });
 
 Route::get('members/essays', function()

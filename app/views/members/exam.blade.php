@@ -1,6 +1,6 @@
 <div><h3>{{$exam->title}}</h3></div>
 <div> <p>{{$exam->description}}</p> </div>
-<div> <p>Duration: {{($exam->duration/60).'Hours only'}} </p> </div>
+<div> <p>Duration: {{number_format(($exam->duration/60), 2, '.', '').'Hours only'}} </p> </div>
 <div id="timer"></div>
 <div id="clock"></div>
 
