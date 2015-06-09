@@ -4,7 +4,7 @@ class LessonController extends BaseController{
 	public function __construct(){
 		$this->beforeFilter('csfr', array('on'=>'post'));
 		$this->beforeFilter('admin', array('except' => array('allLessons')));
-		$this->beforeFilter('member', array('only'=> array('allLessons')));
+		$this->beforeFilter('member', array('only'=> array('allLessons', 'oneLesson')));
 	}
 
 	//views create page
@@ -25,8 +25,12 @@ class LessonController extends BaseController{
 
 	//view availabel lessons
 	public function getIndex(){
-		return View::make('admin.lesson.index')
+		if(Auth::check()){
+			return View::make('admin.lesson.index')
 				->with('lessons', Lesson::all());
+		}
+		return Redirect::to('/');
+		
 	}
 
 	//delete function

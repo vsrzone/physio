@@ -84,10 +84,10 @@ Route::get('member/lesson/{id}', 'LessonController@oneLesson');
 // show all the lessons available
 Route::get('members/lessons', 'LessonController@allLessons');
 
-Route::get('members/learning', function() {
-	return View::make('members.learning')
-		->with('lessons', Lesson::all());
-});
+// Route::get('members/learning', function() {
+// 	return View::make('members.learning')
+// 		->with('lessons', Lesson::all());
+// });
 
 //route to exam area
 Route::get('members/exams', function()
