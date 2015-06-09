@@ -18,8 +18,7 @@
 <div class="container page-wrapper" id="about-wrapper">
 	<div class="row">
 		<div class="col-xs-12 col-md-9 exams-container">
-			<h3>Available Examinations</h3>
-
+			<h3>Available MCQ Examinations</h3>
 			<ul>
 				@foreach($exams as $exam)	
 				{{ Form::open(array('url'=>'members/exam')) }}			
@@ -33,11 +32,33 @@
 				{{ Form::close() }}			
 				@endforeach				
 									
+			</ul>	
+			{{$exams->links()}}	
+			<h3>Available Essay Examinations</h3>
+			<ul>
+				@foreach($essays as $essay)	
+				{{ Form::open(array('url'=>'members/exam')) }}			
+				<li>					
+					<h4>{{$essay->title}}</h4>
+					<p>{{$essay->description}}</p>
+					{{Form::hidden('id', $essay->id, array('id'=>'exam_id'))}}
+					<input class="btn" type="submit" value="Take exam" id="takeExam">
+					
+				</li>					
+				{{ Form::close() }}			
+				@endforeach				
+									
 			</ul>
+			{{$essays->links()}}
 		</div>
 		<div class="col-xs-12 col-md-3 exams-container">
 			<h4>Examinations Already done</h4>
 			<ul id="exams-taken">
+				@if(!$marks)
+				<li>
+					<p>No previous exams</p>
+				</li>
+				@endif
 				@foreach($marks as $marks_record)
 				<li>
 					<p>{{$marks_record->title}}</p>
