@@ -7,6 +7,8 @@ class WorkController extends BaseController {
 	 *
 	 * @return Response
 	 */
+	
+
 	public function index()
 	{
 		$field = Input::get('field');
