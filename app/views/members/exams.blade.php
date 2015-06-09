@@ -20,6 +20,11 @@
 		<div class="col-xs-12 col-md-9 exams-container">
 			<h3>Available MCQ Examinations</h3>
 			<ul>
+				@if(sizeOf($exams) <= 0)
+				<li>
+					<p>No existing MCQ examinations</p>
+				</li>
+				@endif
 				@foreach($exams as $exam)	
 				{{ Form::open(array('url'=>'members/exam')) }}			
 				<li>					
@@ -36,6 +41,11 @@
 			{{$exams->links()}}	
 			<h3>Available Essay Examinations</h3>
 			<ul>
+				@if(sizeOf($essays) <= 0)
+				<li>
+					<p>No existing essay examinations</p>
+				</li>
+				@endif
 				@foreach($essays as $essay)	
 				{{ Form::open(array('url'=>'members/exam')) }}			
 				<li>					
@@ -54,7 +64,7 @@
 		<div class="col-xs-12 col-md-3 exams-container">
 			<h4>Examinations Already done</h4>
 			<ul id="exams-taken">
-				@if(!$marks)
+				@if(sizeOf($marks) <= 0)
 				<li>
 					<p>No previous exams</p>
 				</li>

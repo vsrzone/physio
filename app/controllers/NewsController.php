@@ -38,7 +38,7 @@ class NewsController extends BaseController{
 		$news->save();
 
 		$img = new Image;
-		$img->name = "default.gif";
+		$img->name = "default_news.jpg";
 		$img->news_id = $news->id;
 
 		$img->save();
@@ -126,7 +126,7 @@ class NewsController extends BaseController{
 				$dat = Image::find($image->id);
 				$target = "uploads/images/".$dat->name;
 			
-				if(file_exists($target) && $dat->name != 'default.gif'){
+				if(file_exists($target) && $dat->name != 'default_news.jpg'){
 					unlink($target);
 				}
 
@@ -162,7 +162,7 @@ class NewsController extends BaseController{
 			imagedestroy($im);
 		}
 
-		DB::table('images')->where('news_id', '=', $img_id)->where('name', '=', 'default.gif')->delete();
+		DB::table('images')->where('news_id', '=', $img_id)->where('name', '=', 'default_news.jpg')->delete();
 
 		$img = new Image;
 		$img->name = $img_name;

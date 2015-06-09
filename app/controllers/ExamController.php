@@ -51,7 +51,7 @@ class ExamController extends BaseController{
 			$accept = Acceptance::find($state->id);
 			$accept->state = 5;
 
-			$accept->save();
+			//$accept->save();
 
 			$marks = new Marks;
 			$marks->member_id = Auth::user()->member_id;
@@ -60,7 +60,7 @@ class ExamController extends BaseController{
 			$marks->start_time = date('h:i:s', time());
 			$marks->end_time = date('h:i:s', time());
 
-			$marks->save();
+			//$marks->save();
 
 			Session::put('marks_id', $marks->id);
 			Session::put('accept_id', $accept->id);

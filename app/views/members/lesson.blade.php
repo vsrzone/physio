@@ -21,6 +21,11 @@
 			<h3>Available Learning Material</h3>
 
 			<ul id="learning-topics">
+				@if(sizeOf($lessons) <= 0)
+				<li>
+					<p>No available learning materials</p>
+				</li>
+				@endif
 				@foreach($lessons as $lesson)
 					<li><a href="{{url()}}/member/lesson/{{$lesson->id}}"><p></p>{{$lesson->topic}}</a></li>					
 				@endforeach

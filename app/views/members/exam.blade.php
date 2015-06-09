@@ -1,37 +1,45 @@
-<div><h3>{{$exam->title}}</h3></div>
-<div> <p>{{$exam->description}}</p> </div>
-<div> <p>Duration: {{number_format(($exam->duration/60), 2, '.', '').'Hours only'}} </p> </div>
-<div id="timer"></div>
-<div id="clock"></div>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="{{ url() }}/style.css">
+</head>
+<body>
+<div class="exam-container">
+	<div><h3>{{$exam->title}}</h3></div>
+	<div> <p>{{$exam->description}}</p> </div>
+	<div> <p>Duration: {{number_format(($exam->duration/60), 2, '.', '').'Hours only'}} </p> </div>
+	<div id="timer"></div>
+	<div id="clock"></div>
 
-<!-- {{ Form::open(array('url'=>'members/exam/markresults')) }}
-{{ Form::hidden('paper_id', $exam->id) }}
-@foreach(json_decode($exam->paper) as $obj)
-	@foreach($obj as $cont)
-		<p><b>{{'('.(array_search($cont, $obj)+1).') '. $cont->question }}</b></p>
-		@foreach($cont->options as $option)
-			<p>
-				<input type="checkbox" />
-				{{$option->text}}			
-			</p>
+	<!-- {{ Form::open(array('url'=>'members/exam/markresults')) }}
+	{{ Form::hidden('paper_id', $exam->id) }}
+	@foreach(json_decode($exam->paper) as $obj)
+		@foreach($obj as $cont)
+			<p><b>{{'('.(array_search($cont, $obj)+1).') '. $cont->question }}</b></p>
+			@foreach($cont->options as $option)
+				<p>
+					<input type="checkbox" />
+					{{$option->text}}			
+				</p>
+			@endforeach
 		@endforeach
 	@endforeach
-@endforeach
 
-{{ Form::submit('Submit Answers', array('id'=>'submit')) }} -->
-<input type = "hidden" id = "paper_id" value = "{{$exam->id}}">
-<div data-bind="foreach: answerArray">
-	<h3 data-bind="text: question"></h3>
-	<div data-bind="foreach: optionArray">
-		<input type="checkbox" data-bind="checked: state">
-		<p style = "display: inline" data-bind="text: text"></p>
-		</br>
+	{{ Form::submit('Submit Answers', array('id'=>'submit')) }} -->
+	<input type = "hidden" id = "paper_id" value = "{{$exam->id}}">
+	<div data-bind="foreach: answerArray">
+		<h3 data-bind="text: '('+(questions.answerArray.indexOf($data)+1)+') '+question()"></h3>
+		<div data-bind="foreach: optionArray">
+			<input type="checkbox" data-bind="checked: state">
+			<p style = "display: inline" data-bind="text: text"></p>
+			</br>
+		</div>
+	</div>
+	<div>
+		<button onclick = "sendRequestToServerPost()">Submit Answers</button>
 	</div>
 </div>
-<div>
-	<button onclick = "sendRequestToServerPost()">Submit Answers</button>
-</div>
-
+</body>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 <script type="text/javascript" src="{{url()}}/js/knockout-3.3.0.js"></script>
 <script type="text/javascript">
@@ -185,3 +193,5 @@
 	}
 
 </script>
+</html>
+

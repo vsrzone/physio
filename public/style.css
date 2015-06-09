@@ -7,6 +7,14 @@ body{
 	overflow-y: scroll !important;
 }
 
+.exam-container{
+	width: 100%;
+	max-width: 1200px;
+	position: relative;
+	margin: 0 auto;
+	padding: 10px;
+}
+
 div#login label a {
   color: inherit;
 }

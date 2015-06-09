@@ -1,3 +1,3 @@
 Add default_famale and default_male images to uploads/member/profile
 Add default_cover to uploads/member/cover
-Add default.gif to uploads/images
+Add default_news.jpg to uploads/images

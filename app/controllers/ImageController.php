@@ -35,7 +35,7 @@ class ImageController extends Controller {
 		$img->save();
 
 		DB::table('images')
-			->where('name', '=', 'default.gif')
+			->where('name', '=', 'default_news.jpg')
 			->where('news_id', '=', $img_id)
 			->delete();
 
@@ -57,7 +57,7 @@ class ImageController extends Controller {
 		if($images){
 			for ($i=0; $i < sizeof($images); $i++) { 
 				$image = Image::find($images[$i]);
-				if($image->name != 'default.gif'){
+				if($image->name != 'default_news.jpg'){
 					$image->delete();
 					$path = "uploads/images/".$image->name;
 					
@@ -73,7 +73,7 @@ class ImageController extends Controller {
 		}
 		if(!DB::table('images')->where('news_id', '=', $image->news_id)->first()){
 			$def = new Image;
-			$def->name = 'default.gif';
+			$def->name = 'default_news.jpg';
 			$def->news_id = $image->news_id;
 			$def->save();
 		}
