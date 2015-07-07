@@ -98,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	 <button id="submit" class="btn btn-outline btn-default" onclick="sendRequestToServerPost()">Add essay paper</button>
+	 <button id="submit" class="btn btn-outline btn-default" onclick="sendRequestToServerPost()">Update essay paper</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

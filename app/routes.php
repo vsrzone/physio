@@ -96,6 +96,7 @@ Route::get('members/exams', function()
 		$marks = Marks::where('member_id', '=', Auth::user()->member_id)
 					->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
 					->select('marks.id as id', 'title', 'marks')
+					->orderBy('marks.created_at', 'desc')
 					->paginate(3);
 
 		

@@ -182,6 +182,8 @@
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
 	    		if(xmlhttp.responseText === 'success') {
+	    			window.location = "{{url()}}/members/exam/resultspage";
+	    		} else if (xmlhttp.responseText === 'failure') {
 	    			window.location = "{{url()}}/members/exams";
 	    		}
 	    	}
