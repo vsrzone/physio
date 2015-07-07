@@ -45,7 +45,7 @@ class EssayAnswerController extends BaseController{
 					->first();
 
 		
-		if($essay->type == 2){
+		if($exam->type == 1 && $state->state == 2){
 			$accept = Acceptance::find($state->id);
 			$accept->state = 5;
 
@@ -65,7 +65,13 @@ class EssayAnswerController extends BaseController{
 
 			return View::make('members.essay')
 				->with('essay', $essay);
+		} elseif ($exam->type == 1 && $state->state == 5) {
+			return View::make('members.exam')
+				->with('exam', $exam);
 		}
+
+		return Redirect::to('members/exams')
+					->with('message', 'Request to try the selected examination is sent');
 	}
 
 	public function postMarkresults() {
