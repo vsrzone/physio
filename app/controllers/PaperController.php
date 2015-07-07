@@ -49,9 +49,11 @@ class PaperController extends BaseController{
 			$mcq->type = $type;
 
 			$mcq->save();
+			Session::put('message', 'Paper is Successfully Created');
 			return 'success';
 		}
 
+		Session::put('message', 'Error Occured');
 		return 'Error occured';
 	}
 
@@ -90,11 +92,11 @@ class PaperController extends BaseController{
 			$mcq->type = $type;
 
 			if($mcq->save()) {
-
+				Session::put('message', 'Paper is Successfully Updated');
 				return 'success';
 			}
 		}
-
+		Session::put('message', 'Error Occured');
 		return 'fail';	
 	}
 
