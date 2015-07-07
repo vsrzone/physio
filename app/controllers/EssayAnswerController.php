@@ -45,7 +45,7 @@ class EssayAnswerController extends BaseController{
 					->first();
 
 		
-		if($exam->type == 1 && $state->state == 2){
+		if($essay->type == 2 && $state->state == 2){
 			$accept = Acceptance::find($state->id);
 			$accept->state = 5;
 
@@ -65,9 +65,9 @@ class EssayAnswerController extends BaseController{
 
 			return View::make('members.essay')
 				->with('essay', $essay);
-		} elseif ($exam->type == 1 && $state->state == 5) {
-			return View::make('members.exam')
-				->with('exam', $exam);
+		} elseif ($essay->type == 2 && $state->state == 5) {
+			return View::make('members.essay')
+				->with('essay', $essay);
 		}
 
 		return Redirect::to('members/exams')
