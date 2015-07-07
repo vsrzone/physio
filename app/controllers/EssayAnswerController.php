@@ -30,7 +30,7 @@ class EssayAnswerController extends BaseController{
 
 		$acceptance->save();
 
-		return Redirect::to('members/essays')
+		return Redirect::to('members/exams')
 					->with('message', 'Request to try the selected examination is sent');
 	}
 
