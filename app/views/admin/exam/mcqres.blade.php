@@ -22,4 +22,7 @@
 	</tr>
 	@endforeach
 </table>
+<div>
+	{{$results->links()}}
+</div>
 @stop

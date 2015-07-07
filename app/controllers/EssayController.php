@@ -88,13 +88,13 @@ class EssayController extends BaseController{
 						$message->to($user->email, $user_name->name)->subject($title.' Essay Question Paper Added');
 					});
 				}
-
+				Session::put('message', 'Paper is Successfully Created');
 				return 'success';
 			}
-
+			Session::put('message', 'Error Occured');
 			return 'failed';
 		}
-
+		Session::put('message', 'Error Occured');
 		return 'Error occured';
 	}
 
@@ -142,11 +142,11 @@ class EssayController extends BaseController{
 						});
 					}
 				}
-
+				Session::put('message', 'Paper is Successfully Updated');
 				return 'success';
 			}
 		}
-		
+		Session::put('message', 'Error Occured');
 		return 'fail';
 
 	}
