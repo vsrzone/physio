@@ -122,6 +122,10 @@
 			if (xmlhttp.readyState==4 && xmlhttp.status==200)
 			{
 	    		if(xmlhttp.responseText === 'success') {
+	    			alert('Exam is completed successfully');
+	    			window.location = "{{url()}}/members/exams";
+	    		}else if (xmlhttp.responseText === 'failure') {
+	    			alert('Error occured');
 	    			window.location = "{{url()}}/members/exams";
 	    		}
 	    	}
