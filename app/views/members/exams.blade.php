@@ -47,7 +47,7 @@
 				</li>
 				@endif
 				@foreach($essays as $essay)	
-				{{ Form::open(array('url'=>'members/exam')) }}			
+				{{ Form::open(array('url'=>'members/essay')) }}			
 				<li>					
 					<h4>{{$essay->title}}</h4>
 					<p>{{$essay->description}}</p>

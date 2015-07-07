@@ -3,7 +3,7 @@
 class ExamController extends BaseController{
 	public function __construct(){
 	// 	$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin', array('only' => array('showAll', 'showEnableStatus', 'enableStatus')));
+		$this->beforeFilter('admin', array('only' => array('showAll', 'showEnableStatus', 'enableStatus', 'results')));
 		$this->beforeFilter('member', array('except' => array('showAll', 'showEnableStatus', 'enableStatus')));
 	}
 
@@ -80,12 +80,13 @@ class ExamController extends BaseController{
 		//get the submitted answers and calculate the marks
 
 		$j = 0;
-		$answers_json = Input::get('answers');
+		$answers_json = Input::get('answers');		
 		$answers = json_decode($answers_json, true);
 		$answers_arr = array();
 
 
 		$acceptance = Acceptance::find(Session::get('accept_id'));
+
 
 		if($acceptance->state == 5) {
 
@@ -100,7 +101,21 @@ class ExamController extends BaseController{
 				$j++;
 			}
 			
-			$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
+			// $total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
+			// 	$answers_arr[$j][$k] = $level2['state'];
+			// 	$k++;
+			// }
+			// $j++;
+		}
+		
+		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
+		
+		$paper_id = Input::get('paper_id');
+
+		$paper = Mcq::find($paper_id)->paper;
+		$paper_arr = json_decode($paper, true);
+		
+		if($answers_arr) {
 
 			$paper_id = Input::get('paper_id');
 
@@ -261,9 +276,15 @@ class ExamController extends BaseController{
 		// if the state fail there will be no requests. So in the "postIndex" method, status can be set to 4
 	}
 
+
 	public function getResultspage() {
 		// displayes the results page
 
 		return View::make('members.examresults');
+	}
+	//view all mcq results 
+	public function results(){
+		return View::make('admin.exam.mcqres')
+				->with('results', Marks::paginate(15));
 	}
 }
