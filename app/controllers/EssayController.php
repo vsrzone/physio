@@ -324,4 +324,5 @@ class EssayController extends BaseController{
 						->with('answers', json_decode($answers, true))
 						->with('marks', $marks);
 	}
+
 }

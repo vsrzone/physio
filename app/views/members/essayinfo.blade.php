@@ -22,10 +22,10 @@
 
 								{{ Form::open(array('url'=>'members/essay/register')) }}
 								{{ Form::hidden('id', Input::get('id')) }}
-								{{ Form::submit('Yes') }}
+								{{ Form::submit('Yes', array('class'=>'btn')) }}
 								{{ Form::close() }}
-								{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
-								{{ Form::submit('No') }}
+								{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+								{{ Form::submit('No', array('class'=>'btn')) }}
 								{{ Form::close() }}
 							</div>
 						@elseif($type->state == 1)
@@ -33,8 +33,8 @@
 								You have registered for the selected examination.
 
 								
-								{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
-								{{ Form::submit('Back') }}
+								{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+								{{ Form::submit('Back', array('class'=>'btn')) }}
 								{{ Form::close() }}
 							</div>
 						@elseif($type->state == 2)
@@ -43,10 +43,10 @@
 
 								{{ Form::open(array('url'=>'members/essay/answer')) }}
 								{{ Form::hidden('id', Input::get('id')) }}
-								{{ Form::submit('Yes') }}
+								{{ Form::submit('Yes', array('class'=>'btn')) }}
 								{{ Form::close() }}
-								{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
-								{{ Form::submit('No') }}
+								{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+								{{ Form::submit('No', array('class'=>'btn')) }}
 								{{ Form::close() }}
 							</div>
 						@elseif($type->state == 3)
@@ -54,8 +54,8 @@
 								You have sat for the selected examination.
 
 								
-								{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
-								{{ Form::submit('Back') }}
+								{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+								{{ Form::submit('Back', array('class'=>'btn')) }}
 								{{ Form::close() }}
 							</div>
 						@elseif($type->state == 4 || $type->state == 5)
@@ -64,10 +64,10 @@
 
 								{{ Form::open(array('url'=>'members/essay/register')) }}
 								{{ Form::hidden('id', Input::get('id')) }}
-								{{ Form::submit('Yes') }}
+								{{ Form::submit('Yes', array('class'=>'btn')) }}
 								{{ Form::close() }}
-								{{ Form::open(array('url'=>'members/essays', 'method'=>'GET')) }}
-								{{ Form::submit('No') }}
+								{{ Form::open(array('url'=>'members/exams', 'method'=>'GET')) }}
+								{{ Form::submit('No', array('class'=>'btn')) }}
 								{{ Form::close() }}
 							</div>
 						@endif
