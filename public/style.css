@@ -821,7 +821,7 @@ footer{
 	margin: 0 auto;
 	left: 0;
 	right: 0;
-	top: 220px;
+	top: 366px;
 	z-index: 1;
 }
 
@@ -874,7 +874,7 @@ footer{
 }
 
 #banner-container{
-	height: 254px;
+	height: 400px;
 }
 
 /* slider paging */
@@ -963,6 +963,14 @@ section {
 
 	#nav li{
 		padding:0px 0px 5px 0px !important;
+	}
+
+	#banner-container{
+		height: 254px;
+	}
+
+	#nav{
+	  	top: 220px;
 	}
 
 	#nav li a:hover{

@@ -11,10 +11,10 @@
 			<li style="background-image:url({{ url() }}/images/slider/01.jpg)">
 				<p>"Looking after your health today gives you a better hope for tomorrow."</p>
 			</li>
-			<li style="background-image:url({{ url() }}/images/slider/01.jpg)">
+			<li style="background-image:url({{ url() }}/images/slider/02.jpg)">
 				<p>"Looking after your health today gives you a better hope for tomorrow."</p>
 			</li>
-			<li style="background-image:url({{ url() }}/images/slider/01.jpg)">
+			<li style="background-image:url({{ url() }}/images/slider/03.jpg)">
 				<p>"Looking after your health today gives you a better hope for tomorrow."</p>
 			</li>
 		</ul>
