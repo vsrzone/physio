@@ -96,6 +96,7 @@ Route::get('members/exams', function()
 		$marks = Marks::where('member_id', '=', Auth::user()->member_id)
 					->join('mcqs', 'mcqs.id', '=', 'marks.paper_id')
 					->select('marks.id as id', 'title', 'marks')
+					->orderBy('marks.created_at', 'desc')
 					->paginate(3);
 
 		
@@ -131,6 +132,9 @@ Route::get('admin/exam/enablestatus', 'ExamController@showEnableStatus');
 
 //route to managing exams details for Admins
 Route::get('admin/exam/showall', 'ExamController@showAll');
+
+//route to mcq results for Admins
+Route::get('admin/exam/results', 'ExamController@results');
 
 //route to accepting the requests for exams
 Route::post('admin/exam/postenablestatus', 'ExamController@enableStatus');

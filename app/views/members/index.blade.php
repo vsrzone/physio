@@ -3,7 +3,9 @@
 ?>
 
 @extends('layouts.main')
-
+<?php 
+	$page = 'members';
+?>
 @section('content')
 <div id="banner-container">
 		<ul id="main-slider" class="">

@@ -164,6 +164,30 @@
 					                </ul>
 					                <!-- /.nav-second-level -->
 					            </li>
+					            <li>
+					                <a href="#"><i class="fa fa-files-o fa-fw"></i>Essay Paper Marking<span class="fa arrow"></span></a>
+					                <ul class="nav nav-second-level">
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/paper/essay/formarking">Papers Available for Marking</a>
+					                    </li>
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/paper/essay/results">View Marked Results</a>
+					                    </li>
+					                </ul>
+					                <!-- /.nav-second-level -->
+					            </li>
+					            <li>
+					                <a href="{{URL::to('/')}}/admin/exam/results"><i class="fa fa-files-o fa-fw"></i>View MCQ Results</a>
+					                <!-- <ul class="nav nav-second-level">
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/paper/essay/formarking">Papers Available for Marking</a>
+					                    </li>
+					                    <li>
+					                        <a href="{{URL::to('/')}}/admin/paper/essay/results">View Marked Results</a>
+					                    </li>
+					                </ul> -->
+					                <!-- /.nav-second-level -->
+					            </li>
 					        </ul>
 					    </div>
 				    <!-- /.sidebar-collapse -->

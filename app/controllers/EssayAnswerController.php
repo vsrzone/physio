@@ -30,7 +30,7 @@ class EssayAnswerController extends BaseController{
 
 		$acceptance->save();
 
-		return Redirect::to('members/essays')
+		return Redirect::to('members/exams')
 					->with('message', 'Request to try the selected examination is sent');
 	}
 
@@ -45,7 +45,7 @@ class EssayAnswerController extends BaseController{
 					->first();
 
 		
-		if($essay->type == 2){
+		if($essay->type == 2 && $state->state == 2){
 			$accept = Acceptance::find($state->id);
 			$accept->state = 5;
 
@@ -65,7 +65,13 @@ class EssayAnswerController extends BaseController{
 
 			return View::make('members.essay')
 				->with('essay', $essay);
+		} elseif ($essay->type == 2 && $state->state == 5) {
+			return View::make('members.essay')
+				->with('essay', $essay);
 		}
+
+		return Redirect::to('members/exams')
+					->with('message', 'Request to try the selected examination is sent');
 	}
 
 	public function postMarkresults() {
@@ -74,50 +80,59 @@ class EssayAnswerController extends BaseController{
 		$answers = Input::get('answers');
 		$status = Input::get('status');
 
-		// saving the data to the acceptance table with the completed status
 		$acceptance = Acceptance::find(Session::get('essay_accept_id'));
-		$acceptance->state = 3;
-		if($status == 1){
-			$acceptance->state = 4;
-			Session::put('alert', 'Connection failed and session has been expired.');
-		}else if($status == 2){
-			Session::put('alert', 'Examination time is over.');
-		}else if($status == 0){
-			Session::put('alert', 'You have successfully finished the examination.');
-		}
-		$acceptance->save();
 
-		// updating the essays table
-		$essay = Essay::find(Session::get('essay_mark_id'));
-		$essay->end_time = date('h:i:s', time());
-		$essay->answers = $answers;
 
-		// email attributes
-		$paper_details = Mcq::find($essay->paper_id);
-		$examiners_arr = explode(",", $paper_details->examiners);
-		$essay->examiner_id = $paper_details->examiners;
-		$title = $paper_details->title;
-		$member = Member::find($essay->member_id);
+		if($acceptance->state == 5) {
+			// saving the data to the acceptance table with the completed status
+			$acceptance = Acceptance::find(Session::get('essay_accept_id'));
+			$acceptance->state = 3;
+			if($status == 1){
+				$acceptance->state = 4;
+				Session::put('alert', 'Connection failed and session has been expired.');
+			}else if($status == 2){
+				Session::put('alert', 'Examination time is over.');
+			}else if($status == 0){
+				Session::put('alert', 'You have successfully finished the examination.');
+			}
+			$acceptance->save();
 
-		if($acceptance->save()) {
+			// updating the essays table
+			$essay = Essay::find(Session::get('essay_mark_id'));
+			$essay->end_time = date('h:i:s', time());
+			$essay->answers = $answers;
 
-			if($essay->save()) {
+			// email attributes
+			$paper_details = Mcq::find($essay->paper_id);
+			$examiners_arr = explode(",", $paper_details->examiners);
+			$essay->examiner_id = $paper_details->examiners;
+			$title = $paper_details->title;
+			$member = Member::find($essay->member_id);
 
-				foreach ($examiners_arr as $ex) {
-					$examiner_details = Member::find($ex);
-					$examiner = DB::table('users')
-									->where('member_id', $examiner_details->id)
-									->first();
+			if($acceptance->save()) {
 
-					//sending the email				
-					Mail::send('admin.paper.essay.answers', array('title' => $title, 'name' => $examiner_details->name, 'answers' => json_decode($answers, true), 'member_name' => $member->name, 'member_id' => $member->id), function($message) use ($examiner, $examiner_details)
-					{
-						$message->to($examiner->email, $examiner_details->name)->subject('Essay Question Paper Available for Marking');
-					});
+				if($essay->save()) {
+
+					foreach ($examiners_arr as $ex) {
+						$examiner_details = Member::find($ex);
+						$examiner = DB::table('users')
+										->where('member_id', $examiner_details->id)
+										->first();
+
+						//sending the email				
+						Mail::send('admin.paper.essay.answers', array('title' => $title, 'name' => $examiner_details->name, 'answers' => json_decode($answers, true), 'member_name' => $member->name, 'member_id' => $member->id), function($message) use ($examiner, $examiner_details)
+						{
+							$message->to($examiner->email, $examiner_details->name)->subject('Essay Question Paper Available for Marking');
+						});
+					}
+					return 'success';
 				}
-				return 'success';
 			}
 		}
+		Session::forget('essay_accept_id');
+		Session::forget('essay_mark_id');
+		return 'failure';
+		
 	}
 
 	public function postPooling() {

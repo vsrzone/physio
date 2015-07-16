@@ -3,7 +3,7 @@
 class ExamController extends BaseController{
 	public function __construct(){
 	// 	$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('admin', array('only' => array('showAll', 'showEnableStatus', 'enableStatus')));
+		$this->beforeFilter('admin', array('only' => array('showAll', 'showEnableStatus', 'enableStatus', 'results')));
 		$this->beforeFilter('member', array('except' => array('showAll', 'showEnableStatus', 'enableStatus')));
 	}
 
@@ -47,11 +47,11 @@ class ExamController extends BaseController{
 					->first();
 
 		
-		if($exam->type == 1){
+		if($exam->type == 1 && $state->state == 2){
 			$accept = Acceptance::find($state->id);
 			$accept->state = 5;
 
-			//$accept->save();
+			$accept->save();
 
 			$marks = new Marks;
 			$marks->member_id = Auth::user()->member_id;
@@ -60,96 +60,138 @@ class ExamController extends BaseController{
 			$marks->start_time = date('h:i:s', time());
 			$marks->end_time = date('h:i:s', time());
 
-			//$marks->save();
+			$marks->save();
 
 			Session::put('marks_id', $marks->id);
 			Session::put('accept_id', $accept->id);
 
 			return View::make('members.exam')
 				->with('exam', $exam);
+		} elseif ($exam->type == 1 && $state->state == 5) {
+			return View::make('members.exam')
+				->with('exam', $exam);
 		}
+
+		return Redirect::to('members/exams')
+					->with('message', 'Request to try the selected examination is sent');
 	}
 
 	public function postMarkresults() {
 		//get the submitted answers and calculate the marks
 
 		$j = 0;
-		$answers_json = Input::get('answers');
+		$answers_json = Input::get('answers');		
 		$answers = json_decode($answers_json, true);
 		$answers_arr = array();
 
-		foreach ($answers['answerArray'] as $level1) {
 
-	 		$k = 0;
-			foreach ($level1['optionArray'] as $level2) {
+		$acceptance = Acceptance::find(Session::get('accept_id'));
 
-				$answers_arr[$j][$k] = $level2['state'];
-				$k++;
+
+		if($acceptance->state == 5) {
+
+			foreach ($answers['answerArray'] as $level1) {
+
+		 		$k = 0;
+				foreach ($level1['optionArray'] as $level2) {
+
+					$answers_arr[$j][$k] = $level2['state'];
+					$k++;
+				}
+				$j++;
 			}
-			$j++;
+			
+			// $total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
+			// 	$answers_arr[$j][$k] = $level2['state'];
+			// 	$k++;
+			// }
+			// $j++;
 		}
 		
 		$total_questions = $correct_answers = $true_counter = $correct_counter = $i = 0;
-
+		
 		$paper_id = Input::get('paper_id');
 
 		$paper = Mcq::find($paper_id)->paper;
 		$paper_arr = json_decode($paper, true);
-
+		
 		if($answers_arr) {
 
-			foreach ($answers_arr as $ans_level1) {
+			$paper_id = Input::get('paper_id');
+
+			$paper_data = Mcq::find($paper_id);
+			$paper = $paper_data->paper;
+			$paper_title = $paper_data->title;
+
+			$paper_arr = json_decode($paper, true);
+
+			if($answers_arr) {
+
+				foreach ($answers_arr as $ans_level1) {
 
 
-				foreach ($ans_level1 as $ans) {
+					foreach ($ans_level1 as $ans) {
 
-					if($paper_arr['questions'][$total_questions]['options'][$true_counter]['setAnswer'] === $ans) {
-						$correct_counter++;
+						if($paper_arr['questions'][$total_questions]['options'][$true_counter]['setAnswer'] === $ans) {
+							$correct_counter++;
+						}
+						$true_counter++;
 					}
-					$true_counter++;
+
+					if($true_counter === $correct_counter) {
+
+						$correct_answers = $correct_answers+1;
+					}
+
+					$total_questions++;
+					$true_counter = $correct_counter = 0;
+					
 				}
 
-				if($true_counter === $correct_counter) {
+				$result = ($correct_answers/$total_questions)*100;
 
-					$correct_answers = $correct_answers+1;
+				$marks = Marks::find(Session::get('marks_id'));
+
+				// Updating the acceptance table with the completed status
+				$acceptance = Acceptance::find(Session::get('accept_id'));;
+				$acceptance->state = 3;
+				$status = Input::get('status');
+				if($status == 1){
+					$acceptance->state = 4;
+					Session::put('alert', 'Connection failed and session has been expired.');
+				}else if($status == 2){
+					Session::put('alert', 'Examination time is over.');
+				}else if($status == 0){
+					Session::put('alert', 'You have successfully finished the examination.');
 				}
 
-				$total_questions++;
-				$true_counter = $correct_counter = 0;
-				
-			}
+				// updating the marks table
+				$marks->end_time = date('h:i:s', time());
+				$marks->marks = $result;
 
-			$result = ($correct_answers/$total_questions)*100;
+				$duration = abs(strtotime(date('h:i:s', time())) - strtotime($marks->start_time));
+				$seconds = $duration%60;
+				$mins_temp = floor($duration/60);
+				$mins = $mins_temp%60;
+				$hours = floor($mins_temp/60);
 
-			$marks = Marks::find(Session::get('marks_id'));
+				if($acceptance->save()) {
 
-			// Updating the acceptance table with the completed status
-			$acceptance = Acceptance::find(Session::get('accept_id'));
-			$acceptance->state = 3;
-			$status = Input::get('status');
-			if($status == 1){
-				$acceptance->state = 4;
-				Session::put('alert', 'Connection failed and session has been expired.');
-			}else if($status == 2){
-				Session::put('alert', 'Examination time is over.');
-			}else if($status == 0){
-				Session::put('alert', 'You have successfully finished the examination.');
-			}
+					if($marks->save()) {
 
-			// updating the marks table
-			$marks->end_time = date('h:i:s', time());
-			$marks->marks = $result;
-
-			
-
-			if($acceptance->save()) {
-
-				if($marks->save()) {
-
-					return 'success';
+						Session::put('marks', $result);
+						Session::put('hours', $hours);
+						Session::put('mins', $mins);
+						Session::put('seconds', $seconds);
+						Session::put('title', $paper_title);
+						return 'success';
+					}
 				}
 			}
 		}
+		Session::forget('accept_id');
+		Session::forget('marks_id');
+		return 'failure';
 	}
 
 	public function showEnableStatus() {
@@ -232,5 +274,17 @@ class ExamController extends BaseController{
 		return 0;
 
 		// if the state fail there will be no requests. So in the "postIndex" method, status can be set to 4
+	}
+
+
+	public function getResultspage() {
+		// displayes the results page
+
+		return View::make('members.examresults');
+	}
+	//view all mcq results 
+	public function results(){
+		return View::make('admin.exam.mcqres')
+				->with('results', Marks::paginate(15));
 	}
 }

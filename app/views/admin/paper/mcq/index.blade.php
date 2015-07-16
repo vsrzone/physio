@@ -3,7 +3,7 @@
 @section('content')
 
 @if(Session::has('message'))
-	<div class="alert alert-danger"> {{ Session::get('message') }} </div>
+	<div class="alert alert-danger"> {{ Session::pull('message') }} </div>
 @endif
 @if($errors->has())
 	<div class="alert alert-danger">
